@@ -14,6 +14,8 @@ struct studentas {
     float mediana = 0;
 }; 
 
+void ivedimas(int n, int x, studentas grupe[]);
+
 int main()
 {
     int n = 0; //studentu skaicius
@@ -26,6 +28,27 @@ int main()
     cout << "Kiek namu darbu pazymiu turi kiekvienas mokinys?" << endl;
     cin >> x;
 
+    ivedimas(n, x, grupe);
 }
+void ivedimas(int n, int x, studentas grupe[]) {
 
+    for (int i = 0; i < n; i++) {
+        cout << "Iveskite " << i + 1 << " mokinio varda: ";
+        cin >> grupe[i].vardas;
+        cout << "Iveskite " << i + 1 << " mokinio pavarde: ";
+        cin >> grupe[i].pavarde;
+        grupe[i].pazymiai = new float[x];
+        cout << "Iveskite mokinio pazymius: ";
+        float suma = 0.0;
+        for (int j = 0; j < x; j++) {
+            cin >> grupe[i].pazymiai[j];
+            suma += grupe[i].pazymiai[j];
+        }
+
+        cout << "Iveskite " << i + 1 << " mokinio egzamino rezultata: ";
+        cin >> grupe[i].egzaminas;
+        grupe[i].pazVid = ((suma / x) * 0.4) + (grupe[i].egzaminas * 0.6);
+    }
+      
+}
 
