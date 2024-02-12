@@ -34,6 +34,10 @@ int main()
     medianaSkaiciavimas(n, x, grupe);
     isvedimas(n, x, grupe);
 
+    for (int i = 0; i < n; i++) {
+        delete[] grupe[i].pazymiai;
+    }
+    delete[] grupe;
 }
 void ivedimas(int n, int x, studentas grupe[]) {
 
