@@ -2,44 +2,12 @@
 #include <string>
 #include <iomanip>
 #include <cstring>
+#include "PazymiaiArrays.h"
+#include "Common.h"
 
 using namespace std;
 
-struct studentas {
-    string vardas;
-    string pavarde;
-    float* pazymiai;
-    float pazVid = 0;
-    float egzaminas = 0;
-    float mediana = 0;
-}; 
-
-void ivedimas(int n, int x, studentas grupe[]);
-void medianaSkaiciavimas(int n, int x, studentas grupe[]);
-void isvedimas(int n, int x, studentas grupe[]);
-void swap(float* var1, float* var2);
-int main()
-{
-    int n = 0; //studentu skaicius
-    int x = 0; //pazymiu skaicius
-
-    cout << "Kiek studentu yra grupeje?" << endl;
-    cin >> n;
-    studentas* grupe = new studentas[n];
-
-    cout << "Kiek namu darbu pazymiu turi kiekvienas mokinys?" << endl;
-    cin >> x;
-
-    ivedimas(n, x, grupe);
-    medianaSkaiciavimas(n, x, grupe);
-    isvedimas(n, x, grupe);
-
-    for (int i = 0; i < n; i++) {
-        delete[] grupe[i].pazymiai;
-    }
-    delete[] grupe;
-}
-void ivedimas(int n, int x, studentas grupe[]) {
+void ivedimas(int n, int x, studentasA grupe[]) {
 
     for (int i = 0; i < n; i++) {
         cout << "Iveskite " << i + 1 << " mokinio varda: ";
@@ -60,7 +28,7 @@ void ivedimas(int n, int x, studentas grupe[]) {
     }
       
 }
-void medianaSkaiciavimas(int n, int x, studentas grupe[]) {
+void medianaSkaiciavimas(int n, int x, studentasA grupe[]) {
     int i, j;
     int laikinas = round(x * 1.0 / 2);
     for (int z = 0; z < n; z++) {
@@ -80,7 +48,7 @@ void medianaSkaiciavimas(int n, int x, studentas grupe[]) {
         }
     }
 }
-void isvedimas(int n, int x, studentas grupe[]) {
+void isvedimas(int n, int x, studentasA grupe[]) {
     string vidMed;
     cout << "Jei norite vidurkio, rasykite 1, jei norite medianos, rasykite 2" << endl;
     cin >> vidMed;
@@ -102,11 +70,5 @@ void isvedimas(int n, int x, studentas grupe[]) {
             cout << grupe[i].vardas << setw(10) << grupe[i].pavarde << setw(15) << setprecision(3) << grupe[i].mediana << endl;
         }
     }
-}
-void swap(float* var1, float* var2)
-{
-    float temp = *var1;
-    *var1 = *var2;
-    *var2 = temp;
 }
 
