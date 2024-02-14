@@ -20,6 +20,7 @@ int main()
     studentasA* grupe = new studentasA[n];
     if (n == 0) {
         ivedimas(grupe, n);
+        vidurkis(n, grupe);
         medianaSkaiciavimas(n, grupe);
     }
     else {

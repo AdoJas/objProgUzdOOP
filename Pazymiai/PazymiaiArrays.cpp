@@ -33,9 +33,9 @@ void ivedimas(int n, int x, studentasA grupe[]) {
 void ivedimas(studentasA*& grupe, int& kiekis) {
     char testi = 't';
     int pazLaikinas;
-    int pazKiekis = 0;
     char c;
     do{
+        int pazKiekis = 0;
         studentasA stud = studentasA();
         cout << "Iveskite " << kiekis + 1 << " mokinio varda: ";
         cin >>stud.vardas;
@@ -49,11 +49,10 @@ void ivedimas(studentasA*& grupe, int& kiekis) {
                 addToArray(stud.pazymiai, pazKiekis, pazLaikinas);
             }
         } while (pazLaikinas != 0);
-        cout << "Iveskite " << kiekis + 1 << "mokinio egzamino rezultata: ";
+        cout << "Iveskite " << kiekis + 1 << " mokinio egzamino rezultata: ";
         cin >> stud.egzaminas;
         stud.pazymiuKiekis = pazKiekis;
         addToArray(grupe, kiekis, stud);
-        cout << "vardas: " << grupe[kiekis - 1].vardas << endl;
         cout << "Jei norite testi, iveskite t, jei nenorite testi, iveskite n" << endl;
         cin >> testi;
     } while (testi == 't');
@@ -99,13 +98,24 @@ void medianaSkaiciavimas(int n, studentasA *&grupe) {
         }
     }
 }
+void vidurkis(int n, studentasA *grupe) {
+    float laikinas = 0;
+    for (int i = 0; i < n; i++) {
+        laikinas = 0;
+        for (int x = 0; x < grupe[i].pazymiuKiekis; x++) {
+            laikinas += grupe[i].pazymiai[x];
+       }
+        grupe[i].pazVid = (laikinas / grupe[i].pazymiuKiekis * 0.4) + (grupe[i].egzaminas * 0.6);
+
+    }
+}
 void isvedimas(int n, studentasA grupe[]) {
     string vidMed;
     cout << "Jei norite vidurkio, rasykite 1, jei norite medianos, rasykite 2" << endl;
     cin >> vidMed;
     if (vidMed == "1") {
         cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
-        cout << "--------------------------------------" << endl;
+        cout << "--------------------------------------------------" << endl;
 
         for (int i = 0; i < n; i++) {
             cout << left << setw(20) << grupe[i].vardas << left << setw(20) << grupe[i].pavarde << left << setw(20) << setprecision(3) << grupe[i].pazVid << endl;
@@ -114,7 +124,7 @@ void isvedimas(int n, studentasA grupe[]) {
     }
     else if (vidMed == "2") {
         cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
-        cout << "--------------------------------------" << endl;
+        cout << "--------------------------------------------------" << endl;
 
         for (int i = 0; i < n; i++) {
             cout << left << setw(20) << grupe[i].vardas << left << setw(20) << grupe[i].pavarde << left << setw(20) << setprecision(3) << grupe[i].mediana << endl;

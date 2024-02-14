@@ -21,3 +21,4 @@ void ivedimas(studentasA*& grupe, int& kiekis);
 void medianaSkaiciavimas(int n, int x, studentasA grupe[]);
 void medianaSkaiciavimas(int n, studentasA *&grupe);
 void isvedimas(int n, studentasA grupe[]);
+void vidurkis(int n, studentasA *grupe);
