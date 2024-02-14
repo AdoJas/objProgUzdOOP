@@ -1,8 +1,31 @@
 #include "common.h"
+#include "PazymiaiArrays.h"
 
-void swap(float* var1, float* var2)
+void swap(int* var1, int* var2)
 {
-    float temp = *var1;
+    int temp = *var1;
     *var1 = *var2;
     *var2 = temp;
+}
+
+void addToArray(int*& arr, int& size, int value) {
+    size++;
+    int* tmp = new int[size];
+    for (int i = 0; i < size - 1; i++) {
+        tmp[i] = arr[i];
+    }
+    tmp[size - 1] = value;
+    delete[] arr;
+    arr = tmp;
+}
+
+void addToArray(studentasA*& arr, int& size, studentasA value) {
+    size++;
+    studentasA* tmp = new studentasA[size];
+    for (int i = 0; i < size - 1; i++) {
+        tmp[i] = arr[i];
+    }
+    tmp[size - 1] = value;
+    delete[] arr;
+    arr = tmp;
 }
