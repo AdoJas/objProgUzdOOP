@@ -16,9 +16,12 @@ struct studentasA {
     float mediana = 0;
 };
 
-void ivedimas(int n, int x, studentasA grupe[]);
+void ivedimas(int n, int & x, studentasA grupe[]);
 void ivedimas(studentasA*& grupe, int& kiekis);
 void medianaSkaiciavimas(int n, int x, studentasA grupe[]);
 void medianaSkaiciavimas(int n, studentasA *&grupe);
 void isvedimas(int n, studentasA grupe[]);
 void vidurkis(int n, studentasA *grupe);
+void ivedimasCaseTwo(studentasA*& grupe, int& kiekis);
+void generateRandomGrades(studentasA &stud);
+void generateRandomNames(studentasA& stud);

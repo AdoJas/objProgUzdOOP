@@ -9,31 +9,33 @@
 
 using namespace std;
 
-void ivedimas(int n, int x, studentasA grupe[]) {
+void ivedimas(int n, int & x, studentasA grupe[]) {
 
+    cout << "Kiek namu darbu pazymiu turi kiekvienas mokinys?" << endl;
+    cin >> x;
     for (int i = 0; i < n; i++) {
+
         cout << "Iveskite " << i + 1 << " mokinio varda: ";
         cin >> grupe[i].vardas;
         cout << "Iveskite " << i + 1 << " mokinio pavarde: ";
         cin >> grupe[i].pavarde;
         grupe[i].pazymiai = new int[x];
         cout << "Iveskite mokinio pazymius: ";
+
         float suma = 0.0;
         for (int j = 0; j < x; j++) {
             cin >> grupe[i].pazymiai[j];
             suma += grupe[i].pazymiai[j];
         }
-
         cout << "Iveskite " << i + 1 << " mokinio egzamino rezultata: ";
         cin >> grupe[i].egzaminas;
-        grupe[i].pazVid = ((suma / x) * 0.4) + (grupe[i].egzaminas * 0.6);
+        grupe[i].pazVid = (x != 0) ? ((suma * 1.0 / x) * 0.4) + (grupe[i].egzaminas * 0.6) : (grupe[i].egzaminas * 0.6);
     }
       
 }
 void ivedimas(studentasA*& grupe, int& kiekis) {
     char testi = 't';
     int pazLaikinas;
-    char c;
     do{
         int pazKiekis = 0;
         studentasA stud = studentasA();
@@ -44,10 +46,12 @@ void ivedimas(studentasA*& grupe, int& kiekis) {
         cout << "Iveskite mokinio pazymius, jei norite baigti ivedima, iveskite 0: ";
         stud.pazymiai = new int[pazKiekis];
         do {
+            
             cin >> pazLaikinas;
             if (pazLaikinas != 0) {
                 addToArray(stud.pazymiai, pazKiekis, pazLaikinas);
             }
+            
         } while (pazLaikinas != 0);
         cout << "Iveskite " << kiekis + 1 << " mokinio egzamino rezultata: ";
         cin >> stud.egzaminas;
@@ -57,9 +61,27 @@ void ivedimas(studentasA*& grupe, int& kiekis) {
         cin >> testi;
     } while (testi == 't');
 }
+void ivedimasCaseTwo(studentasA*& grupe, int& kiekis) {
+    char testi = 't';
+    do {
+        int pazKiekis = 0;
+        studentasA stud = studentasA();
+        cout << "Iveskite " << kiekis + 1 << " mokinio varda: ";
+        cin >> stud.vardas;
+        cout << "Iveskite " << kiekis + 1 << " mokinio pavarde: ";
+        cin >> stud.pavarde;
+        stud.pazymiai = new int[pazKiekis];
+        generateRandomGrades(stud);
+        addToArray(grupe, kiekis, stud);
+        cout << "Jei norite testi, iveskite t, jei nenorite testi, iveskite n" << endl;
+        cin >> testi;
+    } while (testi == 't');
+}
 void medianaSkaiciavimas(int n, int x, studentasA grupe[]) {
     int i, j;
+    cout <<"X: " <<  x << endl;
     int laikinas = round(x * 1.0 / 2);
+    cout << "Laikinas pradzia: " << laikinas << endl;
     for (int z = 0; z < n; z++) {
 
         for (i = 0; i < x - 1; i++) {
@@ -70,7 +92,7 @@ void medianaSkaiciavimas(int n, int x, studentasA grupe[]) {
             }
         }
         if (x % 2 == 0) {
-            grupe[z].mediana = (grupe[z].pazymiai[laikinas] + grupe[z].pazymiai[laikinas - 1]) / 2;
+            grupe[z].mediana = (grupe[z].pazymiai[laikinas] + grupe[z].pazymiai[laikinas - 1])* 1.0 / 2;
         }
         else {
             grupe[z].mediana = grupe[z].pazymiai[laikinas - 1];
@@ -104,9 +126,8 @@ void vidurkis(int n, studentasA *grupe) {
         laikinas = 0;
         for (int x = 0; x < grupe[i].pazymiuKiekis; x++) {
             laikinas += grupe[i].pazymiai[x];
-       }
-        grupe[i].pazVid = (laikinas / grupe[i].pazymiuKiekis * 0.4) + (grupe[i].egzaminas * 0.6);
-
+        }
+        grupe[i].pazVid = (grupe[i].pazymiuKiekis != 0) ? (laikinas  * 1.0 / grupe[i].pazymiuKiekis * 0.4) + (grupe[i].egzaminas * 0.6) : (grupe[i].egzaminas * 0.6);
     }
 }
 void isvedimas(int n, studentasA grupe[]) {
@@ -127,7 +148,23 @@ void isvedimas(int n, studentasA grupe[]) {
         cout << "--------------------------------------------------" << endl;
 
         for (int i = 0; i < n; i++) {
-            cout << left << setw(20) << grupe[i].vardas << left << setw(20) << grupe[i].pavarde << left << setw(20) << setprecision(3) << grupe[i].mediana << endl;
+            cout << left << setw(20) << grupe[i].vardas << left << setw(20) << grupe[i].pavarde << left << setw(20) << setprecision(3) << (grupe[i].mediana * 0.4) + (grupe[i].egzaminas * 0.6) << endl;
         }
     }
+}
+void generateRandomGrades(studentasA &stud) {
+    stud.pazymiuKiekis = rand() % 10 + 1;
+    stud.pazymiai = new int[stud.pazymiuKiekis];
+    for (int i = 0; i < stud.pazymiuKiekis; i++) {
+        stud.pazymiai[i] = rand() % 10 + 1;
+    }
+    stud.egzaminas = rand() % 10 + 1;
+}
+void generateRandomNames(studentasA& stud) {
+    const char* vardas[] = { "Bronius", "Juozas", "Rimas", "Tomas", "Matas", "Markas", "Ignas", "Kristupas", "Joris", "Arnas" };
+    const char* pavarde[] = { "Broniauskas", "Juozevicius", "Rimauskas", "Tomavicius", "Matkevicius", "Markevicius", "Igniauskas", "Kristevicius", "Jorevicius", "Arniavicius" };
+    int vardasIndex = rand() % 10;
+    int pavardeIndex = rand() % 10;
+    stud.vardas = vardas[vardasIndex];
+    stud.pavarde = pavarde[pavardeIndex];
 }
