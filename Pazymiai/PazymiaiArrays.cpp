@@ -51,7 +51,6 @@ void ivedimas(studentasA*& grupe, int& kiekis) {
             if (pazLaikinas != 0) {
                 addToArray(stud.pazymiai, pazKiekis, pazLaikinas);
             }
-            
         } while (pazLaikinas != 0);
         cout << "Iveskite " << kiekis + 1 << " mokinio egzamino rezultata: ";
         cin >> stud.egzaminas;
@@ -79,9 +78,7 @@ void ivedimasCaseTwo(studentasA*& grupe, int& kiekis) {
 }
 void medianaSkaiciavimas(int n, int x, studentasA grupe[]) {
     int i, j;
-    cout <<"X: " <<  x << endl;
     int laikinas = round(x * 1.0 / 2);
-    cout << "Laikinas pradzia: " << laikinas << endl;
     for (int z = 0; z < n; z++) {
 
         for (i = 0; i < x - 1; i++) {

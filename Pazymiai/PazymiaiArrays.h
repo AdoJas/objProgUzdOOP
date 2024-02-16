@@ -11,9 +11,9 @@ struct studentasA {
     string pavarde;
     int* pazymiai;
     int pazymiuKiekis = 0;
-    float pazVid = 0;
-    float egzaminas = 0;
-    float mediana = 0;
+    float pazVid = 0.0;
+    float egzaminas = 0.0;
+    float mediana = 0.0;
 };
 
 void ivedimas(int n, int & x, studentasA grupe[]);

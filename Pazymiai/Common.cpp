@@ -41,13 +41,11 @@ void meniu(int& pasirinkimas){
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         printf("--------------------------------------------------\n");
 }
-void arraysVectorsPasirinkimas(char& arrVect) {
-    std::cout << "Pasirinkite, su kokia duomenu struktura norite dirbti:\n"
-        << "1 - Arrays\n"
-        << "2 - Vectors\n";
-    std::cin >> arrVect;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-
-
+void arraysVectorsPasirinkimas(int& arrVect) {
+    do {
+        std::cout << "Pasirinkite, su kokia duomenu struktura norite dirbti:\n"
+            << "1 - Arrays\n"
+            << "2 - Vectors\n";
+        std::cin >> arrVect;
+    } while (arrVect != 1 && arrVect != 2);
 }
