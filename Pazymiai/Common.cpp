@@ -30,22 +30,30 @@ void addToArray(studentasA*& arr, int& size, studentasA value) {
     arr = tmp;
 }
 void meniu(int& pasirinkimas){
-        std::cout << "Meniu:\n"
+    do {
+
+
+        cout << "Meniu:\n"
             << "1 - Studentu duomenu ivedimas ranka\n"
             << "2 - Ivestiems studentams generuojami pazymiai\n"
             << "3 - Generuojami pazymiai ir vardai/pavardes ivedus studentu skaiciu\n"
             << "4 - Baigti darba\n"
-            <<("--------------------------------------------------\n")
+            << ("--------------------------------------------------\n")
             << "Pasirinkite norima opcija: ";
-        std::cin >> pasirinkimas;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cin >> pasirinkimas;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         printf("--------------------------------------------------\n");
+    } while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3 && pasirinkimas != 4);
 }
 void arraysVectorsPasirinkimas(int& arrVect) {
     do {
-        std::cout << "Pasirinkite, su kokia duomenu struktura norite dirbti:\n"
+        cout << "Pasirinkite, su kokia duomenu struktura norite dirbti:\n"
             << "1 - Arrays\n"
             << "2 - Vectors\n";
         std::cin >> arrVect;
+        if (arrVect > 2 || arrVect < 1) {
+            cout << "Pasirinkimas turi buti arba 1, arba 2\n";
+            printf("--------------------------------------------------\n");
+        }
     } while (arrVect != 1 && arrVect != 2);
 }

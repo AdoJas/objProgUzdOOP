@@ -10,7 +10,7 @@
 using namespace std;
 
 void ivedimas(int n, int & x, studentasA grupe[]) {
-
+    int kiekis = 0;
     cout << "Kiek namu darbu pazymiu turi kiekvienas mokinys?" << endl;
     cin >> x;
     for (int i = 0; i < n; i++) {
@@ -19,23 +19,20 @@ void ivedimas(int n, int & x, studentasA grupe[]) {
         cin >> grupe[i].vardas;
         cout << "Iveskite " << i + 1 << " mokinio pavarde: ";
         cin >> grupe[i].pavarde;
-        grupe[i].pazymiai = new int[x];
+        grupe[i].pazymiai = new int[kiekis];
         cout << "Iveskite mokinio pazymius: ";
 
         float suma = 0.0;
-        for (int j = 0; j < x; j++) {
-            cin >> grupe[i].pazymiai[j];
-            suma += grupe[i].pazymiai[j];
-        }
+        readNumbers(grupe[i].pazymiai, kiekis, x);
+        kiekis = 0;
         cout << "Iveskite " << i + 1 << " mokinio egzamino rezultata: ";
         cin >> grupe[i].egzaminas;
         grupe[i].pazVid = (x != 0) ? ((suma * 1.0 / x) * 0.4) + (grupe[i].egzaminas * 0.6) : (grupe[i].egzaminas * 0.6);
     }
-      
 }
 void ivedimas(studentasA*& grupe, int& kiekis) {
     char testi = 't';
-    int pazLaikinas;
+    int pazLaikinas = 0;
     do{
         int pazKiekis = 0;
         studentasA stud = studentasA();
@@ -43,18 +40,14 @@ void ivedimas(studentasA*& grupe, int& kiekis) {
         cin >>stud.vardas;
         cout << "Iveskite " << kiekis + 1 << " mokinio pavarde: ";
         cin >> stud.pavarde;
-        cout << "Iveskite mokinio pazymius, jei norite baigti ivedima, iveskite 0: ";
         stud.pazymiai = new int[pazKiekis];
-        do {
-            
-            cin >> pazLaikinas;
-            if (pazLaikinas != 0) {
-                addToArray(stud.pazymiai, pazKiekis, pazLaikinas);
-            }
-        } while (pazLaikinas != 0);
+       
+        readNumbers(stud.pazymiai, pazKiekis, 0);
+        
         cout << "Iveskite " << kiekis + 1 << " mokinio egzamino rezultata: ";
         cin >> stud.egzaminas;
         stud.pazymiuKiekis = pazKiekis;
+        pazKiekis = 0;
         addToArray(grupe, kiekis, stud);
         cout << "Jei norite testi, iveskite t, jei nenorite testi, iveskite n" << endl;
         cin >> testi;
@@ -133,7 +126,7 @@ void isvedimas(int n, studentasA grupe[]) {
     cin >> vidMed;
     if (vidMed == "1") {
         cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
-        cout << "--------------------------------------------------" << endl;
+        cout << "---------------------------------------------------------" << endl;
 
         for (int i = 0; i < n; i++) {
             cout << left << setw(20) << grupe[i].vardas << left << setw(20) << grupe[i].pavarde << left << setw(20) << setprecision(3) << grupe[i].pazVid << endl;
@@ -142,7 +135,7 @@ void isvedimas(int n, studentasA grupe[]) {
     }
     else if (vidMed == "2") {
         cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
-        cout << "--------------------------------------------------" << endl;
+        cout << "---------------------------------------------------------" << endl;
 
         for (int i = 0; i < n; i++) {
             cout << left << setw(20) << grupe[i].vardas << left << setw(20) << grupe[i].pavarde << left << setw(20) << setprecision(3) << (grupe[i].mediana * 0.4) + (grupe[i].egzaminas * 0.6) << endl;
@@ -164,4 +157,41 @@ void generateRandomNames(studentasA& stud) {
     int pavardeIndex = rand() % 10;
     stud.vardas = vardas[vardasIndex];
     stud.pavarde = pavarde[pavardeIndex];
+}
+void readNumbers(int*& arr, int& size, int maxItems = 0) {
+    string s;
+    bool testi = true;
+    int notNumbers = 0;
+    int badValues = 0;
+    if (maxItems > 0) {
+        cout << "Iveskite " << maxItems << " pazymius. Noredami baigti ivedima spauskite 0." << endl;
+    }
+    else {
+        cout << "Iveskite pazymius. Noredami baigti ivedima spauskite 0." << endl;
+    }
+    while (testi) {
+        while (s != "0" ) {
+            cin >> s;
+            try {
+                int value = std::stoi(s);
+                badValues += value >= 0 && value <= 10 ? 0 : 1;
+                if ((size < maxItems || maxItems == 0) && value > 0 && value < 11) {
+                    addToArray(arr, size, value);
+                }
+            }
+            catch (...) {
+                notNumbers++;
+            }
+        }
+        testi = maxItems > 0 && size < maxItems;
+        if (testi) {
+            if (notNumbers > 0)
+                cout << "Ivestu neteisingu pazymiu skaicius: " << notNumbers << endl;
+            if (badValues)
+                cout << "Ivestu pazymiu, kurie nera intervale [1,10], skaicius: " << badValues << endl;
+            cout << "Trukstamu pazymiu skaicius: " << maxItems - size << ". Teskite ivedima" << endl;
+            s = "";
+            notNumbers = badValues = 0;
+        }
+    }
 }

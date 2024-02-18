@@ -30,9 +30,10 @@ int main()
 
     arraysVectorsPasirinkimas(arrVect);
     if(arrVect == 1){
-        while (pasirinkimas != 4) {
+         do{
 
             meniu(pasirinkimas);
+
             switch (pasirinkimas) {
             case 1:
                 printf("Kiek studentu yra grupeje? (iveskite 0, jei norite ivesti neribota kieki)\n");
@@ -86,8 +87,9 @@ int main()
                 break;
             }
 
-        }
-        for (int i = 0; i < n; i++) {
+         } while (pasirinkimas != 4);
+        
+            for (int i = 0; i < n; i++) {
             delete[] grupe[i].pazymiai;
         }
         delete[] grupe;

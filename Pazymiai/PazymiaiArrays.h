@@ -25,3 +25,4 @@ void vidurkis(int n, studentasA *grupe);
 void ivedimasCaseTwo(studentasA*& grupe, int& kiekis);
 void generateRandomGrades(studentasA &stud);
 void generateRandomNames(studentasA& stud);
+void readNumbers(int*& arr, int& size, int maxItems);
