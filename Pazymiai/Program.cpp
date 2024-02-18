@@ -41,13 +41,9 @@ int main()
                 grupe = new studentasA[n];
                 if (n == 0) {
                     ivedimas(grupe, n);
-                    vidurkis(n, grupe);
-
-                    medianaSkaiciavimas(n, grupe);
                 }
                 else {
                     ivedimas(n, x, grupe);
-                    medianaSkaiciavimas(n, x, grupe);
                 }
                 isvedimas(n, grupe);
                 break;
@@ -55,8 +51,6 @@ int main()
                 grupe = new studentasA[n];
                 ivedimasCaseTwo(grupe, n);
                 printf("Pazymiai sugeneruoti\n");
-                vidurkis(n, grupe);
-                medianaSkaiciavimas(n, grupe);
                 isvedimas(n, grupe);
                 break;
             case 3:
@@ -71,8 +65,6 @@ int main()
                     generateRandomGrades(stud);
                     addToArray(grupe, i, stud);
                 }
-                vidurkis(n, grupe);
-                medianaSkaiciavimas(n, grupe);
                 isvedimas(n, grupe);
                 break;
             case 4:
@@ -81,18 +73,19 @@ int main()
             default:
                 printf("Neteisingai ivesti duomenys\n");
             }
-
             printf("--------------------------------------------------\n");
             if (pasirinkimas == 4) {
                 break;
             }
 
+            for (int i = 0; i < n; i++) {
+                delete[] grupe[i].pazymiai;
+            }
+            delete[] grupe;
+            n = x = i = 0;
          } while (pasirinkimas != 4);
         
-            for (int i = 0; i < n; i++) {
-            delete[] grupe[i].pazymiai;
-        }
-        delete[] grupe;
+       
     }
     else {
         while (pasirinkimas != 4) {
