@@ -88,37 +88,26 @@ int main()
        
     }
     else {
-        while (pasirinkimas != 4) {
+        do{
 
             meniu(pasirinkimas);
             switch (pasirinkimas) {
             case 1:
                 printf("Kiek studentu yra grupeje? (iveskite 0, jei norite ivesti neribota kieki)\n");
                 cin >> n;
-                grupeVector.resize(n);
                 if (n == 0) {
                     ivedimasNoSize(grupeVector);
-                    vidurkis(grupeVector);
                 }
                 else {
                     ivedimas(grupeVector, n);
-                    medianaSkaiciavimasV(grupeVector);
                 }
                 isvedimas(grupeVector);
-                for (int i = 0; i < n; i++) {
-                    grupeVector[i].pazymiai.clear();
-                }
-                grupeVector.clear();
                 break;
             case 2:
                 ivedimasCaseTwo(grupeVector);
                 printf("Pazymiai sugeneruoti\n");
 
                 isvedimas(grupeVector);
-                for (int i = 0; i < n; i++) {
-                    grupeVector[i].pazymiai.clear();
-                }
-                grupeVector.clear();
                 break;
             case 3:
 
@@ -131,10 +120,6 @@ int main()
                     grupeVector.push_back(stud);
                 }
                 isvedimas(grupeVector);
-                for (int i = 0; i < n; i++) {
-                    grupeVector[i].pazymiai.clear();
-                }
-                grupeVector.clear();
                 break;
             case 4:
                 printf("Sekmingai baigete darba!!!\n");
@@ -142,12 +127,17 @@ int main()
             default:
                 printf("Neteisingai ivesti duomenys\n");
             }
-
             printf("--------------------------------------------------\n");
             if (pasirinkimas == 4) {
                 break;
             }
-        }
+
+            for (int i = 0; i < n; i++) {
+                grupeVector[i].pazymiai.clear();
+            }
+            grupeVector.clear();
+
+        }while (pasirinkimas != 4);
     }
     return 0;
 }

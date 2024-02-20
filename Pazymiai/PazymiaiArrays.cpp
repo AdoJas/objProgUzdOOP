@@ -87,12 +87,12 @@ void ivedimasCaseTwo(studentasA*& grupe, int& kiekis) {
         stud.pazymiai = new int[pazKiekis];
         generateRandomGrades(stud);
         addToArray(grupe, kiekis, stud);
-        do {
-            cout << "Jei norite testi, iveskite t, jei nenorite testi, iveskite n" << endl;
-            cin >> testi;
-        } while (tolower(testi) != 't');
-        
+        cout << "---------------------------------------------------------" << endl;
+        cout << "Jei norite testi, iveskite t, jei nenorite testi, iveskite n" << endl;
+        cin >> testi;
+
     }while (tolower(testi) == 't');
+    cout << "---------------------------------------------------------" << endl;
 }
 void isvedimas(int n, studentasA grupe[]) {
     string vidMed;
@@ -142,9 +142,11 @@ void readNumbers(int*& arr, int& size, int maxItems = 0) {
     int badValues = 0;
     if (maxItems > 0) {
         cout << "Iveskite " << maxItems << " pazymius. Noredami baigti ivedima spauskite 0." << endl;
+        cout << "---------------------------------------------------------" << endl;
     }
     else {
         cout << "Iveskite pazymius. Noredami baigti ivedima spauskite 0." << endl;
+        cout << "---------------------------------------------------------" << endl;
     }
     while (testi) {
         while (s != "0" ) {

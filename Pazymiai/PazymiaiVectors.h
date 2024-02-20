@@ -15,6 +15,8 @@ struct studentasV {
     float pazVid = 0.0;
     float egzaminas = 0.0;
     float mediana = 0.0;
+    float getMediana();
+    float getVidurkis();
     float pazSuma = 0.0;
 };
 void ivedimas(vector<studentasV>& grupeVector, int n);
@@ -22,6 +24,5 @@ void ivedimasNoSize(vector<studentasV>& grupeVector);
 void ivedimasCaseTwo(vector<studentasV>& grupeVector);
 void generateRandomGrades(studentasV &stud);
 void generateRandomNames(studentasV &stud);
-void medianaSkaiciavimasV(vector<studentasV>& grupeVector);
 void isvedimas(vector<studentasV> grupeVector);
-void vidurkis(vector<studentasV>& grupeVector);
+void readNumbersV(studentasV& stud, int maxItems);
