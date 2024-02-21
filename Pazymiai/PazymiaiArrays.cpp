@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cctype>
+#include <cmath>
 #include "PazymiaiArrays.h"
 #include "Common.h"
 

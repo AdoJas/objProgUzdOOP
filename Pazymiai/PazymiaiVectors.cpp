@@ -5,7 +5,9 @@
 #include <vector>
 #include <numeric>
 #include <algorithm>
+#include <cmath>
 #include "PazymiaiVectors.h"
+#include <fstream>
 
 
 using namespace std;
@@ -94,7 +96,7 @@ void generateRandomGrades(studentasV &stud) {
     }
     stud.egzaminas = rand() % 10 + 1;
 }
-void isvedimas(vector<studentasV> grupeVector) {
+void isvedimas(vector<studentasV> grupeVector, string& outputFileName) {
     string vidMed;
     do {
         cout << "Jei norite vidurkio, rasykite 1, jei norite medianos, rasykite 2" << endl;
@@ -157,4 +159,14 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
             notNumbers = badValues = 0;
         }
     }
+}
+void sortInput(int& choice){
+    do{
+        printf("Pasirinkite norima rusiavimo buda:\n");
+        printf("1- Rusiuoti pagal varda\n ");
+        printf("2- Rusiuoti pagal pavarde\n ");
+        printf("3- Rusiuoti pagal vidurki\n ");
+        printf("4- Rusiuoti pagal mediana\n ");
+        cin >> choice;
+    }while(choice > 4 || choice < 1);
 }

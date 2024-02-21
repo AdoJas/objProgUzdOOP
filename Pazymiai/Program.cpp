@@ -22,11 +22,12 @@ int main()
     int pasirinkimas = 0;
     int arrVect = 0;
     int laikinas = 0;
+    int choice = 0;
+    string failas = "";
     studentasA* grupe = nullptr;
     vector<studentasV> grupeVector;
 
 do{
-
     meniu(pasirinkimas);
     switch (pasirinkimas) {
     case 1:
@@ -59,13 +60,17 @@ do{
         isvedimas(grupeVector);
         break;
     case 4:
+        printf("Iveskite failo pavadinima be .txt prefix'o\n");
+        cin >> failas;
+
+    case 5:
         printf("Sekmingai baigete darba!!!\n");
         break;
     default:
         printf("Neteisingai ivesti duomenys\n");
     }
     printf("--------------------------------------------------\n");
-    if (pasirinkimas == 4) {
+    if (pasirinkimas == 5) {
         break;
     }
 
