@@ -12,7 +12,6 @@
 #include <ctime>
 #include <fstream>
 
-
 using namespace std;
 
 int main()
@@ -24,9 +23,8 @@ int main()
     int pasirinkimas = 0;
     int arrVect = 0;
     int laikinas = 0;
-    int choice = 0;
+    double laikasSkaitymas = 0.0;
     string failas = " ";
-
     studentasA* grupe = nullptr;
     vector<studentasV> grupeVector;
 
@@ -44,14 +42,14 @@ do{
         }
         generalVidurkisCalculate(grupeVector);
         generalMedianaCalculate(grupeVector);
-        isvedimas(grupeVector);
+        isvedimas(grupeVector, laikasSkaitymas);
         break;
     case 2:
         ivedimasCaseTwo(grupeVector);
         printf("Pazymiai sugeneruoti\n");
         generalVidurkisCalculate(grupeVector);
         generalMedianaCalculate(grupeVector);
-        isvedimas(grupeVector);
+        isvedimas(grupeVector, laikasSkaitymas);
         break;
     case 3:
 
@@ -65,17 +63,17 @@ do{
         }
             generalVidurkisCalculate(grupeVector);
             generalMedianaCalculate(grupeVector);
-        isvedimas(grupeVector);
+            isvedimas(grupeVector, laikasSkaitymas);
         break;
     case 4:
         printf("Iveskite failo pavadinima\n");
         cin >> failas;
         //cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        fileReading(grupeVector, failas);
+        fileReading(grupeVector, failas, laikasSkaitymas);
         generalVidurkisCalculate(grupeVector);
         generalMedianaCalculate(grupeVector);
-        sortInput(choice, grupeVector);
-        isvedimas(grupeVector);
+        isvedimas(grupeVector, laikasSkaitymas);
+        break;
 
     case 5:
         printf("Sekmingai baigete darba!!!\n");
@@ -87,7 +85,7 @@ do{
     if (pasirinkimas == 5) {
         break;
     }
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < grupeVector.size(); i++) {
         grupeVector[i].pazymiai.clear();
     }
     grupeVector.clear();
@@ -96,5 +94,3 @@ do{
 
     return 0;
 }
-
-
