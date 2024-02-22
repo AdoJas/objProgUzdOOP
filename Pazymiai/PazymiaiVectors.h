@@ -22,9 +22,15 @@ struct studentasV {
 void ivedimas(vector<studentasV>& grupeVector, int n);
 void ivedimasNoSize(vector<studentasV>& grupeVector);
 void ivedimasCaseTwo(vector<studentasV>& grupeVector);
+void fileReading(vector<studentasV>& grupeVector, string failas);
+
 void generateRandomGrades(studentasV &stud);
 void generateRandomNames(studentasV &stud);
+void generalVidurkisCalculate(vector<studentasV>& grupeVector);
+
 void isvedimas(vector<studentasV> grupeVector);
+
 void readNumbersV(studentasV& stud, int maxItems);
+
 void sortInput(int& choice);
-void fileReading(vector<studentasV>& grupeVector, string failas)
+

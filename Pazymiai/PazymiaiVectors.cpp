@@ -9,7 +9,18 @@
 #include "PazymiaiVectors.h"
 #include <fstream>
 #include <sstream>
-
+/*
+ *
+ *
+ *
+ *
+ * Sortinimas turi buti ir ivestu pazymiu
+ *
+ *
+ *
+ *
+ *
+ */
 using namespace std;
 float studentasV::getMediana() {
     if (pazymiai.size() < 2) return -1;
@@ -29,6 +40,7 @@ float studentasV::getVidurkis() {
     return accumulate(pazymiai.begin(), pazymiai.end(), 0) * 1.0 / pazymiai.size() * 0.4 + egzaminas * 0.6;
 }
 
+//Duomenu ivedimo/nuskaitymo funkcijos
 void ivedimasV(vector<studentasV>& grupeVector, studentasV& stud, int studentoNr, int pazymiuKiekis) {
     string s;
     cout << "Iveskite " << studentoNr + 1 << " mokinio varda: ";
@@ -82,6 +94,27 @@ void ivedimasCaseTwo(vector<studentasV>& grupeVector) {
     } while (testi == 't');
 
 }
+void fileReading(vector<studentasV>& grupeVector, string failas){
+    ifstream fin(failas + ".txt");
+    if(!fin) cerr << "Error: nepavyko atidaryti failo" << endl;
+    studentasV laikinasV;
+    string line;
+    int grade;
+    getline(fin, line); // nereikalingas line'as pasalinamas
+    while(getline(fin,line)){
+        istringstream iss(line);
+        iss >> laikinasV.vardas >> laikinasV.pavarde;
+        while(iss >> grade){
+            laikinasV.pazymiai.push_back(grade);
+        }
+        laikinasV.egzaminas = laikinasV.pazymiai.back();
+        laikinasV.pazymiai.pop_back();
+    }
+    grupeVector.push_back(laikinasV);
+    fin.close();
+}
+
+//Random duomenu generavimo funkcijos
 void generateRandomNames(studentasV &stud) {
     const char* vardas[] = { "Bronius", "Juozas", "Rimas", "Tomas", "Matas", "Markas", "Ignas", "Kristupas", "Joris", "Arnas" };
     const char* pavarde[] = { "Broniauskas", "Juozevicius", "Rimauskas", "Tomavicius", "Matkevicius", "Markevicius", "Igniauskas", "Kristevicius", "Jorevicius", "Arniavicius" };
@@ -98,6 +131,34 @@ void generateRandomGrades(studentasV &stud) {
     }
     stud.egzaminas = rand() % 10 + 1;
 }
+
+//General vidurkio/medianos skaiciavimas pasirinkus
+void generalVidurkisCalculate(vector<studentasV>& grupeVector){
+    for(int i = 0; i < grupeVector.size(); i++)
+        if (grupeVector[i].pazymiai.empty()){
+            grupeVector[i].pazVid = grupeVector[i].egzaminas * 0.6;
+        }else{
+            accumulate(grupeVector[i].pazymiai.begin(), grupeVector[i].pazymiai.end(), 0) * 1.0 / grupeVector[i].pazymiai.size() * 0.4 + grupeVector[i].egzaminas * 0.6;
+        }
+}
+void generalMedianaCalculate(vector<studentasV>& grupeVector){
+    for(int i = 0; i < grupeVector.size(); i++){
+        if (grupeVector[i].pazymiai.size() < 2) grupeVector[i].mediana = -1;
+        int laikinas = round(grupeVector[i].pazymiai.size() * 1.0 / 2);
+        float med;
+        sort(grupeVector[i].pazymiai.begin(), grupeVector[i].pazymiai.end());
+        if (grupeVector[i].pazymiai.size() % 2 == 0) {
+            med = (grupeVector[i].pazymiai[laikinas] + grupeVector[i].pazymiai[laikinas - 1]) * 1.0 / 2;
+        }
+        else {
+            med = grupeVector[i].pazymiai[laikinas - 1];
+        }
+        grupeVector[i].mediana = med * 0.4 + grupeVector[i].egzaminas * 0.6;
+    }
+
+}
+
+//Isvedimo funkcija
 void isvedimas(vector<studentasV> grupeVector) {
     string vidMed;
 
@@ -124,6 +185,8 @@ void isvedimas(vector<studentasV> grupeVector) {
         }
     }
 }
+
+//Dinaminis pazymiu ivedimas
 void readNumbersV(studentasV &stud, int maxItems = 0) {
     string s;
     bool testi = true;
@@ -163,6 +226,7 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
         }
     }
 }
+//Sortinimo funkcija
 void sortInput(int& choice){
     do{
         printf("Pasirinkite norima rusiavimo buda:\n");
@@ -173,22 +237,25 @@ void sortInput(int& choice){
         cin >> choice;
     }while(choice > 4 || choice < 1);
 }
-void fileReading(vector<studentasV>& grupeVector, string failas){
-    ifstream fin(failas + ".txt");
-    if(!fin) cerr << "Error: nepavyko atidaryti failo" << endl;
-    studentasV laikinasV;
-    string line;
-    int grade;
-    getline(fin, line); // nereikalingas line'as pasalinamas
-    while(getline(fin,line)){
-        istringstream iss(line);
-        iss >> laikinasV.vardas >> laikinasV.pavarde;
-        while(iss >> grade){
-            laikinasV.pazymiai.push_back(grade);
-        }
-        laikinasV.egzaminas = laikinasV.pazymiai.back();
-        laikinasV.pazymiai.pop_back();
-    }
-    grupeVector.push_back(laikinasV);
-    fin.close();
+//Comparinimo bool funkcijos
+bool compareByName(const studentasV& a, const studentasV& b) {
+    if (a.vardas.find("Vardas") == 0 && b.vardas.find("Vardas") == 0) {
+        int num1 = stoi(a.vardas.substr(6));
+        int num2 = stoi(b.vardas.substr(6));
+        return num1 < num2;
+    }else return a.vardas < b.vardas;
 }
+bool compareBySurname(const studentasV& a, const studentasV& b) {
+    if (a.pavarde.find("Pavarde") == 0 && b.pavarde.find("Pavarde") == 0) {
+        int num1 = stoi(a.pavarde.substr(6));
+        int num2 = stoi(b.pavarde.substr(6));
+        return num1 < num2;
+    }else return a.pavarde < b.pavarde;
+}
+bool compareByAverage(const studentasV& a, const studentasV& b){
+    return a.pazVid < b.pazVid;
+}
+bool compareByMediana(const studentasV& a, const studentasV& b){
+    return a.mediana < b.mediana;
+}
+

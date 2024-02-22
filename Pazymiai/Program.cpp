@@ -61,7 +61,10 @@ do{
         break;
     case 4:
         printf("Iveskite failo pavadinima be .txt prefix'o\n");
-        //cin >> failas;
+        cin >> failas;
+        fileReading(grupeVector, failas);
+        generalVidurkisCalculate(grupeVector);
+        sortInput(choice);
 
     case 5:
         printf("Sekmingai baigete darba!!!\n");
