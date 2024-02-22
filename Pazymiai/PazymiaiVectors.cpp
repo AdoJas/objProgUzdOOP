@@ -8,7 +8,7 @@
 #include <cmath>
 #include "PazymiaiVectors.h"
 #include <fstream>
-
+#include <sstream>
 
 using namespace std;
 float studentasV::getMediana() {
@@ -75,8 +75,10 @@ void ivedimasCaseTwo(vector<studentasV>& grupeVector) {
         cin >> laikinasV.pavarde;
         generateRandomGrades(laikinasV);
         grupeVector.push_back(laikinasV);
-        cout << "Jei norite testi, iveskite t, jei nenorite testi, iveskite n" << endl;
-        cin >> testi;
+        while(testi != 't' || testi != 'T'){
+            cout << "Jei norite testi, iveskite t, jei nenorite testi, iveskite n" << endl;
+            cin >> testi;
+        }
     } while (testi == 't');
 
 }
@@ -96,8 +98,9 @@ void generateRandomGrades(studentasV &stud) {
     }
     stud.egzaminas = rand() % 10 + 1;
 }
-void isvedimas(vector<studentasV> grupeVector, string& outputFileName) {
+void isvedimas(vector<studentasV> grupeVector) {
     string vidMed;
+
     do {
         cout << "Jei norite vidurkio, rasykite 1, jei norite medianos, rasykite 2" << endl;
         cin >> vidMed;
@@ -169,4 +172,23 @@ void sortInput(int& choice){
         printf("4- Rusiuoti pagal mediana\n ");
         cin >> choice;
     }while(choice > 4 || choice < 1);
+}
+void fileReading(vector<studentasV>& grupeVector, string failas){
+    ifstream fin(failas + ".txt");
+    if(!fin) cerr << "Error: nepavyko atidaryti failo" << endl;
+    studentasV laikinasV;
+    string line;
+    int grade;
+    getline(fin, line); // nereikalingas line'as pasalinamas
+    while(getline(fin,line)){
+        istringstream iss(line);
+        iss >> laikinasV.vardas >> laikinasV.pavarde;
+        while(iss >> grade){
+            laikinasV.pazymiai.push_back(grade);
+        }
+        laikinasV.egzaminas = laikinasV.pazymiai.back();
+        laikinasV.pazymiai.pop_back();
+    }
+    grupeVector.push_back(laikinasV);
+    fin.close();
 }

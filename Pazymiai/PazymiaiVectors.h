@@ -26,3 +26,5 @@ void generateRandomGrades(studentasV &stud);
 void generateRandomNames(studentasV &stud);
 void isvedimas(vector<studentasV> grupeVector);
 void readNumbersV(studentasV& stud, int maxItems);
+void sortInput(int& choice);
+void fileReading(vector<studentasV>& grupeVector, string failas)

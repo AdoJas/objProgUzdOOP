@@ -2,13 +2,6 @@
 #include "common.h"
 #include "PazymiaiArrays.h"
 
-//void swap(int* var1, int* var2)
-//{
-//    int temp = *var1;
-//    *var1 = *var2;
-//    *var2 = temp;
-//}
-
 void addToArray(int*& arr, int& size, int value) {
     size++;
     int* tmp = new int[size];
@@ -45,15 +38,3 @@ void meniu(int& pasirinkimas){
         printf("--------------------------------------------------\n");
     } while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3 && pasirinkimas != 4 && pasirinkimas != 5);
 }
-//void arraysVectorsPasirinkimas(int& arrVect) {
-//    do {
-//        cout << "Pasirinkite, su kokia duomenu struktura norite dirbti:\n"
-//            << "1 - Arrays\n"
-//            << "2 - Vectors\n";
-//        std::cin >> arrVect;
-//        if (arrVect > 2 || arrVect < 1) {
-//            cout << "Pasirinkimas turi buti arba 1, arba 2\n";
-//            printf("--------------------------------------------------\n");
-//        }
-//    } while (arrVect != 1 && arrVect != 2);
-//}

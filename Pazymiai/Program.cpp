@@ -61,7 +61,7 @@ do{
         break;
     case 4:
         printf("Iveskite failo pavadinima be .txt prefix'o\n");
-        cin >> failas;
+        //cin >> failas;
 
     case 5:
         printf("Sekmingai baigete darba!!!\n");
@@ -73,7 +73,6 @@ do{
     if (pasirinkimas == 5) {
         break;
     }
-
     for (int i = 0; i < n; i++) {
         grupeVector[i].pazymiai.clear();
     }
