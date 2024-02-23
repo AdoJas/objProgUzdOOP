@@ -8,6 +8,7 @@
 #include "PazymiaiVectors.h"
 #include <fstream>
 #include <sstream>
+#include "chrono"
 /*
  *
  *
@@ -93,13 +94,15 @@ void ivedimasCaseTwo(vector<studentasV>& grupeVector) {
 
 }
 void fileReading(vector<studentasV>& grupeVector, const string& failas, double & laikasSkaitymas){
-    auto start = std::chrono::high_resolution_clock::now();
+
     ifstream fin;
     fin.open(failas);
+    auto start = std::chrono::high_resolution_clock::now();
     if(!fin.is_open()){
         cerr << "Error: nepavyko atidaryti failo" << endl;
         std::exit(EXIT_FAILURE);
     }else{
+        cout << "---------------------------------------------------------" << endl;
         studentasV laikinasV;
         string line;
         int grade;
