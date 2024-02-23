@@ -9,18 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include "chrono"
-/*
- *
- *
- *
- *
- * Sortinimas turi buti ir ivestu pazymiu
- *
- *
- *
- *
- *
- */
+
 using namespace std;
 float studentasV::getMediana() {
     if (pazymiai.size() < 2) return -1;
