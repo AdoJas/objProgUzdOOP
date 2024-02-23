@@ -94,11 +94,12 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
         cout << "---------------------------------------------------------" << endl;
         studentasV laikinasV;
         string line;
-        int grade;
+
         getline(fin, line); // nereikalingas line'as pasalinamas
         while(getline(fin,line)){
             istringstream iss(line);
             iss >> laikinasV.vardas >> laikinasV.pavarde;
+            int grade;
             while(iss >> grade){
                 laikinasV.pazymiai.push_back(grade);
             }
@@ -122,7 +123,6 @@ void generateRandomNames(studentasV &stud) {
     int pavardeIndex = rand() % 10;
     stud.vardas = vardas[vardasIndex];
     stud.pavarde = pavarde[pavardeIndex];
-
 }
 void generateRandomGrades(studentasV &stud) {
     stud.pazymiai.resize(rand() % 10 + 1);
@@ -133,28 +133,43 @@ void generateRandomGrades(studentasV &stud) {
 }
 
 //General vidurkio/medianos skaiciavimas pasirinkus
-void generalVidurkisCalculate(vector<studentasV>& grupeVector){
-    for(int i = 0; i < grupeVector.size(); i++)
-        if (grupeVector[i].pazymiai.empty()){
-            grupeVector[i].pazVid = grupeVector[i].egzaminas * 0.6;
-        }else{
-            grupeVector[i].pazVid = accumulate(grupeVector[i].pazymiai.begin(), grupeVector[i].pazymiai.end(), 0) * 1.0 / grupeVector[i].pazymiai.size() * 0.4 + grupeVector[i].egzaminas * 0.6;
+void generalVidurkisCalculate(vector<studentasV>& grupeVector) {
+    // If your compiler supports C++17, you can use std::execution::par for parallel execution
+    for (auto& student : grupeVector) {
+        if (student.pazymiai.empty()) {
+            student.pazVid = student.egzaminas * 0.6;
+        } else {
+            double suma = std::accumulate(student.pazymiai.begin(), student.pazymiai.end(), 0.0);
+            student.pazVid = suma / student.pazymiai.size() * 0.4 + student.egzaminas * 0.6;
         }
-}
-void generalMedianaCalculate(vector<studentasV>& grupeVector){
-    for(int i = 0; i < grupeVector.size(); i++){
-        if (grupeVector[i].pazymiai.size() < 2) grupeVector[i].mediana = -1;
-        int laikinas = round(grupeVector[i].pazymiai.size() * 1.0 / 2);
-        float med;
-        sort(grupeVector[i].pazymiai.begin(), grupeVector[i].pazymiai.end());
-        if (grupeVector[i].pazymiai.size() % 2 == 0) {
-            med = (grupeVector[i].pazymiai[laikinas] + grupeVector[i].pazymiai[laikinas - 1]) * 1.0 / 2;
-        }
-        else {
-            med = grupeVector[i].pazymiai[laikinas - 1];
-        }
-        grupeVector[i].mediana = med * 0.4 + grupeVector[i].egzaminas * 0.6;
     }
+    cout << "vidurkis apskaiciuotas" << endl;
+}
+void generalMedianaCalculate(vector<studentasV>& grupeVector) {
+    for (auto& student : grupeVector) {
+        size_t n = student.pazymiai.size();
+        if (n < 2) {
+            student.mediana = -1; // Indicates an invalid median value
+            continue;
+        }
+
+        // Efficient median calculation using std::nth_element
+        std::vector<int>::iterator middle = student.pazymiai.begin() + n / 2;
+        std::nth_element(student.pazymiai.begin(), middle, student.pazymiai.end());
+
+        float med;
+        if (n % 2 == 0) {
+            // Even number of elements, need to find the next smallest element
+            auto next_smallest = std::max_element(student.pazymiai.begin(), middle);
+            med = (*middle + *next_smallest) / 2.0f;
+        } else {
+            // Odd number of elements, median is the middle element
+            med = *middle;
+        }
+
+        student.mediana = med * 0.4 + student.egzaminas * 0.6;
+    }
+    cout << "Mediana apskaiciuota" << endl;
 }
 
 //Isvedimo funkcija
@@ -305,9 +320,11 @@ void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasSkait
             sort(grupeVector.begin(),grupeVector.end(), compareBySurname);
             break;
         case 3:
+            generalVidurkisCalculate(grupeVector);
             sort(grupeVector.begin(),grupeVector.end(), compareByAverage);
             break;
         case 4:
+            generalMedianaCalculate(grupeVector);
             sort(grupeVector.begin(),grupeVector.end(), compareByMediana);
             break;
         default:
