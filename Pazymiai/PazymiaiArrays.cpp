@@ -7,6 +7,8 @@
 #include <cctype>
 #include "PazymiaiArrays.h"
 #include "Common.h"
+#include "cmath"
+
 
 using namespace std;
 float studentasA::getMediana() {

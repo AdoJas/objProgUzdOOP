@@ -6,6 +6,7 @@
 #include <numeric>
 #include <algorithm>
 #include "PazymiaiVectors.h"
+#include <cmath>
 
 
 using namespace std;
