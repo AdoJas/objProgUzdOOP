@@ -22,7 +22,7 @@ struct studentasV {
 void ivedimas(vector<studentasV>& grupeVector, int n);
 void ivedimasNoSize(vector<studentasV>& grupeVector);
 void ivedimasCaseTwo(vector<studentasV>& grupeVector);
-void fileReading(vector<studentasV>& grupeVector, const string& failas, double & laikasSkaitymas);
+void fileReading(vector<studentasV>& grupeVector, const string& failas, double & laikasSkaitymas, int& fakePazymiai);
 
 void generateRandomGrades(studentasV &stud);
 void generateRandomNames(studentasV &stud);

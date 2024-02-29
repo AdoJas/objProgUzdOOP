@@ -29,6 +29,11 @@ float studentasV::getVidurkis() {
     return accumulate(pazymiai.begin(), pazymiai.end(), 0) * 1.0 / pazymiai.size() * 0.4 + egzaminas * 0.6;
 }
 
+
+chrono::milliseconds trukmesSkaiciavimas(chrono::high_resolution_clock::time_point pradzia, chrono::high_resolution_clock::time_point pabaiga) {
+    auto trukme = chrono::duration_cast<chrono::milliseconds>(pabaiga - pradzia);
+    return trukme;
+}
 //Duomenu ivedimo/nuskaitymo funkcijos
 void ivedimasV(vector<studentasV>& grupeVector, studentasV& stud, int studentoNr, int pazymiuKiekis) {
     string s;
@@ -75,14 +80,14 @@ void ivedimasCaseTwo(vector<studentasV>& grupeVector) {
         cin >> laikinasV.pavarde;
         generateRandomGrades(laikinasV);
         grupeVector.push_back(laikinasV);
-        while(testi != 't' || testi != 'T'){
+        while(testi != 't' && testi != 'T'){
             cout << "Jei norite testi, iveskite t, jei nenorite testi, iveskite n" << endl;
             cin >> testi;
         }
     } while (testi == 't');
 
 }
-void fileReading(vector<studentasV>& grupeVector, const string& failas, double & laikasSkaitymas){
+void fileReading(vector<studentasV>& grupeVector, const string& failas, double & laikasSkaitymas, int& fakePazymiai){
 
     ifstream fin;
     fin.open(failas);
@@ -92,20 +97,31 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
         std::exit(EXIT_FAILURE);
     }else{
         cout << "---------------------------------------------------------" << endl;
-        studentasV laikinasV;
+       
         string line;
-
+        istringstream iss;
+        string grade = 0;
         getline(fin, line); // nereikalingas line'as pasalinamas
+
         while(getline(fin,line)){
-            istringstream iss(line);
+            iss.str(line);
+            studentasV laikinasV;
             iss >> laikinasV.vardas >> laikinasV.pavarde;
-            int grade;
-            while(iss >> grade){
-                laikinasV.pazymiai.push_back(grade);
+            
+            while (iss >> grade) {
+                try {
+                    laikinasV.pazymiai.push_back(std::stoi(grade));
+                }
+                catch (std::exception& e) {
+                    fakePazymiai++;
+                }
+                
             }
+            
             laikinasV.egzaminas = laikinasV.pazymiai.back();
             laikinasV.pazymiai.pop_back();
             grupeVector.push_back(laikinasV);
+            iss.clear();
         }
     }
     fin.close();
@@ -113,6 +129,9 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
     // Calculate the duration
     std::chrono::duration<double> duration = end - start;
     laikasSkaitymas = duration.count();
+    generalVidurkisCalculate(grupeVector);
+    generalMedianaCalculate(grupeVector);
+    cout << laikasSkaitymas << endl;
 }
 
 //Random duomenu generavimo funkcijos
@@ -134,7 +153,6 @@ void generateRandomGrades(studentasV &stud) {
 
 //General vidurkio/medianos skaiciavimas pasirinkus
 void generalVidurkisCalculate(vector<studentasV>& grupeVector) {
-    // If your compiler supports C++17, you can use std::execution::par for parallel execution
     for (auto& student : grupeVector) {
         if (student.pazymiai.empty()) {
             student.pazVid = student.egzaminas * 0.6;
@@ -145,31 +163,20 @@ void generalVidurkisCalculate(vector<studentasV>& grupeVector) {
     }
     cout << "vidurkis apskaiciuotas" << endl;
 }
-void generalMedianaCalculate(vector<studentasV>& grupeVector) {
-    for (auto& student : grupeVector) {
-        size_t n = student.pazymiai.size();
-        if (n < 2) {
-            student.mediana = -1; // Indicates an invalid median value
-            continue;
+void generalMedianaCalculate(std::vector<studentasV>& grupeVector) {
+    
+    for (auto& studentas : grupeVector) {
+        std::sort(studentas.pazymiai.begin(), studentas.pazymiai.end());
+
+        size_t size = studentas.pazymiai.size();
+        if (size % 2 == 0) {
+            // For an even number of grades, the median is the average of the two middle grades
+            studentas.mediana = (studentas.pazymiai[size / 2 - 1] + studentas.pazymiai[size / 2]) / 2.0 * 0.4 + studentas.egzaminas * 0.6;
         }
-
-        // Efficient median calculation using std::nth_element
-        std::vector<int>::iterator middle = student.pazymiai.begin() + n / 2;
-        std::nth_element(student.pazymiai.begin(), middle, student.pazymiai.end());
-
-        float med;
-        if (n % 2 == 0) {
-            // Even number of elements, need to find the next smallest element
-            auto next_smallest = std::max_element(student.pazymiai.begin(), middle);
-            med = (*middle + *next_smallest) / 2.0f;
-        } else {
-            // Odd number of elements, median is the middle element
-            med = *middle;
+        else {
+            studentas.mediana = studentas.pazymiai[size / 2] * 0.4 + studentas.egzaminas * 0.6;
         }
-
-        student.mediana = med * 0.4 + student.egzaminas * 0.6;
     }
-    cout << "Mediana apskaiciuota" << endl;
 }
 
 //Isvedimo funkcija
@@ -181,7 +188,7 @@ void isvedimoPasirinkimas(string& pasirinkimasConsole){
 }
 void pasirinkimasVidMed(string& vidMed){
     do {
-        cout << "Jei norite vidurkio, rasykite 1, jei norite medianos, rasykite 2" << endl;
+        cout << "Jei norite isvedimo vidurkio pavidalu, rasykite 1, jei norite isvedimo medianos pavidalu, rasykite 2" << endl;
         cin >> vidMed;
     } while (vidMed != "1" && vidMed != "2");
 }
@@ -202,8 +209,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas) {
             cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
             cout << "--------------------------------------------------" << endl;
 
-            for (int i = 0; i < grupeVector.size(); i++) {
-                cout << left << setw(20) << grupeVector[i].vardas << left << setw(20) << grupeVector[i].pavarde << left << setw(20) << setprecision(3) << grupeVector[i].pazVid << endl;
+            for (auto& student : grupeVector) {
+                cout << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
             }
         }
         else if (vidMed == "2") {
@@ -211,8 +218,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas) {
             cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
             cout << "--------------------------------------------------" << endl;
 
-            for (int i = 0; i < grupeVector.size(); i++) {
-                cout << left << setw(20) << grupeVector[i].vardas << left << setw(20) << grupeVector[i].pavarde << left << setw(20) << setprecision(3) << grupeVector[i].mediana << endl;
+            for (auto& student : grupeVector) {
+                cout << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
             }
         }
     }else{
@@ -221,8 +228,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas) {
             fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
             fout << "--------------------------------------------------" << endl;
 
-            for (int i = 0; i < grupeVector.size(); i++) {
-                fout << left << setw(20) << grupeVector[i].vardas << left << setw(20) << grupeVector[i].pavarde << left << setw(20) << setprecision(3) << grupeVector[i].pazVid << endl;
+            for (auto& student : grupeVector) {
+                fout << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
             }
 
         }
@@ -231,8 +238,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas) {
             fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
             fout << "--------------------------------------------------" << endl;
 
-            for (int i = 0; i < grupeVector.size(); i++) {
-                fout << left << setw(20) << grupeVector[i].vardas << left << setw(20) << grupeVector[i].pavarde << left << setw(20) << setprecision(3) << grupeVector[i].mediana << endl;
+            for (auto& student : grupeVector) {
+                fout << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
             }
         }
     }
@@ -252,7 +259,7 @@ bool compareBySurname(const studentasV& a, const studentasV& b) {
         int num1 = stoi(a.pavarde.substr(6));
         int num2 = stoi(b.pavarde.substr(6));
         return num1 > num2;
-    }else return a.pavarde < b.pavarde;
+    }else return a.pavarde > b.pavarde;
 }
 bool compareByAverage(const studentasV& a, const studentasV& b){
     return a.pazVid > b.pazVid;
@@ -320,11 +327,9 @@ void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasSkait
             sort(grupeVector.begin(),grupeVector.end(), compareBySurname);
             break;
         case 3:
-            generalVidurkisCalculate(grupeVector);
             sort(grupeVector.begin(),grupeVector.end(), compareByAverage);
             break;
         case 4:
-            generalMedianaCalculate(grupeVector);
             sort(grupeVector.begin(),grupeVector.end(), compareByMediana);
             break;
         default:

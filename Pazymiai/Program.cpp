@@ -23,6 +23,7 @@ int main()
     int pasirinkimas = 0;
     int arrVect = 0;
     int laikinas = 0;
+    int fakePazymiai = 0;
     double laikasSkaitymas = 0.0;
     string failas = " ";
     studentasA* grupe = nullptr;
@@ -63,7 +64,8 @@ do{
         printf("Iveskite failo pavadinima\n");
         cin >> failas;
         //cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        fileReading(grupeVector, failas, laikasSkaitymas);
+        fileReading(grupeVector, failas, laikasSkaitymas, fakePazymiai);
+
         isvedimas(grupeVector, laikasSkaitymas);
         break;
 
