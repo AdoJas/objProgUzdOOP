@@ -30,7 +30,7 @@ void generateRandomNames(studentasV &stud);
 void generalVidurkisCalculate(vector<studentasV>& grupeVector);
 void generalMedianaCalculate(vector<studentasV>& grupeVector);
 
-void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas);
+void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas, int fakePazymiai);
 
 void readNumbersV(studentasV& stud, int maxItems);
 

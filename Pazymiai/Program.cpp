@@ -48,6 +48,7 @@ do{
     case 2:
         ivedimasCaseTwo(grupeVector);
         printf("Pazymiai sugeneruoti\n");
+
         isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas);
         break;
     case 3:

@@ -122,6 +122,7 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
     laikasSkaitymas = duration.count();
+
     auto skStart = std::chrono::high_resolution_clock::now();
     generalVidurkisCalculate(grupeVector);
     generalMedianaCalculate(grupeVector);
@@ -331,7 +332,7 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
 void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasRusiavimas){
     auto start = std::chrono::high_resolution_clock::now();
     do{
-        printf("Pasirinkite norima rusiavimo buda:\n");
+        printf("Pasirinkite norima rusiavimo buda: \n");
         printf("1- Rusiuoti pagal varda\n ");
         printf("2- Rusiuoti pagal pavarde\n ");
         printf("3- Rusiuoti pagal vidurki\n ");
