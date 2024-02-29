@@ -115,9 +115,7 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
                 catch (std::exception& e) {
                     fakePazymiai++;
                 }
-                
             }
-            
             laikinasV.egzaminas = laikinasV.pazymiai.back();
             laikinasV.pazymiai.pop_back();
             grupeVector.push_back(laikinasV);
