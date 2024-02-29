@@ -187,7 +187,7 @@ void pasirinkimasVidMed(string& vidMed){
         cin >> vidMed;
     } while (vidMed != "1" && vidMed != "2");
 }
-void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas) {
+void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas, int fakePazymiai) {
     int choice = 0;
     string pasirinkimasConsole;
     string vidMed;
@@ -205,6 +205,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             cout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
             cout << "Viso sugaista laiko: " << laikasSkaitymas + laikasSkaitymas + laikasSkaiciavimas << "sek. \n";
             cout << "--------------------------------------------------" << endl;
+            cout << "Rasta blogu duomenu " << fakePazymiai << "sek. \n";
+            cout << "--------------------------------------------------" << endl;
             cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
             cout << "--------------------------------------------------" << endl;
 
@@ -217,6 +219,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             cout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
             cout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
             cout << "Viso sugaista laiko: " << laikasSkaitymas + laikasSkaitymas + laikasSkaiciavimas << "sek. \n";
+            cout << "--------------------------------------------------" << endl;
+            cout << "Rasta blogu duomenu " << fakePazymiai << "sek. \n";
             cout << "--------------------------------------------------" << endl;
             cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
             cout << "--------------------------------------------------" << endl;
@@ -232,6 +236,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             fout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
             fout << "Viso sugaista laiko: " << laikasSkaitymas + laikasSkaitymas + laikasSkaiciavimas << "sek. \n";
             fout << "--------------------------------------------------" << endl;
+            fout << "Rasta blogu duomenu " << fakePazymiai << "sek. \n";
+            fout << "--------------------------------------------------" << endl;
             fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
             fout << "--------------------------------------------------" << endl;
 
@@ -245,6 +251,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             fout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
             fout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
             fout << "Viso sugaista laiko: " << laikasSkaitymas + laikasSkaitymas + laikasSkaiciavimas << "sek. \n";
+            fout << "--------------------------------------------------" << endl;
+            fout << "Rasta blogu duomenu " << fakePazymiai << "sek. \n";
             fout << "--------------------------------------------------" << endl;
             fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
             fout << "--------------------------------------------------" << endl;
