@@ -77,6 +77,7 @@ do{
     default:
         printf("Neteisingai ivesti duomenys\n");
     }
+
     printf("--------------------------------------------------\n");
     if (pasirinkimas == 5) {
         break;
