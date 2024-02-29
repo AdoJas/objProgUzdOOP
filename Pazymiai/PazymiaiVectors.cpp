@@ -100,7 +100,7 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
        
         string line;
         istringstream iss;
-        string grade = 0;
+        string grade = "";
         getline(fin, line); // nereikalingas line'as pasalinamas
 
         while(getline(fin,line)){
