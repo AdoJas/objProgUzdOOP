@@ -128,7 +128,6 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
     auto skEnd = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> skDuration = skEnd - skStart;
     laikasSkaiciavimas = skDuration.count();
-    cout << laikasSkaitymas << endl;
 }
 
 //Random duomenu generavimo funkcijos
@@ -158,7 +157,6 @@ void generalVidurkisCalculate(vector<studentasV>& grupeVector) {
             student.pazVid = suma / student.pazymiai.size() * 0.4 + student.egzaminas * 0.6;
         }
     }
-    cout << "vidurkis apskaiciuotas" << endl;
 }
 void generalMedianaCalculate(std::vector<studentasV>& grupeVector) {
     
@@ -166,8 +164,8 @@ void generalMedianaCalculate(std::vector<studentasV>& grupeVector) {
         std::sort(studentas.pazymiai.begin(), studentas.pazymiai.end());
 
         size_t size = studentas.pazymiai.size();
+        if (size < 2) studentas.mediana = -1;
         if (size % 2 == 0) {
-            // For an even number of grades, the median is the average of the two middle grades
             studentas.mediana = (studentas.pazymiai[size / 2 - 1] + studentas.pazymiai[size / 2]) / 2.0 * 0.4 + studentas.egzaminas * 0.6;
         }
         else {
@@ -205,6 +203,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             cout << "Is viso sugaistas laikas nuskaitant duomenis is failo: " << laikasSkaitymas << "sek. \n";
             cout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
             cout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
+            cout << "Viso sugaista laiko: " << laikasSkaitymas + laikasSkaitymas + laikasSkaiciavimas << "sek. \n";
+            cout << "--------------------------------------------------" << endl;
             cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
             cout << "--------------------------------------------------" << endl;
 
@@ -216,6 +216,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             cout << "Is viso sugaistas laikas nuskaitant duomenis is failo: " << laikasSkaitymas << "sek. \n";
             cout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
             cout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
+            cout << "Viso sugaista laiko: " << laikasSkaitymas + laikasSkaitymas + laikasSkaiciavimas << "sek. \n";
+            cout << "--------------------------------------------------" << endl;
             cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
             cout << "--------------------------------------------------" << endl;
 
@@ -228,6 +230,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             fout << "Is viso sugaistas laikas nuskaitant duomenis is failo: " << laikasSkaitymas << "sek. \n";
             fout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
             fout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
+            fout << "Viso sugaista laiko: " << laikasSkaitymas + laikasSkaitymas + laikasSkaiciavimas << "sek. \n";
+            fout << "--------------------------------------------------" << endl;
             fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
             fout << "--------------------------------------------------" << endl;
 
@@ -240,6 +244,8 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             fout << "Is viso sugaistas laikas nuskaitant duomenis is failo: " << laikasSkaitymas << "sek. \n";
             fout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
             fout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
+            fout << "Viso sugaista laiko: " << laikasSkaitymas + laikasSkaitymas + laikasSkaiciavimas << "sek. \n";
+            fout << "--------------------------------------------------" << endl;
             fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
             fout << "--------------------------------------------------" << endl;
 
