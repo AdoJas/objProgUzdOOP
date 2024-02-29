@@ -30,10 +30,6 @@ float studentasV::getVidurkis() {
 }
 
 
-chrono::milliseconds trukmesSkaiciavimas(chrono::high_resolution_clock::time_point pradzia, chrono::high_resolution_clock::time_point pabaiga) {
-    auto trukme = chrono::duration_cast<chrono::milliseconds>(pabaiga - pradzia);
-    return trukme;
-}
 //Duomenu ivedimo/nuskaitymo funkcijos
 void ivedimasV(vector<studentasV>& grupeVector, studentasV& stud, int studentoNr, int pazymiuKiekis) {
     string s;
@@ -87,7 +83,7 @@ void ivedimasCaseTwo(vector<studentasV>& grupeVector) {
     } while (testi == 't');
 
 }
-void fileReading(vector<studentasV>& grupeVector, const string& failas, double & laikasSkaitymas, int& fakePazymiai){
+void fileReading(vector<studentasV>& grupeVector, const string& failas, double & laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas){
 
     ifstream fin;
     fin.open(failas);
@@ -124,11 +120,14 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
     }
     fin.close();
     auto end = std::chrono::high_resolution_clock::now();
-    // Calculate the duration
     std::chrono::duration<double> duration = end - start;
     laikasSkaitymas = duration.count();
+    auto skStart = std::chrono::high_resolution_clock::now();
     generalVidurkisCalculate(grupeVector);
     generalMedianaCalculate(grupeVector);
+    auto skEnd = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> skDuration = skEnd - skStart;
+    laikasSkaiciavimas = skDuration.count();
     cout << laikasSkaitymas << endl;
 }
 
@@ -190,7 +189,7 @@ void pasirinkimasVidMed(string& vidMed){
         cin >> vidMed;
     } while (vidMed != "1" && vidMed != "2");
 }
-void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas) {
+void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas) {
     int choice = 0;
     string pasirinkimasConsole;
     string vidMed;
@@ -203,7 +202,9 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas) {
 
     if(pasirinkimasConsole == "1"){
         if (vidMed == "1") {
-            cout << "Is viso sugaistas laikas nuskaitant duomenis is failo ir juos rusiuojant: " << laikasSkaitymas << "sek. \n";
+            cout << "Is viso sugaistas laikas nuskaitant duomenis is failo: " << laikasSkaitymas << "sek. \n";
+            cout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
+            cout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
             cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
             cout << "--------------------------------------------------" << endl;
 
@@ -212,7 +213,9 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas) {
             }
         }
         else if (vidMed == "2") {
-            fout << "Is viso sugaistas laikas nuskaitant duomenis is failo ir juos rusiuojant: " << laikasSkaitymas << "sek. \n";
+            cout << "Is viso sugaistas laikas nuskaitant duomenis is failo: " << laikasSkaitymas << "sek. \n";
+            cout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
+            cout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
             cout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
             cout << "--------------------------------------------------" << endl;
 
@@ -222,7 +225,9 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas) {
         }
     }else{
         if (vidMed == "1") {
-            fout << "Is viso sugaistas laikas nuskaitant duomenis is failo ir juos rusiuojant: " << laikasSkaitymas << "sek. \n";
+            fout << "Is viso sugaistas laikas nuskaitant duomenis is failo: " << laikasSkaitymas << "sek. \n";
+            fout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
+            fout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
             fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
             fout << "--------------------------------------------------" << endl;
 
@@ -232,7 +237,9 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas) {
 
         }
         else if (vidMed == "2") {
-            fout << "Is viso sugaistas laikas nuskaitant duomenis is failo ir juos rusiuojant: " << laikasSkaitymas << "sek. \n";
+            fout << "Is viso sugaistas laikas nuskaitant duomenis is failo: " << laikasSkaitymas << "sek. \n";
+            fout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
+            fout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
             fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
             fout << "--------------------------------------------------" << endl;
 
@@ -307,7 +314,7 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
     }
 }
 //Sortinimo funkcija
-void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasSkaitymas){
+void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasRusiavimas){
     auto start = std::chrono::high_resolution_clock::now();
     do{
         printf("Pasirinkite norima rusiavimo buda:\n");
@@ -331,10 +338,9 @@ void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasSkait
             sort(grupeVector.begin(),grupeVector.end(), compareByMediana);
             break;
         default:
-            cerr << "Error: nepavyko surusiuoti failu!\n";
+            cerr << "Klaida: nepavyko surusiuoti failu!\n";
         }
     auto end = std::chrono::high_resolution_clock::now();
-    // Calculate the duration
     std::chrono::duration<double> duration = end - start;
-    laikasSkaitymas += duration.count();
+    laikasRusiavimas = duration.count();
 }

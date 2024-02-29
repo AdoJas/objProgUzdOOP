@@ -22,7 +22,7 @@ struct studentasV {
 void ivedimas(vector<studentasV>& grupeVector, int n);
 void ivedimasNoSize(vector<studentasV>& grupeVector);
 void ivedimasCaseTwo(vector<studentasV>& grupeVector);
-void fileReading(vector<studentasV>& grupeVector, const string& failas, double & laikasSkaitymas, int& fakePazymiai);
+void fileReading(vector<studentasV>& grupeVector, const string& failas, double & laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas);
 
 void generateRandomGrades(studentasV &stud);
 void generateRandomNames(studentasV &stud);
@@ -30,8 +30,8 @@ void generateRandomNames(studentasV &stud);
 void generalVidurkisCalculate(vector<studentasV>& grupeVector);
 void generalMedianaCalculate(vector<studentasV>& grupeVector);
 
-void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas);
+void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas);
 
 void readNumbersV(studentasV& stud, int maxItems);
 
-void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasSkaitymas);
+void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasRusiavimas);
