@@ -43,12 +43,15 @@ do{
         else {
             ivedimas(grupeVector, n);
         }
+            generalVidurkisCalculate(grupeVector);
+            generalMedianaCalculate(grupeVector);
         isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai);
         break;
     case 2:
         ivedimasCaseTwo(grupeVector);
         printf("Pazymiai sugeneruoti\n");
-
+        generalVidurkisCalculate(grupeVector);
+        generalMedianaCalculate(grupeVector);
         isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai);
         break;
     case 3:
@@ -61,17 +64,16 @@ do{
             generateRandomGrades(stud);
             grupeVector.push_back(stud);
         }
+        generalVidurkisCalculate(grupeVector);
+        generalMedianaCalculate(grupeVector);
         isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai);
         break;
     case 4:
         printf("Iveskite failo pavadinima\n");
         cin >> failas;
-        //cin.ignore(numeric_limits<streamsize>::max(), '\n');
         fileReading(grupeVector, failas, laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
-
         isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai);
         break;
-
     case 5:
         printf("Sekmingai baigete darba!!!\n");
         break;

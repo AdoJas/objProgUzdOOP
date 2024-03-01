@@ -51,8 +51,10 @@ void ivedimasV(vector<studentasV>& grupeVector, studentasV& stud, int studentoNr
 }
 void ivedimas(vector<studentasV>& grupeVector, int n) {
     int x = 0;
-    cout << "Kiek namu darbu pazymiu turi kiekvienas mokinys?" << endl;
-    cin >> x;
+    do {
+        cout << "Kiek namu darbu pazymiu turi kiekvienas mokinys?(Bent 1 paz.)" << endl;
+        cin >> x;
+    }while(x < 1);
     studentasV laikinasV;
     for (int i = 0; i < n; i++) {
         ivedimasV(grupeVector, laikinasV, i, x);
@@ -82,10 +84,8 @@ void ivedimasCaseTwo(vector<studentasV>& grupeVector) {
             cin >> testi;
         }
     } while (testi == 't');
-
 }
 void fileReading(vector<studentasV>& grupeVector, const string& failas, double & laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas){
-
     ifstream fin;
     fin.open(failas);
     auto start = std::chrono::high_resolution_clock::now();
@@ -94,17 +94,14 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
         std::exit(EXIT_FAILURE);
     }else{
         cout << "---------------------------------------------------------" << endl;
-       
         string line;
         istringstream iss;
         string grade = "";
         getline(fin, line); // nereikalingas line'as pasalinamas
-
         while(getline(fin,line)){
             iss.str(line);
             studentasV laikinasV;
             iss >> laikinasV.vardas >> laikinasV.pavarde;
-            
             while (iss >> grade) {
                 try {
                     if(stoi(grade) >= 0 && stoi(grade) <= 10) {
@@ -122,13 +119,17 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
         }
     }
     fin.close();
+
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
+
     laikasSkaitymas = duration.count();
 
     auto skStart = std::chrono::high_resolution_clock::now();
+
     generalVidurkisCalculate(grupeVector);
     generalMedianaCalculate(grupeVector);
+
     auto skEnd = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> skDuration = skEnd - skStart;
     laikasSkaiciavimas = skDuration.count();
