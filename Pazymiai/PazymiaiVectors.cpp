@@ -43,10 +43,11 @@ void ivedimasV(vector<studentasV>& grupeVector, studentasV& stud, int studentoNr
     do {
         cin >> s;
     } while (stoi(s) == true);
+    do{
         stud.egzaminas = stoi(s);
+    }while(stoi(s) > 10);
     grupeVector.push_back(stud);
     cout << grupeVector.size() << " ";
-    //stud.pazymiai.clear();
 }
 void ivedimas(vector<studentasV>& grupeVector, int n) {
     int x = 0;
@@ -106,7 +107,9 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
             
             while (iss >> grade) {
                 try {
-                    laikinasV.pazymiai.push_back(std::stoi(grade));
+                    if(stoi(grade) >= 0 && stoi(grade) <= 10) {
+                        laikinasV.pazymiai.push_back(std::stoi(grade));
+                    }
                 }
                 catch (std::exception& e) {
                     fakePazymiai++;
