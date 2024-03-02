@@ -85,14 +85,16 @@ void ivedimasCaseTwo(vector<studentasV>& grupeVector) {
         }
     } while (testi == 't');
 }
-void fileReading(vector<studentasV>& grupeVector, const string& failas, double & laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas){
+void fileReading(vector<studentasV>& grupeVector, string& failas, double & laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas){
     ifstream fin;
-    fin.open(failas);
+    do{
+        fin.open(failas);
+        if (!fin.is_open()) {
+            cerr << "Error: nepavyko atidaryti failo!!!\nIveskite failo pavadinima is naujo!!!\n" << endl;
+            cin >> failas;
+        }
+    } while (!fin.is_open());
     auto start = std::chrono::high_resolution_clock::now();
-    if(!fin.is_open()){
-        cerr << "Error: nepavyko atidaryti failo" << endl;
-        std::exit(EXIT_FAILURE);
-    }else{
         cout << "---------------------------------------------------------" << endl;
         string line;
         istringstream iss;
@@ -117,7 +119,6 @@ void fileReading(vector<studentasV>& grupeVector, const string& failas, double &
             grupeVector.push_back(laikinasV);
             iss.clear();
         }
-    }
     fin.close();
 
     auto end = std::chrono::high_resolution_clock::now();
