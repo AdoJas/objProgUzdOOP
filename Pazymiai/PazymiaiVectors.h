@@ -35,3 +35,4 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
 void readNumbersV(studentasV& stud, int maxItems);
 
 void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasRusiavimas);
+void laikoIsvedimas(double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas);
