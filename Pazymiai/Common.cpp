@@ -30,11 +30,12 @@ void meniu(int& pasirinkimas){
             << "2 - Ivestiems studentams generuojami pazymiai\n"
             << "3 - Generuojami pazymiai ir vardai/pavardes ivedus studentu skaiciu\n"
             << "4 - Skaityti duomenis is failo\n"
-            << "5 - Baigti darba\n"
+            << "5 - Studentu duomenu generavimas, rasymas i faila, failo nuskaitymas\n"
+            << "6 - Baigti darba\n"
             << ("--------------------------------------------------\n")
             << "Pasirinkite norima opcija: ";
         cin >> pasirinkimas;
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         printf("--------------------------------------------------\n");
-    } while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3 && pasirinkimas != 4 && pasirinkimas != 5);
+    } while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3 && pasirinkimas != 4 && pasirinkimas != 5 && pasirinkimas != 6);
 }

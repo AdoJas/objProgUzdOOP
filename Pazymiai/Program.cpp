@@ -11,6 +11,7 @@
 #include <cstdlib> 
 #include <ctime>
 #include <fstream>
+#include <cmath>
 
 using namespace std;
 
@@ -28,13 +29,12 @@ int main()
     double laikasSkaiciavimas = 0.0;
     double laikasRusiavimas = 0.0;
     string failas = " ";
-    studentasA* grupe = nullptr;
     vector<studentasV> grupeVector;
 
 do{
     meniu(pasirinkimas);
     switch (pasirinkimas) {
-    case 1:
+    case 1: {
         printf("Kiek studentu yra grupeje? (iveskite 0, jei norite ivesti neribota kieki)\n");
         cin >> n;
         if (n == 0) {
@@ -43,19 +43,20 @@ do{
         else {
             ivedimas(grupeVector, n);
         }
-            generalVidurkisCalculate(grupeVector);
-            generalMedianaCalculate(grupeVector);
-        isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai);
+        generalVidurkisCalculate(grupeVector);
+        generalMedianaCalculate(grupeVector);
+        isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai, 0);
         break;
-    case 2:
+    }
+    case 2: {
         ivedimasCaseTwo(grupeVector);
         printf("Pazymiai sugeneruoti\n");
         generalVidurkisCalculate(grupeVector);
         generalMedianaCalculate(grupeVector);
-        isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai);
+        isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai, 0);
         break;
-    case 3:
-
+    }
+    case 3: {
         printf("Kiek studentu yra grupeje?\n");
         cin >> n;
         for (int z = 0; z < n; z++) {
@@ -66,23 +67,41 @@ do{
         }
         generalVidurkisCalculate(grupeVector);
         generalMedianaCalculate(grupeVector);
-        isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai);
+        isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai, 0);
         break;
-    case 4:
+    }
+    case 4: {
         printf("Iveskite failo pavadinima\n");
         cin >> failas;
         fileReading(grupeVector, failas, laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
-        isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai);
+        isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai, 0);
         break;
-    case 5:
+    }
+    case 5: {
+        for (int i = 0; i < 4; i++) {
+            studentasV stud = studentasV();
+            studentuGeneravimas(grupeVector, stud, pow(10, i + 3));
+            generalVidurkisCalculate(grupeVector);
+            generalMedianaCalculate(grupeVector);
+            isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai, i);
+            cout << "Duomenys isvesti i faila!!!!" << endl;
+
+            for (int i = 0; i < grupeVector.size(); i++) {
+                grupeVector[i].pazymiai.clear();
+            }
+            grupeVector.clear();
+        }
+        break;
+    }
+    case 6:
         printf("Sekmingai baigete darba!!!\n");
         break;
+
     default:
         printf("Neteisingai ivesti duomenys\n");
     }
-
     printf("--------------------------------------------------\n");
-    if (pasirinkimas == 5) {
+    if (pasirinkimas == 6) {
         break;
     }
     for (int i = 0; i < grupeVector.size(); i++) {
@@ -90,7 +109,7 @@ do{
     }
     grupeVector.clear();
 
-}while (pasirinkimas != 5);
+}while (pasirinkimas != 6);
 
     return 0;
 }

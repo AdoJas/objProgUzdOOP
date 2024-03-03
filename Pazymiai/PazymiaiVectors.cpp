@@ -193,12 +193,12 @@ void pasirinkimasVidMed(string& vidMed){
         cin >> vidMed;
     } while (vidMed != "1" && vidMed != "2");
 }
-void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas, int fakePazymiai) {
+void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas, int fakePazymiai, int iteracija) {
     int choice = 0;
     string pasirinkimasConsole;
     string vidMed;
-    string custom = "Kursiokai.txt";
-    ofstream fout(custom);
+    string custom = " ";
+    ofstream fout("Kursiokai" + to_string(iteracija+1) + ".txt");
 
     pasirinkimasVidMed(vidMed);
     sortInput(choice, grupeVector, laikasSkaitymas);
@@ -275,8 +275,8 @@ bool compareByName(const studentasV& a, const studentasV& b) {
 }
 bool compareBySurname(const studentasV& a, const studentasV& b) {
     if (a.pavarde.find("Pavarde") == 0 && b.pavarde.find("Pavarde") == 0) {
-        int num1 = stoi(a.pavarde.substr(6));
-        int num2 = stoi(b.pavarde.substr(6));
+        int num1 = stoi(a.pavarde.substr(7));
+        int num2 = stoi(b.pavarde.substr(7));
         return num1 > num2;
     }else return a.pavarde > b.pavarde;
 }
@@ -364,15 +364,15 @@ void laikoIsvedimas(double laikasSkaitymas, double laikasSkaiciavimas, double la
         cout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
         cout << "Viso sugaista laiko: " << laikasSkaitymas + laikasSkaitymas + laikasSkaiciavimas << "sek. \n";
 }
-void studentuGeneravimas(vector<studentasV> grupeVector, int kiekis) {
-    for (int i = 0; i < kiekis; i++) {
-        grupeVector[i].vardas = "Vardas" + to_string(i);
-        grupeVector[i].pavarde = "Vardas" + to_string(i);
-
-        grupeVector[i].pazymiai.resize(rand() % 10 + 1);
-        for (int& paz : grupeVector[i].pazymiai) {
+void studentuGeneravimas(vector<studentasV>& grupeVector, studentasV& stud, int kiekis) {
+    for (int i = 1; i <= kiekis; i++) {
+        stud.vardas = "Vardas" + to_string(i);
+        stud.pavarde = "Pavarde" + to_string(i);
+        stud.pazymiai.resize(rand() % 10 + 1);
+        for (int& paz : stud.pazymiai) {
             paz = rand() % 10 + 1;
         }
-        grupeVector[i].egzaminas = rand() % 10 + 1;
+        stud.egzaminas = rand() % 10 + 1;
+        grupeVector.push_back(stud);
     }
 }
