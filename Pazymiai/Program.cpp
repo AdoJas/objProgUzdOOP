@@ -12,6 +12,7 @@
 #include <ctime>
 #include <fstream>
 #include <cmath>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -85,7 +86,7 @@ do{
             generalMedianaCalculate(grupeVector);
             isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai, i);
             cout << "Duomenys isvesti i faila!!!!" << endl;
-
+            system("pause");
             for (int i = 0; i < grupeVector.size(); i++) {
                 grupeVector[i].pazymiai.clear();
             }

@@ -189,7 +189,8 @@ void isvedimoPasirinkimas(string& pasirinkimasConsole){
 }
 void pasirinkimasVidMed(string& vidMed){
     do {
-        cout << "Jei norite isvedimo vidurkio pavidalu, rasykite 1, jei norite isvedimo medianos pavidalu, rasykite 2" << endl;
+        cout << "Jei norite isvedimo vidurkio pavidalu, rasykite 1\n" << 
+        "Jei norite isvedimo medianos pavidalu, rasykite 2: ";
         cin >> vidMed;
     } while (vidMed != "1" && vidMed != "2");
 }
@@ -201,8 +202,11 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
     ofstream fout("Kursiokai" + to_string(iteracija+1) + ".txt");
 
     pasirinkimasVidMed(vidMed);
+    cout << "--------------------------------------------------" << endl;
     sortInput(choice, grupeVector, laikasSkaitymas);
+    cout << "--------------------------------------------------" << endl;
     isvedimoPasirinkimas(pasirinkimasConsole);
+    cout << "--------------------------------------------------" << endl;
 
     if(pasirinkimasConsole == "1"){
         if (vidMed == "1") {
@@ -332,10 +336,11 @@ void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasRusia
     auto start = std::chrono::high_resolution_clock::now();
     do{
         printf("Pasirinkite norima rusiavimo buda: \n");
-        printf("1- Rusiuoti pagal varda\n ");
-        printf("2- Rusiuoti pagal pavarde\n ");
-        printf("3- Rusiuoti pagal vidurki\n ");
-        printf("4- Rusiuoti pagal mediana\n ");
+        printf("1- Rusiuoti pagal varda\n");
+        printf("2- Rusiuoti pagal pavarde\n");
+        printf("3- Rusiuoti pagal vidurki\n");
+        printf("4- Rusiuoti pagal mediana\n");
+        cout << "Pasirinkimas: ";
         cin >> choice;
     }while(choice > 4 || choice < 1);
     switch(choice){
