@@ -13,7 +13,7 @@
 #include <fstream>
 #include <cmath>
 #include <stdlib.h>
-
+#include "chrono"
 using namespace std;
 
 int main()
@@ -80,9 +80,27 @@ do{
         break;
     }
     case 5: {
-        pazymiuFailoGeneravimas(grupeVector);
-        failoNuskaitymasRusiavimas(grupeVector, grupeBad, laikasSkaitymas, laikasSkaiciavimas);
+        auto start = std::chrono::high_resolution_clock::now();
 
+        pazymiuFailoGeneravimas(grupeVector);
+        //galutiniam i < 5
+        for (int i = 0; i < 4; i++) {
+            failoNuskaitymasRusiavimas(grupeVector, grupeBad, laikasSkaitymas, laikasSkaiciavimas, i);
+            isvedimasFailai(grupeVector, grupeBad, i);
+
+            for (int i = 0; i < grupeVector.size(); i++) {
+                grupeVector[i].pazymiai.clear();
+            }
+            grupeVector.clear();
+
+            for (int i = 0; i < grupeBad.size(); i++) {
+                grupeBad[i].pazymiai.clear();
+            }
+            grupeBad.clear();
+        }
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end - start;
+        cout << "VIsos programos veikimo trukme:  " << duration.count() << " sek." << endl;
         break;
     }
     case 6:
