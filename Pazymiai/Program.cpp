@@ -27,6 +27,7 @@ int main()
     int laikinas = 0;
     string failas = " ";
     vector<studentasV> grupeVector;
+    vector<studentasV> grupeBad;
     double laikasSkaitymas = 0.0;
     double laikasSkaiciavimas = 0.0;
     double laikasRusiavimas = 0.0;
@@ -79,7 +80,9 @@ do{
         break;
     }
     case 5: {
-        pazymiuFailoGeneravimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai);
+        pazymiuFailoGeneravimas(grupeVector);
+        failoNuskaitymasRusiavimas(grupeVector, grupeBad, laikasSkaitymas, laikasSkaiciavimas);
+
         break;
     }
     case 6:

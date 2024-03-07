@@ -89,7 +89,7 @@ void ivedimasCaseTwo(vector<studentasV>& grupeVector) {
         }
     } while (testi == 't');
 }
-void fileReading(vector<studentasV>& grupeVector, string& failas, double & laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas){
+void fileReading(vector<studentasV>& grupeVector, string failas, double & laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas){
     ifstream fin;
     do{
         fin.open(failas);
@@ -272,17 +272,34 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
     }
     fout.close();
 }
-void failoGeneravimasIsvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas, int fakePazymiai, int iteracija, studentasV& stud) {
+void failoGeneravimasIsvedimas(vector<studentasV> grupeVector, int iteracija, studentasV& stud) {
     ofstream fout("KursiokaiGen" + to_string(iteracija + 1) + ".txt");
+
+    auto start = std::chrono::high_resolution_clock::now();
+
     studentuGeneravimas(grupeVector, stud, pow(10, iteracija + 3));
+    fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(10);
+
+    for (int i = 0; i < 10; i++) {
+        fout << left << setw(5) << "ND" + to_string(i + 1);
+    }
+    fout << left << setw(5) << "Egz." << endl;
+    
     for (auto& student : grupeVector) {
         fout << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(10);
         for (int pazymys : student.pazymiai) {
             fout << left << setw(5) << pazymys;
         }
+        for (int i = 0; i < 10 - student.pazymiai.size(); i++) {
+            fout << left << setw(5) << " ";
+        }
         fout << left << setw(5) << student.egzaminas << endl;
     }
     fout.close();
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    cout << "Studentu generavimas ir rasymas i faila uztruko: " << duration.count() << " sek." << endl;
 }
 
 //Comparinimo bool funkcijos
@@ -398,18 +415,33 @@ void studentuGeneravimas(vector<studentasV>& grupeVector, studentasV& stud, int 
     }
     
 }
-void pazymiuFailoGeneravimas(vector<studentasV>& grupeVector, double& laikasSkaitymas, double& laikasSkaiciavimas, double& laikasRusiavimas, int& fakePazymiai) {
+void pazymiuFailoGeneravimas(vector<studentasV>& grupeVector) {
     for (int i = 0; i < 5; i++) {
         studentasV stud = studentasV();
         //studentuGeneravimas(stud, pow(10, i + 3));
         //generalVidurkisCalculate(grupeVector);
         //generalMedianaCalculate(grupeVector);
-        failoGeneravimasIsvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai, i, stud);
+        failoGeneravimasIsvedimas(grupeVector, i, stud);
         cout << "Duomenys isvesti i faila!!!!" << endl;
         system("pause");
         for (int i = 0; i < grupeVector.size(); i++) {
             grupeVector[i].pazymiai.clear();
         }
         grupeVector.clear();
+    }
+}
+void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, double& laikasSkaitymas, double& laikasSkaiciavimas) {
+    for (int i = 0; i < 5; i++) {
+        fileReading(grupeVector, to_string(i + 1) + ".txt", laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
+
+        auto start = std::chrono::high_resolution_clock::now();
+
+        vector<studentasV> tempBad;
+        copy_if(grupeVector.begin(), grupeVector.end(), back_inserter(tempBad), [](const studentasV& student) {
+            return student.pazVid < 5 || student.mediana < 5;});
+
+        grupeBad.insert(grupeBad.end(), tempBad.begin(), tempBad.end());
+        grupeVector.erase(remove_if(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
+            return student.pazVid < 5 || student.mediana < 5;}), grupeVector.end());
     }
 }

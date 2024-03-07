@@ -22,7 +22,7 @@ struct studentasV {
 void ivedimas(vector<studentasV>& grupeVector, int n);
 void ivedimasNoSize(vector<studentasV>& grupeVector);
 void ivedimasCaseTwo(vector<studentasV>& grupeVector);
-void fileReading(vector<studentasV>& grupeVector, string& failas, double & laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas);
+void fileReading(vector<studentasV>& grupeVector, string failas, double & laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas);
 
 void generateRandomGrades(studentasV &stud);
 void generateRandomNames(studentasV &stud);
@@ -37,5 +37,6 @@ void readNumbersV(studentasV& stud, int maxItems);
 void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasRusiavimas);
 void laikoIsvedimas(double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas);
 void studentuGeneravimas(vector<studentasV>& grupeVector, studentasV& stud, int kiekis);
-void pazymiuFailoGeneravimas(vector<studentasV>& grupeVector, double& laikasSkaitymas, double& laikasSkaiciavimas, double& laikasRusiavimas, int& fakePazymiai);
-void failoGeneravimasIsvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas, int fakePazymiai, int iteracija, studentasV& stud);
+void pazymiuFailoGeneravimas(vector<studentasV>& grupeVector);
+void failoGeneravimasIsvedimas(vector<studentasV> grupeVector, int iteracija, studentasV& stud);
+void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, double& laikasSkaitymas, double& laikasSkaiciavimas);
