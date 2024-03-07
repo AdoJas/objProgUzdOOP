@@ -29,6 +29,10 @@ float studentasV::getVidurkis() {
     return accumulate(pazymiai.begin(), pazymiai.end(), 0) * 1.0 / pazymiai.size() * 0.4 + egzaminas * 0.6;
 }
 
+double laikasSkaitymas = 0.0;
+double laikasSkaiciavimas = 0.0;
+double laikasRusiavimas = 0.0;
+int fakePazymiai = 0;
 
 //Duomenu ivedimo/nuskaitymo funkcijos
 void ivedimasV(vector<studentasV>& grupeVector, studentasV& stud, int studentoNr, int pazymiuKiekis) {
@@ -199,7 +203,7 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
     string pasirinkimasConsole;
     string vidMed;
     string custom = " ";
-    ofstream fout("Kursiokai" + to_string(iteracija+1) + ".txt");
+    ofstream fout("KursiokaiNesugeneruotas" + to_string(iteracija+1) + ".txt");
 
     pasirinkimasVidMed(vidMed);
     cout << "--------------------------------------------------" << endl;
@@ -265,6 +269,18 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
                 fout << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
             }
         }
+    }
+    fout.close();
+}
+void failoGeneravimasIsvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas, int fakePazymiai, int iteracija, studentasV& stud) {
+    ofstream fout("KursiokaiGen" + to_string(iteracija + 1) + ".txt");
+    studentuGeneravimas(grupeVector, stud, pow(10, iteracija + 3));
+    for (auto& student : grupeVector) {
+        fout << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(10);
+        for (int pazymys : student.pazymiai) {
+            fout << left << setw(5) << pazymys;
+        }
+        fout << left << setw(5) << student.egzaminas << endl;
     }
     fout.close();
 }
@@ -379,5 +395,21 @@ void studentuGeneravimas(vector<studentasV>& grupeVector, studentasV& stud, int 
         }
         stud.egzaminas = rand() % 10 + 1;
         grupeVector.push_back(stud);
+    }
+    
+}
+void pazymiuFailoGeneravimas(vector<studentasV>& grupeVector, double& laikasSkaitymas, double& laikasSkaiciavimas, double& laikasRusiavimas, int& fakePazymiai) {
+    for (int i = 0; i < 5; i++) {
+        studentasV stud = studentasV();
+        //studentuGeneravimas(stud, pow(10, i + 3));
+        //generalVidurkisCalculate(grupeVector);
+        //generalMedianaCalculate(grupeVector);
+        failoGeneravimasIsvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai, i, stud);
+        cout << "Duomenys isvesti i faila!!!!" << endl;
+        system("pause");
+        for (int i = 0; i < grupeVector.size(); i++) {
+            grupeVector[i].pazymiai.clear();
+        }
+        grupeVector.clear();
     }
 }

@@ -25,12 +25,12 @@ int main()
     int pasirinkimas = 0;
     int arrVect = 0;
     int laikinas = 0;
-    int fakePazymiai = 0;
+    string failas = " ";
+    vector<studentasV> grupeVector;
     double laikasSkaitymas = 0.0;
     double laikasSkaiciavimas = 0.0;
     double laikasRusiavimas = 0.0;
-    string failas = " ";
-    vector<studentasV> grupeVector;
+    int fakePazymiai = 0;
 
 do{
     meniu(pasirinkimas);
@@ -79,19 +79,7 @@ do{
         break;
     }
     case 5: {
-        for (int i = 0; i < 4; i++) {
-            studentasV stud = studentasV();
-            studentuGeneravimas(grupeVector, stud, pow(10, i + 3));
-            generalVidurkisCalculate(grupeVector);
-            generalMedianaCalculate(grupeVector);
-            isvedimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai, i);
-            cout << "Duomenys isvesti i faila!!!!" << endl;
-            system("pause");
-            for (int i = 0; i < grupeVector.size(); i++) {
-                grupeVector[i].pazymiai.clear();
-            }
-            grupeVector.clear();
-        }
+        pazymiuFailoGeneravimas(grupeVector, laikasSkaitymas, laikasSkaiciavimas, laikasRusiavimas, fakePazymiai);
         break;
     }
     case 6:

@@ -2,6 +2,7 @@
 #include "common.h"
 #include "PazymiaiArrays.h"
 
+
 void addToArray(int*& arr, int& size, int value) {
     size++;
     int* tmp = new int[size];
