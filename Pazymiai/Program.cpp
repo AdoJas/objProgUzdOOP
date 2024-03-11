@@ -26,13 +26,14 @@ int main()
     int arrVect = 0;
     int laikinas = 0;
     string failas = " ";
+    string vidMed;
     vector<studentasV> grupeVector;
     vector<studentasV> grupeBad;
     double laikasSkaitymas = 0.0;
     double laikasSkaiciavimas = 0.0;
     double laikasRusiavimas = 0.0;
     int fakePazymiai = 0;
-
+    int choice;
 do{
     meniu(pasirinkimas);
     switch (pasirinkimas) {
@@ -80,13 +81,14 @@ do{
         break;
     }
     case 5: {
+        pasirinkimasVidMed(vidMed);
+        sortChoice(choice);
         auto start = std::chrono::high_resolution_clock::now();
-
         pazymiuFailoGeneravimas(grupeVector);
         //galutiniam i < 5
-        for (int i = 0; i < 4; i++) {
-            failoNuskaitymasRusiavimas(grupeVector, grupeBad, laikasSkaitymas, laikasSkaiciavimas, i);
-            isvedimasFailai(grupeVector, grupeBad, i);
+        for (int i = 0; i < 5; i++) {
+            failoNuskaitymasRusiavimas(grupeVector, grupeBad, laikasSkaitymas, laikasSkaiciavimas, i, vidMed);
+            isvedimasFailai(grupeVector, grupeBad, i, vidMed, choice);
 
             for (int i = 0; i < grupeVector.size(); i++) {
                 grupeVector[i].pazymiai.clear();
