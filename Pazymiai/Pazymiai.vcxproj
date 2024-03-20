@@ -129,12 +129,14 @@
   <ItemGroup>
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="PazymiaiArrays.cpp" />
+    <ClCompile Include="PazymiaiList.cpp" />
     <ClCompile Include="PazymiaiVectors.cpp" />
     <ClCompile Include="Program.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
     <ClInclude Include="PazymiaiArrays.h" />
+    <ClInclude Include="PazymiaiList.h" />
     <ClInclude Include="PazymiaiVectors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
