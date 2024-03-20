@@ -111,7 +111,13 @@ do{
         cout << "VIsos programos veikimo trukme:  " << duration.count() << " sek." << endl;
         break;
     }
-    case 6:
+    case 6: {
+
+
+
+        break;
+    }    
+    case 7:
         printf("Sekmingai baigete darba!!!\n");
         break;
 
@@ -127,7 +133,7 @@ do{
     }
     grupeVector.clear();
 
-}while (pasirinkimas != 6);
+}while (pasirinkimas != 7);
 
     return 0;
 }

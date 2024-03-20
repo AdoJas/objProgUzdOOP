@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="PazymiaiArrays.cpp" />
+    <ClCompile Include="PazymiaiDeque.cpp" />
     <ClCompile Include="PazymiaiList.cpp" />
     <ClCompile Include="PazymiaiVectors.cpp" />
     <ClCompile Include="Program.cpp" />
@@ -136,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="Common.h" />
     <ClInclude Include="PazymiaiArrays.h" />
+    <ClInclude Include="PazymiaiDeque.h" />
     <ClInclude Include="PazymiaiList.h" />
     <ClInclude Include="PazymiaiVectors.h" />
   </ItemGroup>
