@@ -1,10 +1,13 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <iostream>
+#include <string>
 #include <iomanip>
 #include <numeric>
 #include <algorithm>
 #include <cmath>
+#include "Common.h"
 #include <fstream>
 #include <sstream>
 #include "chrono"
@@ -29,3 +32,4 @@ void generalVidurkisCalculateList(list<studentasL>& grupeList);
 void generalMedianaCalculateList(list<studentasL>& grupeList);
 void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed);
 void listPartition(string vidMed, list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood);
+void listPartition2(string vidMed, list<studentasL>& grupeList, list<studentasL>& grupeListBad);

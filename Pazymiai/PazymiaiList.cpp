@@ -1,16 +1,15 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <vector>
 #include <numeric>
 #include <algorithm>
 #include <cmath>
 #include "PazymiaiList.h"
-#include "Common.h"
 #include <fstream>
 #include <sstream>
 #include "chrono"
-#include <list>
-#include <string>
+#include "common.h"
 
 using namespace std;
 
@@ -109,21 +108,6 @@ void generalMedianaCalculateList(list<studentasL>& grupeList) {
         }
     }
 }
-void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed) {
-    int fakePazymiai;
-    fileReadingList(grupeList, "KursiokaiGen" + to_string(i + 1) + ".txt", laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
-
-    auto start = std::chrono::high_resolution_clock::now();
-
-    listPartition(vidMed, grupeList, grupeListBad, grupeListGood);
-
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration = end - start;
-
-    std::cout << "Studentu nuskaitymas is failo  " << laikasSkaitymas << " sek." << std::endl;
-    std::cout << "Studentu duomenu apskaiciavimas truko:  " << laikasSkaiciavimas << " sek." << std::endl;
-    std::cout << "Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << std::endl;
-}
 void listPartition(string vidMed, list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood) {
     if (vidMed == "1") {
         auto it = std::partition(grupeList.begin(), grupeList.end(), [](const studentasL& student) {
@@ -141,4 +125,47 @@ void listPartition(string vidMed, list<studentasL>& grupeList, list<studentasL>&
         grupeListGood.insert(grupeListGood.end(), grupeList.begin(), it);
         grupeListBad.insert(grupeListBad.end(), it, grupeList.end());
     }
+}
+void listPartition2(string vidMed, list<studentasL>& grupeList, list<studentasL>& grupeListBad) {
+    if (vidMed == "1") {
+        auto it = std::partition(grupeList.begin(), grupeList.end(), [](const studentasL& student) {
+            return student.pazVid >= 5;
+            });
+
+        grupeListBad.insert(grupeListBad.end(), it, grupeList.end());
+        grupeList.erase(it, grupeList.end());
+    }
+    else {
+        auto it = std::partition(grupeList.begin(), grupeList.end(), [](const studentasL& student) {
+            return student.mediana >= 5;
+            });
+
+        grupeListBad.insert(grupeListBad.end(), it, grupeList.end());
+        grupeList.erase(it, grupeList.end());
+
+    }
+}
+void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed) {
+    int fakePazymiai;
+    fileReadingList(grupeList, "KursiokaiGen" + to_string(i + 1) + ".txt", laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
+    int ivedimas;
+    do {
+        cout << "1 - Jei norite rusiuoti i du naujus konteinerius" << endl;
+        cout << "2 - Jei norite rusiuoti i viena nauja konteineri" << endl;
+        std::cin >> ivedimas;
+    } while (ivedimas != 1 && ivedimas != 2);
+    
+    auto start = std::chrono::high_resolution_clock::now();
+    if (ivedimas == 1) {
+        listPartition(vidMed, grupeList, grupeListBad, grupeListGood);
+    }
+    else {
+        listPartition2(vidMed, grupeList, grupeListBad);
+    }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+
+    std::cout << "Studentu nuskaitymas is failo  " << laikasSkaitymas << " sek." << std::endl;
+    std::cout << "Studentu duomenu apskaiciavimas truko:  " << laikasSkaiciavimas << " sek." << std::endl;
+    std::cout << "Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << std::endl;
 }

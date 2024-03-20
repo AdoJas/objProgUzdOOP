@@ -34,13 +34,12 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
 
 void readNumbersV(studentasV& stud, int maxItems);
 
-void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasRusiavimas);
 void laikoIsvedimas(double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas);
 void studentuGeneravimas(vector<studentasV>& grupeVector, studentasV& stud, int kiekis);
 void pazymiuFailoGeneravimas(vector<studentasV>& grupeVector);
 void failoGeneravimasIsvedimas(vector<studentasV> grupeVector, int iteracija, studentasV& stud);
+void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasRusiavimas);
 void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed);
 void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad, int i, string& vidMed, int& choice);
 void pasirinkimasVidMed(string& vidMed);
-void sortChoice(int& choice);
 void vektoriaiMain(string vidMed, int choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood);
