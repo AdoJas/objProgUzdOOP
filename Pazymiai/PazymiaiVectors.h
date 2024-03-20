@@ -43,3 +43,4 @@ void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studenta
 void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad, int i, string& vidMed, int& choice);
 void pasirinkimasVidMed(string& vidMed);
 void sortChoice(int& choice);
+void vektoriaiMain(string vidMed, int choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood);

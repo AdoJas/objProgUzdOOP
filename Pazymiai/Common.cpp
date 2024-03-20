@@ -2,7 +2,6 @@
 #include "common.h"
 #include "PazymiaiArrays.h"
 
-
 void addToArray(int*& arr, int& size, int value) {
     size++;
     int* tmp = new int[size];
@@ -40,4 +39,22 @@ void meniu(int& pasirinkimas){
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         printf("--------------------------------------------------\n");
     } while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3 && pasirinkimas != 4 && pasirinkimas != 5 && pasirinkimas != 6 && pasirinkimas != 7);
+}
+void sortChoice(int& choice) {
+    do {
+        printf("Pasirinkite norima rusiavimo buda: \n");
+        printf("1- Rusiuoti pagal varda\n");
+        printf("2- Rusiuoti pagal pavarde\n");
+        printf("3- Rusiuoti pagal vidurki\n");
+        printf("4- Rusiuoti pagal mediana\n");
+        cout << "Pasirinkimas: ";
+        cin >> choice;
+    } while (choice > 4 || choice < 1);
+}
+void pasirinkimasVidMed(string& vidMed) {
+    do {
+        cout << "Jei norite isvedimo vidurkio pavidalu, rasykite 1\n" <<
+            "Jei norite isvedimo medianos pavidalu, rasykite 2: ";
+        cin >> vidMed;
+    } while (vidMed != "1" && vidMed != "2");
 }

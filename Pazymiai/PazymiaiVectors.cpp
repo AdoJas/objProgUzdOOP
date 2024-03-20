@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include "chrono"
+#include "common.h"
 
 using namespace std;
 float studentasV::getMediana() {
@@ -191,13 +192,7 @@ void isvedimoPasirinkimas(string& pasirinkimasConsole){
         cin >> pasirinkimasConsole;
     } while (pasirinkimasConsole != "1" && pasirinkimasConsole != "2");
 }
-void pasirinkimasVidMed(string& vidMed){
-    do {
-        cout << "Jei norite isvedimo vidurkio pavidalu, rasykite 1\n" << 
-        "Jei norite isvedimo medianos pavidalu, rasykite 2: ";
-        cin >> vidMed;
-    } while (vidMed != "1" && vidMed != "2");
-}
+
 void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas, int fakePazymiai, int iteracija) {
     int choice = 0;
     string pasirinkimasConsole;
@@ -309,20 +304,20 @@ bool compareByName(const studentasV& a, const studentasV& b) {
         int num1 = stoi(a.vardas.substr(6));
         int num2 = stoi(b.vardas.substr(6));
         return num1 > num2;
-    }else return a.vardas > b.vardas;
+    }else return a.vardas < b.vardas;
 }
 bool compareBySurname(const studentasV& a, const studentasV& b) {
     if (a.pavarde.find("Pavarde") == 0 && b.pavarde.find("Pavarde") == 0) {
         int num1 = stoi(a.pavarde.substr(7));
         int num2 = stoi(b.pavarde.substr(7));
         return num1 > num2;
-    }else return a.pavarde > b.pavarde;
+    }else return a.pavarde < b.pavarde;
 }
 bool compareByAverage(const studentasV& a, const studentasV& b){
-    return a.pazVid > b.pazVid;
+    return a.pazVid < b.pazVid;
 }
 bool compareByMediana(const studentasV& a, const studentasV& b){
-    return a.mediana > b.mediana;
+    return a.mediana < b.mediana;
 }
 
 //Dinaminis pazymiu ivedimas
@@ -388,17 +383,7 @@ void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasRusia
     std::chrono::duration<double> duration = end - start;
     laikasRusiavimas = duration.count();
 }
-void sortChoice(int& choice) {
-    do {
-        printf("Pasirinkite norima rusiavimo buda: \n");
-        printf("1- Rusiuoti pagal varda\n");
-        printf("2- Rusiuoti pagal pavarde\n");
-        printf("3- Rusiuoti pagal vidurki\n");
-        printf("4- Rusiuoti pagal mediana\n");
-        cout << "Pasirinkimas: ";
-        cin >> choice;
-    } while (choice > 4 || choice < 1);
-}
+
 void laikoIsvedimas(double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas) {
         cout << "Is viso sugaistas laikas nuskaitant duomenis is failo: " << laikasSkaitymas << "sek. \n";
         cout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
@@ -509,4 +494,36 @@ void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad
         auto end1 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration1 = end1 - start1;
         cout << "Abieju studentu konteineriu isvedimas truko:  " << duration1.count() << " sek." << endl;
+}
+void vektoriaiMain(string vidMed, int choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood) {
+
+    pasirinkimasVidMed(vidMed);
+    sortChoice(choice);
+    //pazymiuFailoGeneravimas(grupeVector);
+    auto start = std::chrono::high_resolution_clock::now();
+
+    for (int i = 0; i < 5; i++) {
+        failoNuskaitymasRusiavimas(grupeVector, grupeBad, grupeGood, laikasSkaitymas, laikasSkaiciavimas, i, vidMed);
+        isvedimasFailai(grupeGood, grupeBad, i, vidMed, choice);
+
+        for (int i = 0; i < grupeVector.size(); i++) {
+            grupeVector[i].pazymiai.clear();
+        }
+        grupeVector.clear();
+
+        for (int i = 0; i < grupeBad.size(); i++) {
+            grupeBad[i].pazymiai.clear();
+        }
+        grupeBad.clear();
+
+        for (int i = 0; i < grupeGood.size(); i++) {
+            grupeGood[i].pazymiai.clear();
+        }
+        grupeGood.clear();
+    }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    cout << "VIsos programos veikimo trukme:  " << duration.count() << " sek." << endl;
+
+
 }
