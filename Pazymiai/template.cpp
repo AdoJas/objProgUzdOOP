@@ -79,6 +79,7 @@ Veiksmas getVeiksmas() {
 
 }
 
+
 //
 //void generalVidurkisCalculate(KonteinerioTipas& grupeContainer) {
 //    for (auto& student : grupeContainer) {

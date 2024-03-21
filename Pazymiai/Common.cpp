@@ -1,6 +1,7 @@
 #include <limits>
 #include "common.h"
 #include "PazymiaiArrays.h"
+#include <fstream>
 
 void addToArray(int*& arr, int& size, int value) {
     size++;
@@ -70,4 +71,25 @@ void pasirinkimasVidMed(string& vidMed) {
             "Jei norite isvedimo medianos pavidalu, rasykite 2: ";
         cin >> vidMed;
     } while (vidMed != "1" && vidMed != "2");
+}
+void generateFiles(int iteracija, int kiekis) {
+    ofstream fout("KursiokaiGen" + to_string(iteracija + 1) + ".txt");
+    fout << left << setw(20) << "Vardas" << setw(20) << "Pavarde";
+    for (int i = 0; i < 10; ++i)
+    {
+        fout << setw(5) << "ND" + to_string(i + 1);
+    }
+    fout << setw(5) << "Egz." << endl;
+
+    for (int i = 1; i <= kiekis; i++)
+    {
+        fout << left << setw(20) << "Vardas" + to_string(i)
+            << setw(20) << "Pavarde" + to_string(i);
+        for (int j = 0; j < 15; j++)
+        {
+            fout << setw(5) << (rand() % 10 + 1);
+        }
+        fout << setw(5) << (rand() % 10 + 1);
+        fout << endl;
+    }
 }
