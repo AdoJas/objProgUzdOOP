@@ -33,6 +33,9 @@
     <ClCompile Include="PazymiaiDeque.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="template.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PazymiaiVectors.h">

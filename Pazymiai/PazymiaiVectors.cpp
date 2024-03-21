@@ -524,6 +524,4 @@ void vektoriaiMain(string vidMed, int choice, vector<studentasV>& grupeVector, v
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
     cout << "VIsos programos veikimo trukme:  " << duration.count() << " sek." << endl;
-
-
 }

@@ -7,3 +7,4 @@ void addToArray(studentasA*& arr, int& size, studentasA value);
 void meniu(int& pasirinkimas);
 void sortChoice(int& choice);
 void pasirinkimasVidMed(string& vidMed);
+void meniuKonteineriai(int& pasirinkimas);

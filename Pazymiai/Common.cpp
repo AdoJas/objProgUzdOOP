@@ -40,6 +40,19 @@ void meniu(int& pasirinkimas){
         printf("--------------------------------------------------\n");
     } while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3 && pasirinkimas != 4 && pasirinkimas != 5 && pasirinkimas != 6 && pasirinkimas != 7);
 }
+void meniuKonteineriai(int& pasirinkimas) {
+    do {
+        cout << "Pasirinkite konteineri:\n"
+            << "1 - Vector\n"
+            << "2 - List\n"
+            << "3 - Deque\n"
+            << ("--------------------------------------------------\n")
+            << "Pasirinkite norima konteineri: ";
+        cin >> pasirinkimas;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        printf("--------------------------------------------------\n");
+    } while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3);
+}
 void sortChoice(int& choice) {
     do {
         printf("Pasirinkite norima rusiavimo buda: \n");

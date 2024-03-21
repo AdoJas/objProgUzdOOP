@@ -118,6 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +134,7 @@
     <ClCompile Include="PazymiaiList.cpp" />
     <ClCompile Include="PazymiaiVectors.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="template.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />

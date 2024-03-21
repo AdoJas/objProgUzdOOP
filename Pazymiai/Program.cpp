@@ -38,6 +38,7 @@ int main()
     int choice = 0;
 do{
     meniu(pasirinkimas);
+    pasirinkimas = 0;
     switch (pasirinkimas) {
     case 1: {
         printf("Kiek studentu yra grupeje? (iveskite 0, jei norite ivesti neribota kieki)\n");
@@ -87,7 +88,16 @@ do{
         break;
     }
     case 6: {
+        meniuKonteineriai(pasirinkimas);
+        switch (pasirinkimas) {
+        case 1: {
+            vektoriaiMain(vidMed, choice, grupeVector, grupeBad, grupeGood);
+        }
+        case 2: {
 
+        }
+
+        }
 
 
         break;
