@@ -374,16 +374,12 @@ void studentuGeneravimas(vector<studentasV>& grupeVector, studentasV& stud, int 
     }
     
 }
-void pazymiuFailoGeneravimas(vector<studentasV>& grupeVector) {
+void pazymiuFailoGeneravimas() {
     for (int i = 0; i < 5; i++) {
         //studentasV stud = studentasV();
         failoGeneravimasIsvedimas(i);
         cout << "Duomenys isvesti i faila!!!!" << endl;
         cout << "--------------------------------------------------" << endl;
-        for (int i = 0; i < grupeVector.size(); i++) {
-            grupeVector[i].pazymiai.clear();
-        }
-        grupeVector.clear();
     }
 }
 void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed) {
@@ -485,7 +481,7 @@ void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector
 
     pasirinkimasVidMed(vidMed);
     sortChoice(choice);
-    pazymiuFailoGeneravimas(grupeVector);
+    pazymiuFailoGeneravimas();
     auto start = std::chrono::high_resolution_clock::now();
 
     for (int i = 0; i < 5; i++) {

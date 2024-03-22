@@ -32,10 +32,14 @@ int main()
     vector<studentasV> grupeVector;
     vector<studentasV> grupeBad;
     vector<studentasV> grupeGood;
+    list<studentasL> grupeList;
+    list<studentasL> grupeListBad;
+    list<studentasL> grupeListGood;
     double laikasSkaitymas = 0.0;
     double laikasSkaiciavimas = 0.0;
     double laikasRusiavimas = 0.0;
     int fakePazymiai;
+    int ivedimasList = 0;
     string choice = " ";;
 do{
     meniu(pasirinkimas);
@@ -90,14 +94,21 @@ do{
     }
     case 6: {
         meniuKonteineriai(containerPasirinkimas);
-        switch (stoi(pasirinkimas)) {
+        switch (stoi(containerPasirinkimas)) {
         case 1: {
+            cout << "Pasirinkite" << endl;
             vektoriaiMain(vidMed, choice, grupeVector, grupeBad, grupeGood);
+            break;
         }
         case 2: {
+            cout << "Pasirinkite" << endl;
 
+            listMain(vidMed, choice, grupeList, grupeListBad, grupeListGood, ivedimasList);
+            break;
         }
-
+        case 3: {
+            break;
+        }
         }
 
 

@@ -63,6 +63,37 @@ void meniu(string& pasirinkimas) {
 
     } while (!validInput);
 }
+void meniuKonteineriams(string& pasirinkimas) {
+    bool validInput = false;
+    do {
+        cout << "Meniu:\n"
+            << "1 - Studentu duomenu ivedimas ranka\n"
+            << "2 - Ivestiems studentams generuojami pazymiai\n"
+            << "3 - Generuojami pazymiai ir vardai/pavardes ivedus studentu skaiciu\n"
+            << "4 - Skaityti duomenis is failo\n"
+            << "5 - Studentu duomenu generavimas, rasymas i faila, failo nuskaitymas\n"
+            << "6 - Baigti pasirinkima\n"
+            << "--------------------------------------------------\n"
+            << "Pasirinkite norima opcija: ";
+
+        try {
+            cin >> pasirinkimas;
+            int option = stoi(pasirinkimas);
+            if (option >= 1 && option <= 6) {
+                validInput = true;
+            }
+            else {
+                cout << "Neteisinga ivestis. Pasirinkite skaiciu nuo 1 iki 6.\n";
+            }
+        }
+        catch (const std::exception& e) {
+            cout << "Neteisinga ivestis. Pasirinkite skaiciu nuo 1 iki 6.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+
+    } while (!validInput);
+}
 void meniuKonteineriai(string& pasirinkimas) {
     bool validInput = false;
     do {

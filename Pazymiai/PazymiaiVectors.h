@@ -36,7 +36,7 @@ void readNumbersV(studentasV& stud, int maxItems);
 
 void laikoIsvedimas(double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas);
 void studentuGeneravimas(vector<studentasV>& grupeVector, studentasV& stud, int kiekis);
-void pazymiuFailoGeneravimas(vector<studentasV>& grupeVector);
+void pazymiuFailoGeneravimas();
 void failoGeneravimasIsvedimas(int iteracija);
 void sortInput(string& choice, vector<studentasV>& grupeVector, double& laikasRusiavimas);
 void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed);

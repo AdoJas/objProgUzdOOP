@@ -51,7 +51,7 @@ void fileReadingList(list<studentasL> grupeList, string failas) {
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
 
-    cout << "Failu nuskaitymas su LIST uztruko: " << duration.count();
+    cout << "Failu nuskaitymas su LIST uztruko: " << duration.count() << endl;
 
     auto skStart = std::chrono::high_resolution_clock::now();
 
@@ -60,7 +60,7 @@ void fileReadingList(list<studentasL> grupeList, string failas) {
 
     auto skEnd = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> skDuration = skEnd - skStart;
-    cout << "Vidurkiu ir medianu apskaiciavimas su LIST uztruko: " << skDuration.count();
+    cout << "Vidurkiu ir medianu apskaiciavimas su LIST uztruko: " << skDuration.count() << endl;
 }
 void generalVidurkisCalculateList(list<studentasL>& grupeList) {
     for (auto& student : grupeList) {
@@ -144,7 +144,7 @@ void listPartition2(string vidMed, list<studentasL>& grupeList, list<studentasL>
 
     }
 }
-void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed, int& ivedimas) {
+void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas) {
     int fakePazymiai;
     fileReadingList(grupeList, "KursiokaiGen" + to_string(i + 1) + ".txt");
     /*do {
@@ -167,21 +167,16 @@ void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL
 
     /*std::cout << "Studentu nuskaitymas is failo  " << laikasSkaitymas << " sek." << std::endl;
     std::cout << "Studentu duomenu apskaiciavimas truko:  " << laikasSkaiciavimas << " sek." << std::endl;*/
-    std::cout << "Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << std::endl;
+    cout << "Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << endl;
 }
-void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed, int& ivedimas) {
+void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas, string choice) {
     ofstream fout("KursiokaiGood" + to_string(i + 1) + ".txt");
     ofstream foutB("KursiokaiBad" + to_string(i + 1) + ".txt");
     
     stringstream bufferis;
     stringstream bufferisB;
 
-    auto start = std::chrono::high_resolution_clock::now();
-    //sortInput(choice, grupeList, laikasSkaitymas);
-    //sortInput(choice, grupeListBad, laikasSkaitymas);
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration = end - start;
-    cout << "Abieju studentu konteineriu rusiavimas pagal pasirinkima :  " << duration.count() << " sek." << endl;
+    
     auto start1 = std::chrono::high_resolution_clock::now();
     if (vidMed == "1") {
         bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
@@ -231,4 +226,72 @@ void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeList
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
     cout << "Abieju studentu konteineriu(LIST) isvedimas truko:  " << duration1.count() << " sek." << endl;
+}
+
+bool compareByName(const studentasL& a, const studentasL& b) {
+    if (a.vardas.find("Vardas") == 0 && b.vardas.find("Vardas") == 0) {
+        int num1 = stoi(a.vardas.substr(6));
+        int num2 = stoi(b.vardas.substr(6));
+        return num1 > num2;
+    }
+    else return a.vardas < b.vardas;
+}
+bool compareBySurname(const studentasL& a, const studentasL& b) {
+    if (a.pavarde.find("Pavarde") == 0 && b.pavarde.find("Pavarde") == 0) {
+        int num1 = stoi(a.pavarde.substr(7));
+        int num2 = stoi(b.pavarde.substr(7));
+        return num1 > num2;
+    }
+    else return a.pavarde < b.pavarde;
+}
+bool compareByAverage(const studentasL& a, const studentasL& b) {
+    return a.pazVid < b.pazVid;
+}
+bool compareByMediana(const studentasL& a, const studentasL& b) {
+    return a.mediana < b.mediana;
+}
+
+void sortInputList(string& choice, list<studentasL>& grupeList) {
+    switch (stoi(choice)) {
+    case 1:
+        grupeList.sort(compareByName);
+        break;
+    case 2:
+        grupeList.sort(compareBySurname);
+        break;
+    case 3:
+        grupeList.sort(compareByAverage);
+        break;
+    case 4:
+        grupeList.sort(compareByMediana);
+        break;
+    default:
+        cerr << "Klaida: nepavyko surusiuoti failu!\n";
+    }
+}
+//void clearList(std::list<studentasL>& grupeList) {
+//    for (auto& student : grupeList) {
+//        student.pazymiai.clear();
+//    }
+//    grupeList.clear();
+//}
+void listMain(string vidMed, string choice, list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int ivedimas) {
+    pasirinkimasVidMed(vidMed);
+    sortChoice(choice);
+    //pazymiuFailoGeneravimas();
+    auto start = std::chrono::high_resolution_clock::now();
+    for (int i = 0; i < 5; i++) {
+        failoNuskaitymasRusiavimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas);
+        auto start = std::chrono::high_resolution_clock::now();
+        sortInputList(choice, grupeList);
+        sortInputList(choice, grupeListBad);
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end - start;
+        cout << "Abieju studentu konteineriu rusiavimas pagal pasirinkima :  " << duration.count() << " sek." << endl;
+        failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
+        //clearList(grupeList);
+        //clearList(grupeListBad);
+        //clearList(grupeListGood);
+    }
+    
 }
