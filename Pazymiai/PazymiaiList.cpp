@@ -13,7 +13,7 @@
 
 using namespace std;
 
-void fileReadingList(list<studentasL> grupeList, string failas, double& laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas) {
+void fileReadingList(list<studentasL> grupeList, string failas) {
     ifstream fin;
     do {
         fin.open(failas);
@@ -39,7 +39,6 @@ void fileReadingList(list<studentasL> grupeList, string failas, double& laikasSk
                 }
             }
             catch (std::exception& e) {
-                fakePazymiai++;
             }
         }
         laikinasL.egzaminas = laikinasL.pazymiai.back();
@@ -52,7 +51,7 @@ void fileReadingList(list<studentasL> grupeList, string failas, double& laikasSk
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
 
-    laikasSkaitymas = duration.count();
+    cout << "Failu nuskaitymas su LIST uztruko: " << duration.count();
 
     auto skStart = std::chrono::high_resolution_clock::now();
 
@@ -61,7 +60,7 @@ void fileReadingList(list<studentasL> grupeList, string failas, double& laikasSk
 
     auto skEnd = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> skDuration = skEnd - skStart;
-    laikasSkaiciavimas = skDuration.count();
+    cout << "Vidurkiu ir medianu apskaiciavimas su LIST uztruko: " << skDuration.count();
 }
 void generalVidurkisCalculateList(list<studentasL>& grupeList) {
     for (auto& student : grupeList) {
@@ -147,7 +146,7 @@ void listPartition2(string vidMed, list<studentasL>& grupeList, list<studentasL>
 }
 void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed, int& ivedimas) {
     int fakePazymiai;
-    fileReadingList(grupeList, "KursiokaiGen" + to_string(i + 1) + ".txt", laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
+    fileReadingList(grupeList, "KursiokaiGen" + to_string(i + 1) + ".txt");
     /*do {
         cout << "1 - Jei norite rusiuoti i du naujus konteinerius" << endl;
         cout << "2 - Jei norite rusiuoti i viena nauja konteineri" << endl;
@@ -166,8 +165,8 @@ void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
 
-    std::cout << "Studentu nuskaitymas is failo  " << laikasSkaitymas << " sek." << std::endl;
-    std::cout << "Studentu duomenu apskaiciavimas truko:  " << laikasSkaiciavimas << " sek." << std::endl;
+    /*std::cout << "Studentu nuskaitymas is failo  " << laikasSkaitymas << " sek." << std::endl;
+    std::cout << "Studentu duomenu apskaiciavimas truko:  " << laikasSkaiciavimas << " sek." << std::endl;*/
     std::cout << "Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << std::endl;
 }
 void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed, int& ivedimas) {
@@ -178,8 +177,8 @@ void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeList
     stringstream bufferisB;
 
     auto start = std::chrono::high_resolution_clock::now();
-    //sortInput(choice, grupeVector, laikasSkaitymas);
-    //sortInput(choice, grupeBad, laikasSkaitymas);
+    //sortInput(choice, grupeList, laikasSkaitymas);
+    //sortInput(choice, grupeListBad, laikasSkaitymas);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
     cout << "Abieju studentu konteineriu rusiavimas pagal pasirinkima :  " << duration.count() << " sek." << endl;
