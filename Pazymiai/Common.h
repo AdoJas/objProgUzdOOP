@@ -4,7 +4,8 @@
 
 void addToArray(int*& arr, int& size, int value);
 void addToArray(studentasA*& arr, int& size, studentasA value);
-void meniu(int& pasirinkimas);
-void sortChoice(int& choice);
+void meniu(string& pasirinkimas);
+void sortChoice(string& choice);
 void pasirinkimasVidMed(string& vidMed);
-void meniuKonteineriai(int& pasirinkimas);
+void meniuKonteineriai(string& pasirinkimas);
+void failoGeneravimasIsvedimas(int iteracija);

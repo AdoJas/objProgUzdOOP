@@ -23,7 +23,8 @@ int main()
     int n = 0; //studentu skaicius
     int x = 0; //pazymiu skaicius
     int i = 0;
-    int pasirinkimas = 0;
+    string pasirinkimas = " ";
+    string containerPasirinkimas = " ";
     int arrVect = 0;
     int laikinas = 0;
     string failas = " ";
@@ -35,11 +36,11 @@ int main()
     double laikasSkaiciavimas = 0.0;
     double laikasRusiavimas = 0.0;
     int fakePazymiai;
-    int choice = 0;
+    string choice = " ";;
 do{
     meniu(pasirinkimas);
-    pasirinkimas = 0;
-    switch (pasirinkimas) {
+    //pasirinkimas = 0;
+    switch (stoi(pasirinkimas)) {
     case 1: {
         printf("Kiek studentu yra grupeje? (iveskite 0, jei norite ivesti neribota kieki)\n");
         cin >> n;
@@ -88,8 +89,8 @@ do{
         break;
     }
     case 6: {
-        meniuKonteineriai(pasirinkimas);
-        switch (pasirinkimas) {
+        meniuKonteineriai(containerPasirinkimas);
+        switch (stoi(pasirinkimas)) {
         case 1: {
             vektoriaiMain(vidMed, choice, grupeVector, grupeBad, grupeGood);
         }
@@ -110,7 +111,7 @@ do{
         printf("Neteisingai ivesti duomenys\n");
     }
     printf("--------------------------------------------------\n");
-    if (pasirinkimas == 6) {
+    if (stoi(pasirinkimas) == 7) {
         break;
     }
     for (int i = 0; i < grupeVector.size(); i++) {
@@ -118,7 +119,7 @@ do{
     }
     grupeVector.clear();
 
-}while (pasirinkimas != 7);
+}while (stoi(pasirinkimas) != 7);
 
     return 0;
 }

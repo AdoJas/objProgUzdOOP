@@ -1,7 +1,14 @@
-#include <limits>
-#include "common.h"
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <cmath>"
 #include "PazymiaiArrays.h"
 #include <fstream>
+#include <sstream>
+#include "chrono"
 
 void addToArray(int*& arr, int& size, int value) {
     size++;
@@ -24,7 +31,8 @@ void addToArray(studentasA*& arr, int& size, studentasA value) {
     delete[] arr;
     arr = tmp;
 }
-void meniu(int& pasirinkimas){
+void meniu(string& pasirinkimas) {
+    bool validInput = false;
     do {
         cout << "Meniu:\n"
             << "1 - Studentu duomenu ivedimas ranka\n"
@@ -34,14 +42,29 @@ void meniu(int& pasirinkimas){
             << "5 - Studentu duomenu generavimas, rasymas i faila, failo nuskaitymas\n"
             << "6 - Studentu rusiavimas is failu pasirenkant konteinerio tipa\n"
             << "7 - Baigti darba\n"
-            << ("--------------------------------------------------\n")
+            << "--------------------------------------------------\n"
             << "Pasirinkite norima opcija: ";
-        cin >> pasirinkimas;
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        printf("--------------------------------------------------\n");
-    } while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3 && pasirinkimas != 4 && pasirinkimas != 5 && pasirinkimas != 6 && pasirinkimas != 7);
+
+        try {
+            cin >> pasirinkimas;
+            int option = stoi(pasirinkimas);
+            if (option >= 1 && option <= 7) {
+                validInput = true;
+            }
+            else {
+                cout << "Neteisinga ivestis. Pasirinkite skaiciu nuo 1 iki 7.\n";
+            }
+        }
+        catch (const std::exception& e) {
+            cout << "Neteisinga ivestis. Pasirinkite skaiciu nuo 1 iki 7.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+
+    } while (!validInput);
 }
-void meniuKonteineriai(int& pasirinkimas) {
+void meniuKonteineriai(string& pasirinkimas) {
+    bool validInput = false;
     do {
         cout << "Pasirinkite konteineri:\n"
             << "1 - Vector\n"
@@ -49,12 +72,28 @@ void meniuKonteineriai(int& pasirinkimas) {
             << "3 - Deque\n"
             << ("--------------------------------------------------\n")
             << "Pasirinkite norima konteineri: ";
-        cin >> pasirinkimas;
+        try {
+            cin >> pasirinkimas;
+            int option = stoi(pasirinkimas);
+            if (option >= 1 && option <= 3) {
+                validInput = true;
+            }
+            else {
+                cout << "Neteisinga ivestis. Pasirinkite skaiciu nuo 1 iki 7.\n";
+            }
+        }
+        catch (const std::exception& e) {
+            cout << "Neteisinga ivestis. Pasirinkite skaiciu nuo 1 iki 3.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         printf("--------------------------------------------------\n");
-    } while (pasirinkimas != 1 && pasirinkimas != 2 && pasirinkimas != 3);
+    } while (!validInput);
 }
-void sortChoice(int& choice) {
+void sortChoice(string& choice) {
+    bool validInput = false;
     do {
         printf("Pasirinkite norima rusiavimo buda: \n");
         printf("1- Rusiuoti pagal varda\n");
@@ -62,34 +101,88 @@ void sortChoice(int& choice) {
         printf("3- Rusiuoti pagal vidurki\n");
         printf("4- Rusiuoti pagal mediana\n");
         cout << "Pasirinkimas: ";
-        cin >> choice;
-    } while (choice > 4 || choice < 1);
+        try {
+            cin >> choice;
+            int option = stoi(choice);
+            if (option >= 1 && option <= 4) {
+                validInput = true;
+            }
+            else {
+                cout << "Neteisinga ivestis. Pasirinkite skaiciu nuo 1 iki 4.\n";
+            }
+        }
+        catch (const std::exception& e) {
+            cout << "Neteisinga ivestis. Pasirinkite skaiciu nuo 1 iki 3.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        printf("--------------------------------------------------\n");
+        
+    } while (!validInput);
 }
 void pasirinkimasVidMed(string& vidMed) {
     do {
         cout << "Jei norite isvedimo vidurkio pavidalu, rasykite 1\n" <<
             "Jei norite isvedimo medianos pavidalu, rasykite 2: ";
         cin >> vidMed;
+        printf("--------------------------------------------------\n");
     } while (vidMed != "1" && vidMed != "2");
 }
-void generateFiles(int iteracija, int kiekis) {
+void failoGeneravimasIsvedimas(int iteracija) {
     ofstream fout("KursiokaiGen" + to_string(iteracija + 1) + ".txt");
-    fout << left << setw(20) << "Vardas" << setw(20) << "Pavarde";
-    for (int i = 0; i < 10; ++i)
-    {
-        fout << setw(5) << "ND" + to_string(i + 1);
-    }
-    fout << setw(5) << "Egz." << endl;
+    stringstream bufferis;
+    int laikinas = 0;
+    auto start = std::chrono::high_resolution_clock::now();
+    bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(10);
 
-    for (int i = 1; i <= kiekis; i++)
-    {
-        fout << left << setw(20) << "Vardas" + to_string(i)
-            << setw(20) << "Pavarde" + to_string(i);
-        for (int j = 0; j < 15; j++)
-        {
-            fout << setw(5) << (rand() % 10 + 1);
-        }
-        fout << setw(5) << (rand() % 10 + 1);
-        fout << endl;
+    for (int i = 0; i < 10; i++) {
+        bufferis << left << setw(5) << "ND" + to_string(i + 1);
     }
+    bufferis << left << setw(5) << "Egz." << endl;
+
+    for (int i = 1; i <= pow(10, 3 + iteracija); i++) {
+        bufferis << left << setw(20) << "Vardas" + to_string(i) << left << setw(20) << "Pavarde" + to_string(i) << left << setw(10);
+        for (int x = 0; x < rand() % 10 + 1; x++) {
+            bufferis << left << setw(5) << rand() % 10 + 1;
+            laikinas++;
+        }
+        for (int z = laikinas; z < 10; z++) { // Corrected loop counter and condition
+            bufferis << left << setw(5) << " ";
+        }
+        bufferis << left << setw(5) << rand() % 10 + 1 << endl;
+
+        laikinas = 0; // Resetting laikinas
+    }
+    fout << bufferis.str();
+    bufferis.str(""); // Clearing the stringstream
+    bufferis.clear(); // Clearing any error flags
+    fout.close();
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    cout << pow(10, iteracija + 3) << " studentu" << endl;
+    cout << "Studentu generavimas ir rasymas i faila uztruko: " << duration.count() << " sek." << endl;
 }
+//void generateFiles(int iteracija, int kiekis) {
+//    ofstream fout("KursiokaiGen" + to_string(iteracija + 1) + ".txt");
+//    fout << left << setw(20) << "Vardas" << setw(20) << "Pavarde";
+//    for (int i = 0; i < 10; ++i)
+//    {
+//        fout << setw(5) << "ND" + to_string(i + 1);
+//    }
+//    fout << setw(5) << "Egz." << endl;
+//
+//    for (int i = 1; i <= kiekis; i++)
+//    {
+//        fout << left << setw(20) << "Vardas" + to_string(i)
+//            << setw(20) << "Pavarde" + to_string(i);
+//        for (int j = 0; j < 15; j++)
+//        {
+//            fout << setw(5) << (rand() % 10 + 1);
+//        }
+//        fout << setw(5) << (rand() % 10 + 1);
+//        fout << endl;
+//    }
+//}

@@ -78,6 +78,53 @@ Veiksmas getVeiksmas() {
     }
 
 }
+void runProgram() {
+    /*for (int i = 0; i < 5; i++) {
+        failoGeneravimasIsvedimas(i);
+    }*/
+    bool exitProgram = false;
+
+    while (!exitProgram) {
+        
+        KonteinerioTipas containerChoice = getKonteinerioTipas();
+        if (containerChoice == KonteinerioTipas::Nera) {
+            continue;
+        }
+
+        Veiksmas actionChoice = getVeiksmas();
+        if (actionChoice == Veiksmas::Nera) {
+            continue;
+        }
+
+        //performAction
+
+        bool validInput = false;
+        cout << "Ar norite testi?? (1 - Taip/ 2 - Ne)";
+
+        string userChoice = " ";
+        try {
+            cin >> userChoice;
+            int option = stoi(userChoice);
+            if (option >= 1 && option <= 4) {
+                validInput = true;
+            }
+            else {
+                cout << "Neteisinga ivestis. Pasirinkite skaiciu nuo 1 iki 4.\n";
+            }
+        }catch (const std::exception& e) {
+            cout << "Neteisinga ivestis. Pasirinkite skaiciu nuo 1 iki 3.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    printf("--------------------------------------------------\n");
+        
+        if (userChoice == "2") {
+            exitProgram = true;
+        }
+    }
+}
 
 
 //

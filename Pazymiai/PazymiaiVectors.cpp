@@ -194,7 +194,7 @@ void isvedimoPasirinkimas(string& pasirinkimasConsole){
 }
 
 void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas, int fakePazymiai, int iteracija) {
-    int choice = 0;
+    string choice = " ";
     string pasirinkimasConsole;
     string vidMed;
     string custom = " ";
@@ -267,36 +267,7 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
     }
     fout.close();
 }
-void failoGeneravimasIsvedimas(vector<studentasV> grupeVector, int iteracija, studentasV& stud) {
-    ofstream fout("KursiokaiGen" + to_string(iteracija + 1) + ".txt");
 
-    auto start = std::chrono::high_resolution_clock::now();
-
-    studentuGeneravimas(grupeVector, stud, pow(10, iteracija + 3));
-    fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(10);
-
-    for (int i = 0; i < 10; i++) {
-        fout << left << setw(5) << "ND" + to_string(i + 1);
-    }
-    fout << left << setw(5) << "Egz." << endl;
-    
-    for (auto& student : grupeVector) {
-        fout << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(10);
-        for (int pazymys : student.pazymiai) {
-            fout << left << setw(5) << pazymys;
-        }
-        for (int i = 0; i < 10 - student.pazymiai.size(); i++) {
-            fout << left << setw(5) << " ";
-        }
-        fout << left << setw(5) << student.egzaminas << endl;
-    }
-    fout.close();
-
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration = end - start;
-    cout << pow(10, iteracija + 3) << " studentu" << endl;
-    cout << "Studentu generavimas ir rasymas i faila uztruko: " << duration.count() << " sek." << endl;
-}
 
 //Comparinimo bool funkcijos
 bool compareByName(const studentasV& a, const studentasV& b) {
@@ -361,9 +332,9 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
     }
 }
 //Sortinimo funkcija
-void sortInput(int& choice, vector<studentasV>& grupeVector, double& laikasRusiavimas){
+void sortInput(string& choice, vector<studentasV>& grupeVector, double& laikasRusiavimas){
     auto start = std::chrono::high_resolution_clock::now();
-    switch(choice){
+    switch(stoi(choice)){
         case 1:
             sort(grupeVector.begin(),grupeVector.end(), compareByName);
             break;
@@ -405,8 +376,8 @@ void studentuGeneravimas(vector<studentasV>& grupeVector, studentasV& stud, int 
 }
 void pazymiuFailoGeneravimas(vector<studentasV>& grupeVector) {
     for (int i = 0; i < 5; i++) {
-        studentasV stud = studentasV();
-        failoGeneravimasIsvedimas(grupeVector, i, stud);
+        //studentasV stud = studentasV();
+        failoGeneravimasIsvedimas(i);
         cout << "Duomenys isvesti i faila!!!!" << endl;
         cout << "--------------------------------------------------" << endl;
         for (int i = 0; i < grupeVector.size(); i++) {
@@ -444,11 +415,13 @@ void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studenta
     std::cout << "Studentu duomenu apskaiciavimas truko:  " << laikasSkaiciavimas << " sek." << std::endl;
     std::cout << "Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << std::endl;
 }
-void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad,int i, string& vidMed, int& choice) {
+void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad,int i, string& vidMed, string& choice) {
 
         ofstream fout("KursiokaiGood" + to_string(i + 1) + ".txt");
         ofstream foutB("KursiokaiBad" + to_string(i + 1) + ".txt");
 
+        stringstream bufferis;
+        stringstream bufferisB;
         auto start = std::chrono::high_resolution_clock::now();
         sortInput(choice, grupeVector, laikasSkaitymas);
         sortInput(choice, grupeBad, laikasSkaitymas);
@@ -457,49 +430,62 @@ void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad
         cout << "Abieju studentu konteineriu rusiavimas pagal pasirinkima :  " << duration.count() << " sek." << endl;
         auto start1 = std::chrono::high_resolution_clock::now();
         if (vidMed == "1") {
-            fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
-            fout << "--------------------------------------------------" << endl;
+            bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
+            bufferis << "--------------------------------------------------" << endl;
 
             for (auto& student : grupeVector) {
-                fout << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+                bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
             }
-
+            fout << bufferis.str();
+            bufferis.str(""); 
+            bufferis.clear(); 
         }
         else if (vidMed == "2") {
-            fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
-            fout << "--------------------------------------------------" << endl;
+            bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
+            bufferis << "--------------------------------------------------" << endl;
 
             for (auto& student : grupeVector) {
-                fout << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+                bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
             }
+            fout << bufferis.str();
+            bufferis.str("");
+            bufferis.clear();
         }
 
         if (vidMed == "1") {
-            foutB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
-            foutB << "--------------------------------------------------" << endl;
+            bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
+            bufferisB << "--------------------------------------------------" << endl;
 
             for (auto& student : grupeBad) {
-                foutB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+                bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
             }
+            foutB << bufferisB.str();
+            bufferisB.str("");
+            bufferisB.clear();
 
         }
         else if (vidMed == "2") {
-            foutB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
-            foutB << "--------------------------------------------------" << endl;
+            bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
+            bufferisB << "--------------------------------------------------" << endl;
 
             for (auto& student : grupeBad) {
-                foutB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+                bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
             }
+            foutB << bufferisB.str();
+            bufferisB.str("");
+            bufferisB.clear();
         }
+        fout.close();
+        foutB.close();
         auto end1 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration1 = end1 - start1;
         cout << "Abieju studentu konteineriu isvedimas truko:  " << duration1.count() << " sek." << endl;
 }
-void vektoriaiMain(string vidMed, int choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood) {
+void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood) {
 
     pasirinkimasVidMed(vidMed);
     sortChoice(choice);
-    //pazymiuFailoGeneravimas(grupeVector);
+    pazymiuFailoGeneravimas(grupeVector);
     auto start = std::chrono::high_resolution_clock::now();
 
     for (int i = 0; i < 5; i++) {
