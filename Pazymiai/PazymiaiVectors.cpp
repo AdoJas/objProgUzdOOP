@@ -164,7 +164,7 @@ void generalVidurkisCalculate(vector<studentasV>& grupeVector) {
             student.pazVid = student.egzaminas * 0.6;
         } else {
             double suma = std::accumulate(student.pazymiai.begin(), student.pazymiai.end(), 0.0);
-            student.pazVid = suma / student.pazymiai.size() * 0.4 + student.egzaminas * 0.6;
+            student.pazVid = suma / 10.0 * 0.4 + student.egzaminas * 0.6;
         }
     }
 }
@@ -274,28 +274,30 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
 }
 void failoGeneravimasIsvedimas(vector<studentasV> grupeVector, int iteracija, studentasV& stud) {
     ofstream fout("KursiokaiGen" + to_string(iteracija + 1) + ".txt");
-
+    stringstream buferis;
     auto start = std::chrono::high_resolution_clock::now();
 
     studentuGeneravimas(grupeVector, stud, pow(10, iteracija + 3));
-    fout << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(10);
+    buferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(10);
 
     for (int i = 0; i < 10; i++) {
-        fout << left << setw(5) << "ND" + to_string(i + 1);
+        buferis << left << setw(5) << "ND" + to_string(i + 1);
     }
-    fout << left << setw(5) << "Egz." << endl;
+    buferis << left << setw(5) << "Egz." << endl;
     
     for (auto& student : grupeVector) {
-        fout << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(10);
+        buferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(10);
         for (int pazymys : student.pazymiai) {
-            fout << left << setw(5) << pazymys;
+            buferis << left << setw(5) << pazymys;
         }
         for (int i = 0; i < 10 - student.pazymiai.size(); i++) {
-            fout << left << setw(5) << " ";
+            buferis << left << setw(5) << " ";
         }
-        fout << left << setw(5) << student.egzaminas << endl;
+        buferis << left << setw(5) << student.egzaminas << endl;
     }
+    fout << buferis.str();
     fout.close();
+    buferis.clear();
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;

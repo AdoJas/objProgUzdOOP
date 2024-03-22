@@ -84,7 +84,7 @@ do{
     case 5: {
         pasirinkimasVidMed(vidMed);
         sortChoice(choice);
-        //pazymiuFailoGeneravimas(grupeVector);
+        pazymiuFailoGeneravimas(grupeVector);
         auto start = std::chrono::high_resolution_clock::now();
         
         for (int i = 0; i < 5; i++) {
@@ -114,6 +114,7 @@ do{
     case 6:
         printf("Sekmingai baigete darba!!!\n");
         break;
+
 
     default:
         printf("Neteisingai ivesti duomenys\n");
