@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 #include <iomanip>
 #include <vector>
@@ -477,31 +476,27 @@ void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad
         std::chrono::duration<double> duration1 = end1 - start1;
         cout << "Abieju studentu konteineriu isvedimas truko:  " << duration1.count() << " sek." << endl;
 }
+void clearVector(vector<studentasV>& grupeVector) {
+    for (int i = 0; i < grupeVector.size(); i++) {
+        grupeVector[i].pazymiai.clear();
+    }
+    grupeVector.clear();
+}
 void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood) {
 
     pasirinkimasVidMed(vidMed);
     sortChoice(choice);
-    pazymiuFailoGeneravimas();
+    //pazymiuFailoGeneravimas();
     auto start = std::chrono::high_resolution_clock::now();
 
     for (int i = 0; i < 5; i++) {
+        cout << pow(10, i + 3) << " studentu failas" << endl;
         failoNuskaitymasRusiavimas(grupeVector, grupeBad, grupeGood, laikasSkaitymas, laikasSkaiciavimas, i, vidMed);
-        isvedimasFailai(grupeGood, grupeBad, i, vidMed, choice);
-
-        for (int i = 0; i < grupeVector.size(); i++) {
-            grupeVector[i].pazymiai.clear();
-        }
-        grupeVector.clear();
-
-        for (int i = 0; i < grupeBad.size(); i++) {
-            grupeBad[i].pazymiai.clear();
-        }
-        grupeBad.clear();
-
-        for (int i = 0; i < grupeGood.size(); i++) {
-            grupeGood[i].pazymiai.clear();
-        }
-        grupeGood.clear();
+        //isvedimasFailai(grupeGood, grupeBad, i, vidMed, choice);
+        
+        clearVector(grupeVector);
+        clearVector(grupeGood);
+        clearVector(grupeBad);
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;

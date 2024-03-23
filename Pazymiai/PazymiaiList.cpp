@@ -167,7 +167,7 @@ void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL
 
     /*std::cout << "Studentu nuskaitymas is failo  " << laikasSkaitymas << " sek." << std::endl;
     std::cout << "Studentu duomenu apskaiciavimas truko:  " << laikasSkaiciavimas << " sek." << std::endl;*/
-    cout << "Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << endl;
+    cout << "LIST - Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << endl;
 }
 void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas, string choice) {
     ofstream fout("KursiokaiGood" + to_string(i + 1) + ".txt");
@@ -269,29 +269,30 @@ void sortInputList(string& choice, list<studentasL>& grupeList) {
         cerr << "Klaida: nepavyko surusiuoti failu!\n";
     }
 }
-//void clearList(std::list<studentasL>& grupeList) {
-//    for (auto& student : grupeList) {
-//        student.pazymiai.clear();
-//    }
-//    grupeList.clear();
-//}
+void clearList(std::list<studentasL>& grupeList) {
+    for (auto& student : grupeList) {
+        student.pazymiai.clear();
+    }
+    grupeList.clear();
+}
 void listMain(string vidMed, string choice, list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int ivedimas) {
     pasirinkimasVidMed(vidMed);
     sortChoice(choice);
     //pazymiuFailoGeneravimas();
     auto start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < 5; i++) {
+        cout << pow(10, i + 3) << " studentu failas" << endl;
         failoNuskaitymasRusiavimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas);
         auto start = std::chrono::high_resolution_clock::now();
         sortInputList(choice, grupeList);
         sortInputList(choice, grupeListBad);
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end - start;
-        cout << "Abieju studentu konteineriu rusiavimas pagal pasirinkima :  " << duration.count() << " sek." << endl;
-        failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
-        //clearList(grupeList);
-        //clearList(grupeListBad);
-        //clearList(grupeListGood);
+        cout << "LIST - Abieju studentu konteineriu rusiavimas pagal pasirinkima :  " << duration.count() << " sek." << endl;
+        //failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
+        clearList(grupeList);
+        clearList(grupeListBad);
+        clearList(grupeListGood);
     }
     
 }

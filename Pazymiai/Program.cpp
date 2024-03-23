@@ -96,17 +96,19 @@ do{
         meniuKonteineriai(containerPasirinkimas);
         switch (stoi(containerPasirinkimas)) {
         case 1: {
-            cout << "Pasirinkite" << endl;
+            cout << "Vector konteineris" << endl;
             vektoriaiMain(vidMed, choice, grupeVector, grupeBad, grupeGood);
             break;
         }
         case 2: {
-            cout << "Pasirinkite" << endl;
+            cout << "List konteineris" << endl;
 
             listMain(vidMed, choice, grupeList, grupeListBad, grupeListGood, ivedimasList);
             break;
         }
         case 3: {
+            cout << "Deque konteineris" << endl;
+
             break;
         }
         }
