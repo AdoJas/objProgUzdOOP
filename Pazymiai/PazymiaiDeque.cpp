@@ -24,7 +24,6 @@ void fileReadingList(std::deque<studentasD>& grupeDeque, std::string failas) {
         }
     } while (!fin.is_open());
     auto start = std::chrono::high_resolution_clock::now();
-    std::cout << "---------------------------------------------------------" << std::endl;
     std::string line;
     std::istringstream iss;
     std::string grade = "";

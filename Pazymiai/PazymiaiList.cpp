@@ -22,7 +22,6 @@ void fileReadingList(list<studentasL> grupeList, string failas) {
         }
     } while (!fin.is_open());
     auto start = std::chrono::high_resolution_clock::now();
-    cout << "---------------------------------------------------------" << endl;
     string line;
     istringstream iss;
     string grade = "";
@@ -50,7 +49,7 @@ void fileReadingList(list<studentasL> grupeList, string failas) {
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
 
-    cout << "Failu nuskaitymas su LIST uztruko: " << duration.count() << endl;
+    cout << "LIST - Studentu nuskaitymas is failo: " << duration.count() << endl;
 
     auto skStart = std::chrono::high_resolution_clock::now();
 
@@ -59,7 +58,7 @@ void fileReadingList(list<studentasL> grupeList, string failas) {
 
     auto skEnd = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> skDuration = skEnd - skStart;
-    cout << "Vidurkiu ir medianu apskaiciavimas su LIST uztruko: " << skDuration.count() << endl;
+    //cout << "Vidurkiu ir medianu apskaiciavimas su LIST uztruko: " << skDuration.count() << endl;
 }
 void generalVidurkisCalculateList(list<studentasL>& grupeList) {
     for (auto& student : grupeList) {
@@ -213,6 +212,7 @@ void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeList
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
     cout << "Abieju studentu konteineriu(LIST) isvedimas truko:  " << duration1.count() << " sek." << endl;
+    cout << "--------------------------------------------------" << endl;
 }
 
 bool compareByName(const studentasL& a, const studentasL& b) {
@@ -276,7 +276,7 @@ void listMain(string vidMed, string choice, list<studentasL>& grupeList, list<st
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end - start;
         cout << "LIST - Abieju studentu konteineriu rusiavimas pagal pasirinkima :  " << duration.count() << " sek." << endl;
-        //failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
+        failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
         clearList(grupeList);
         clearList(grupeListBad);
         clearList(grupeListGood);
