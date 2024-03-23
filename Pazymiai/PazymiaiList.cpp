@@ -130,9 +130,15 @@ void listPartition2(string vidMed, list<studentasL>& grupeList, list<studentasL>
 
     }
 }
-void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas) {
+void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas, string choice) {
     int fakePazymiai;
     fileReadingList(grupeList, "KursiokaiGen" + to_string(i + 1) + ".txt");
+
+    auto start1 = std::chrono::high_resolution_clock::now();
+    sortInputList(choice, grupeList);
+    auto end1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration1 = end1 - start1;
+    cout << "LIST - studentu konteinerio rusiavimas truko: " << duration1.count() << endl;
     /*do {
         cout << "1 - Jei norite rusiuoti i du naujus konteinerius" << endl;
         cout << "2 - Jei norite rusiuoti i viena nauja konteineri" << endl;
@@ -269,14 +275,17 @@ void listMain(string vidMed, string choice, list<studentasL>& grupeList, list<st
     auto start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < 5; i++) {
         cout << pow(10, i + 3) << " studentu failas" << endl;
-        failoNuskaitymasRusiavimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas);
+        failoNuskaitymasRusiavimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
+
+
         auto start = std::chrono::high_resolution_clock::now();
         sortInputList(choice, grupeList);
         sortInputList(choice, grupeListBad);
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end - start;
-        cout << "LIST - Abieju studentu konteineriu rusiavimas pagal pasirinkima :  " << duration.count() << " sek." << endl;
-        failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
+        cout << "--------------------------------------------------" << endl;
+        //cout << "LIST - Abieju studentu konteineriu rusiavimas pagal pasirinkima :  " << duration.count() << " sek." << endl;
+        //failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
         clearList(grupeList);
         clearList(grupeListBad);
         clearList(grupeListGood);

@@ -30,7 +30,7 @@ struct studentasL {
 void fileReadingList(list<studentasL> grupeList, string failas);
 void generalVidurkisCalculateList(list<studentasL>& grupeList);
 void generalMedianaCalculateList(list<studentasL>& grupeList);
-void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas);
+void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas, string choice);
 void listPartition(string vidMed, list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood);
 void listPartition2(string vidMed, list<studentasL>& grupeList, list<studentasL>& grupeListBad);
 void listMain(string vidMed, string choice, list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int ivedimas);
