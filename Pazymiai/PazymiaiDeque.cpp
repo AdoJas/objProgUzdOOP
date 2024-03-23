@@ -13,7 +13,6 @@
 #include "common.h"
 
 using namespace std;
-#include <deque> // Include deque header
 
 void fileReadingList(std::deque<studentasD>& grupeDeque, std::string failas) {
     std::ifstream fin;
