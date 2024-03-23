@@ -133,7 +133,7 @@ do{
     default:
         printf("Neteisingai ivesti duomenys\n");
     }
-    printf("--------------------------------------------------\n");
+    //printf("--------------------------------------------------\n");
     if (stoi(pasirinkimas) == 7) {
         break;
     }
