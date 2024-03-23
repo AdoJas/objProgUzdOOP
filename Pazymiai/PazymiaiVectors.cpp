@@ -168,7 +168,7 @@ void generalVidurkisCalculate(vector<studentasV>& grupeVector) {
         }
     }
 }
-void generalMedianaCalculate(std::vector<studentasV>& grupeVector) {
+void generalMedianaCalculate(vector<studentasV>& grupeVector) {
     
     for (auto& studentas : grupeVector) {
         std::sort(studentas.pazymiai.begin(), studentas.pazymiai.end());

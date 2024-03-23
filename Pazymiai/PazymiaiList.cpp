@@ -9,7 +9,6 @@
 #include <fstream>
 #include <sstream>
 #include "chrono"
-#include "common.h"
 
 using namespace std;
 
@@ -92,18 +91,6 @@ void generalMedianaCalculateList(list<studentasL>& grupeList) {
             auto it = studentas.pazymiai.begin();
             advance(it, size / 2);
             studentas.mediana = *it * 0.4 + studentas.egzaminas * 0.6;
-        }
-
-        studentas.pazSuma = 0;
-        for (int pazymys : studentas.pazymiai) {
-            studentas.pazSuma += pazymys;
-        }
-
-        if (size > 0) {
-            studentas.pazVid = studentas.pazSuma / size;
-        }
-        else {
-            studentas.pazVid = 0;
         }
     }
 }

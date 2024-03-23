@@ -6,6 +6,7 @@
 #include "PazymiaiVectors.h"
 #include "PazymiaiArrays.h"
 #include "PazymiaiList.h"
+#include "PazymiaiDeque.h"
 #include "Common.h"
 #include "cstdlib"
 #include <iostream>
@@ -23,24 +24,33 @@ int main()
     int n = 0; //studentu skaicius
     int x = 0; //pazymiu skaicius
     int i = 0;
-    string pasirinkimas = " ";
-    string containerPasirinkimas = " ";
+    int fakePazymiai;
+    int ivedimasList = 0;
     int arrVect = 0;
     int laikinas = 0;
-    string failas = " ";
-    string vidMed;
-    vector<studentasV> grupeVector;
-    vector<studentasV> grupeBad;
-    vector<studentasV> grupeGood;
-    list<studentasL> grupeList;
-    list<studentasL> grupeListBad;
-    list<studentasL> grupeListGood;
+
     double laikasSkaitymas = 0.0;
     double laikasSkaiciavimas = 0.0;
     double laikasRusiavimas = 0.0;
-    int fakePazymiai;
-    int ivedimasList = 0;
-    string choice = " ";;
+
+    string pasirinkimas = " ";
+    string containerPasirinkimas = " ";
+    string failas = " ";
+    string vidMed;
+    string choice = " ";
+
+    vector<studentasV> grupeVector;
+    vector<studentasV> grupeBad;
+    vector<studentasV> grupeGood;
+
+    list<studentasL> grupeList;
+    list<studentasL> grupeListBad;
+    list<studentasL> grupeListGood;
+
+    deque<studentasD> grupeDeque;
+    deque<studentasD> grupeDequeGood;
+    deque<studentasD> grupeDequeBad;
+
 do{
     meniu(pasirinkimas);
     //pasirinkimas = 0;
