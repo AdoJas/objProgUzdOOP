@@ -12,7 +12,7 @@
 
 using namespace std;
 
-void fileReadingList(list<studentasL> grupeList, string failas) {
+void fileReadingList(list<studentasL>& grupeList, string failas) {
     ifstream fin;
     do {
         fin.open(failas);
@@ -162,19 +162,21 @@ void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL
     cout << "LIST - Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << endl;
 }
 void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas, string choice) {
-    ofstream fout("KursiokaiGood" + to_string(i + 1) + ".txt");
-    ofstream foutB("KursiokaiBad" + to_string(i + 1) + ".txt");
-    
+    ofstream fout;
+    fout.open("KursiokaiGood" + to_string(i + 1) + ".txt");
+
+    ofstream foutB;
+    foutB.open("KursiokaiBad" + to_string(i + 1) + ".txt");
+
     stringstream bufferis;
     stringstream bufferisB;
 
-    
     auto start1 = std::chrono::high_resolution_clock::now();
     if (vidMed == "1") {
         bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
         bufferis << "--------------------------------------------------" << endl;
 
-        for (auto& student : grupeList) {
+        for (auto& student : grupeListGood) {
             bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
         }
         fout << bufferis.str();
@@ -185,7 +187,7 @@ void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeList
         bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
         bufferis << "--------------------------------------------------" << endl;
 
-        for (auto& student : grupeList) {
+        for (auto& student : grupeListGood) {
             bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
         }
         fout << bufferis.str();
@@ -221,42 +223,65 @@ void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeList
     cout << "--------------------------------------------------" << endl;
 }
 
-bool compareByName(const studentasL& a, const studentasL& b) {
-    if (a.vardas.find("Vardas") == 0 && b.vardas.find("Vardas") == 0) {
-        int num1 = stoi(a.vardas.substr(6));
-        int num2 = stoi(b.vardas.substr(6));
-        return num1 > num2;
+//bool compareByName(const studentasL& a, const studentasL& b) {
+//    if (a.vardas.find("Vardas") == 0 && b.vardas.find("Vardas") == 0) {
+//        int num1 = stoi(a.vardas.substr(6));
+//        int num2 = stoi(b.vardas.substr(6));
+//        return num1 > num2;
+//    }
+//    else return a.vardas < b.vardas;
+//}
+//bool compareBySurname(const studentasL& a, const studentasL& b) {
+//    if (a.pavarde.find("Pavarde") == 0 && b.pavarde.find("Pavarde") == 0) {
+//        int num1 = stoi(a.pavarde.substr(7));
+//        int num2 = stoi(b.pavarde.substr(7));
+//        return num1 > num2;
+//    }
+//    else return a.pavarde < b.pavarde;
+//}
+//bool compareByAverage(const studentasL& a, const studentasL& b) {
+//    return a.pazVid < b.pazVid;
+//}
+//bool compareByMediana(const studentasL& a, const studentasL& b) {
+//    return a.mediana < b.mediana;
+//}
+struct CompareByName {
+    bool operator()(const studentasL& a, const studentasL& b) const {
+        return a.vardas < b.vardas;
     }
-    else return a.vardas < b.vardas;
-}
-bool compareBySurname(const studentasL& a, const studentasL& b) {
-    if (a.pavarde.find("Pavarde") == 0 && b.pavarde.find("Pavarde") == 0) {
-        int num1 = stoi(a.pavarde.substr(7));
-        int num2 = stoi(b.pavarde.substr(7));
-        return num1 > num2;
+};
+
+struct CompareBySurname {
+    bool operator()(const studentasL& a, const studentasL& b) const {
+        return a.pavarde < b.pavarde;
     }
-    else return a.pavarde < b.pavarde;
-}
-bool compareByAverage(const studentasL& a, const studentasL& b) {
-    return a.pazVid < b.pazVid;
-}
-bool compareByMediana(const studentasL& a, const studentasL& b) {
-    return a.mediana < b.mediana;
-}
+};
+
+struct CompareByAverage {
+    bool operator()(const studentasL& a, const studentasL& b) const {
+        return a.pazVid < b.pazVid;
+    }
+};
+
+struct CompareByMediana {
+    bool operator()(const studentasL& a, const studentasL& b) const {
+        return a.mediana < b.mediana;
+    }
+};
 
 void sortInputList(string& choice, list<studentasL>& grupeList) {
     switch (stoi(choice)) {
     case 1:
-        grupeList.sort(compareByName);
+        grupeList.sort(CompareByName());
         break;
     case 2:
-        grupeList.sort(compareBySurname);
+        grupeList.sort(CompareBySurname());
         break;
     case 3:
-        grupeList.sort(compareByAverage);
+        grupeList.sort(CompareByAverage());
         break;
     case 4:
-        grupeList.sort(compareByMediana);
+        grupeList.sort(CompareByMediana());
         break;
     default:
         cerr << "Klaida: nepavyko surusiuoti failu!\n";
@@ -279,8 +304,8 @@ void listMain(string vidMed, string choice, list<studentasL>& grupeList, list<st
 
 
         auto start = std::chrono::high_resolution_clock::now();
-        sortInputList(choice, grupeList);
         sortInputList(choice, grupeListBad);
+        sortInputList(choice, grupeListGood);
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end - start;
         cout << "--------------------------------------------------" << endl;

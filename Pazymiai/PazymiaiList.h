@@ -27,7 +27,7 @@ struct studentasL {
 
 
 
-void fileReadingList(list<studentasL> grupeList, string failas);
+void fileReadingList(list<studentasL>& grupeList, string failas);
 void generalVidurkisCalculateList(list<studentasL>& grupeList);
 void generalMedianaCalculateList(list<studentasL>& grupeList);
 void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas, string choice);
