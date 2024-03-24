@@ -222,29 +222,6 @@ void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeList
     cout << "Abieju studentu konteineriu(LIST) isvedimas truko:  " << duration1.count() << " sek." << endl;
     cout << "--------------------------------------------------" << endl;
 }
-
-//bool compareByName(const studentasL& a, const studentasL& b) {
-//    if (a.vardas.find("Vardas") == 0 && b.vardas.find("Vardas") == 0) {
-//        int num1 = stoi(a.vardas.substr(6));
-//        int num2 = stoi(b.vardas.substr(6));
-//        return num1 > num2;
-//    }
-//    else return a.vardas < b.vardas;
-//}
-//bool compareBySurname(const studentasL& a, const studentasL& b) {
-//    if (a.pavarde.find("Pavarde") == 0 && b.pavarde.find("Pavarde") == 0) {
-//        int num1 = stoi(a.pavarde.substr(7));
-//        int num2 = stoi(b.pavarde.substr(7));
-//        return num1 > num2;
-//    }
-//    else return a.pavarde < b.pavarde;
-//}
-//bool compareByAverage(const studentasL& a, const studentasL& b) {
-//    return a.pazVid < b.pazVid;
-//}
-//bool compareByMediana(const studentasL& a, const studentasL& b) {
-//    return a.mediana < b.mediana;
-//}
 struct CompareByName {
     bool operator()(const studentasL& a, const studentasL& b) const {
         return a.vardas < b.vardas;

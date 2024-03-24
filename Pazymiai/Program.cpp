@@ -118,7 +118,7 @@ do{
         }
         case 3: {
             cout << "Deque konteineris" << endl;
-
+            dequeMain(vidMed, choice, grupeDeque, grupeDequeBad, grupeDequeGood, ivedimasList);
             break;
         }
         }
