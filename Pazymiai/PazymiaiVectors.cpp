@@ -390,22 +390,7 @@ void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studenta
     
 
     auto start = std::chrono::high_resolution_clock::now();
-    if (vidMed == "1") {
-        auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
-            return student.pazVid >= 5;
-            });
-
-        grupeGood.insert(grupeGood.end(), grupeVector.begin(), it);
-        grupeBad.insert(grupeBad.end(), it, grupeVector.end());
-    }
-    else {
-        auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
-            return student.mediana >= 5;
-            });
-
-        grupeGood.insert(grupeGood.end(), grupeVector.begin(), it);
-        grupeBad.insert(grupeBad.end(), it, grupeVector.end());
-    }
+    vectorPartition(vidMed, grupeVector, grupeGood, grupeBad);
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
@@ -485,6 +470,25 @@ void clearVector(vector<studentasV>& grupeVector) {
         grupeVector[i].pazymiai.clear();
     }
     grupeVector.clear();
+}
+void vectorPartition(string vidMed, vector<studentasV>& grupeVector, vector<studentasV>& grupeGood, vector<studentasV>& grupeBad) {
+    if (vidMed == "1") {
+        auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
+            return student.pazVid >= 5;
+            });
+
+        grupeGood.insert(grupeGood.end(), grupeVector.begin(), it);
+        grupeBad.insert(grupeBad.end(), it, grupeVector.end());
+    }
+    else {
+        auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
+            return student.mediana >= 5;
+            });
+
+        grupeGood.insert(grupeGood.end(), grupeVector.begin(), it);
+        grupeBad.insert(grupeBad.end(), it, grupeVector.end());
+    }
+
 }
 void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood) {
 
