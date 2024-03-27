@@ -490,6 +490,25 @@ void vectorPartition(string vidMed, vector<studentasV>& grupeVector, vector<stud
     }
 
 }
+void vectorPartition2(string vidMed, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad) {
+    if (vidMed == "1") {
+        auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
+            return student.pazVid >= 5;
+            });
+
+        grupeBad.insert(grupeBad.end(), it, grupeVector.end());
+        grupeVector.erase(it, grupeVector.end());
+    }
+    else {
+        auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
+            return student.mediana >= 5;
+            });
+
+        grupeBad.insert(grupeBad.end(), it, grupeVector.end());
+        grupeVector.erase(it, grupeVector.end());
+
+    }
+}
 void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood) {
 
     pasirinkimasVidMed(vidMed);

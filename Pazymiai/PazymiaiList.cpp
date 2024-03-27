@@ -146,14 +146,12 @@ void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL
     } while (ivedimas != 1 && ivedimas != 2);*/
     
     auto start = std::chrono::high_resolution_clock::now();
-    /*if (ivedimas == 1) {
+    if (ivedimas == 1) {
         listPartition(vidMed, grupeList, grupeListBad, grupeListGood);
     }
     else {
         listPartition2(vidMed, grupeList, grupeListBad);
     }
-    */
-    listPartition(vidMed, grupeList, grupeListBad, grupeListGood);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
 
