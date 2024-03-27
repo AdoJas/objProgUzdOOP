@@ -10,7 +10,6 @@
 #include "chrono"
 #include "common.h"
 
-using namespace std;
 float studentasV::getMediana() {
     if (pazymiai.size() < 2) return -1;
     int laikinas = round(pazymiai.size() * 1.0 / 2);
@@ -91,13 +90,14 @@ void ivedimasCaseTwo(vector<studentasV>& grupeVector) {
 }
 void fileReading(vector<studentasV>& grupeVector, string failas, double & laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas){
     ifstream fin;
-    do{
+    do {
         fin.open(failas);
         if (!fin.is_open()) {
-            cerr << "Error: nepavyko atidaryti failo!!!\nIveskite failo pavadinima is naujo!!!\n" << endl;
-            cin >> failas;
+            cerr << "Error: nepavyko atidaryti failo!!!\n" << endl;
+            pazymiuFailoGeneravimas();
         }
     } while (!fin.is_open());
+
     auto start = std::chrono::high_resolution_clock::now();
         string line;
         istringstream iss;
@@ -128,7 +128,7 @@ void fileReading(vector<studentasV>& grupeVector, string failas, double & laikas
     std::chrono::duration<double> duration = end - start;
 
     laikasSkaitymas = duration.count();
-
+    cout << "VECTOR - Studentu nuskaitymas is failo truko: " << laikasSkaitymas << " sek." << endl;
     auto skStart = std::chrono::high_resolution_clock::now();
 
     generalVidurkisCalculate(grupeVector);
@@ -352,7 +352,6 @@ void sortInput(string& choice, vector<studentasV>& grupeVector){
     std::chrono::duration<double> duration = end - start;
     laikasRusiavimas = duration.count();
 }
-
 void laikoIsvedimas(double laikasSkaitymas, double laikasSkaiciavimas, double laikasRusiavimas) {
         cout << "Is viso sugaistas laikas nuskaitant duomenis is failo: " << laikasSkaitymas << "sek. \n";
         cout << "Is viso sugaistas laikas  atliekant skaiciavimus: " << laikasSkaitymas << "sek. \n";
@@ -372,36 +371,28 @@ void studentuGeneravimas(vector<studentasV>& grupeVector, studentasV& stud, int 
     }
     
 }
-void pazymiuFailoGeneravimas() {
-    for (int i = 0; i < 5; i++) {
-        //studentasV stud = studentasV();
-        failoGeneravimasIsvedimas(i);
-        cout << "Duomenys isvesti i faila!!!!" << endl;
-        cout << "--------------------------------------------------" << endl;
-    }
-}
-void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, int i, string vidMed, int& ivedimas, string choice) {
+
+void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, int i, string vidMed, string ivedimasKonteineris, string choice) {
     fileReading(grupeVector, "KursiokaiGen" + to_string(i + 1) + ".txt", laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
 
     auto start1 = std::chrono::high_resolution_clock::now();
     sortInput(choice, grupeVector);
     auto end1 = std::chrono::high_resolution_clock::now();
-    do {
-        cout << "1 - Jei norite rusiuoti i du naujus konteinerius" << endl;
-        cout << "2 - Jei norite rusiuoti i viena nauja konteineri" << endl;
-        std::cin >> ivedimas;
-    } while (ivedimas != 1 && ivedimas != 2);
     std::chrono::duration<double> duration1 = end1 - start1;
     
 
     auto start = std::chrono::high_resolution_clock::now();
-    vectorPartition(vidMed, grupeVector, grupeGood, grupeBad);
-
+    if (ivedimasKonteineris == "1") {
+        vectorPartition(vidMed, grupeVector, grupeGood, grupeBad);
+    }
+    else {
+        vectorPartition2(vidMed, grupeVector, grupeBad);
+    }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
 
     cout << "VECTOR - studentu konteinerio rusiavimas truko: " << duration1.count() << " sek." << endl;
-    cout << "VECTOR - Studentu rusiavimas i du konteinerius su " << ivedimas << " truko:  " << duration.count() << " sek." << endl;
+    cout << "VECTOR - Studentu rusiavimas i du konteinerius su " << ivedimasKonteineris << " pasirinkimu truko:  " << duration.count() << " sek." << endl;
 }
 void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad,int i, string& vidMed, string& choice) {
 
@@ -514,16 +505,18 @@ void vectorPartition2(string vidMed, vector<studentasV>& grupeVector, vector<stu
     }
 }
 
-void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood) {
+void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, string ivedimasKonteineris) {
 
     pasirinkimasVidMed(vidMed);
     sortChoice(choice);
+    pasirinkimasIvedimas(ivedimasKonteineris);
     //pazymiuFailoGeneravimas();
     auto start = std::chrono::high_resolution_clock::now();
 
     for (int i = 0; i < 5; i++) {
         cout << pow(10, i + 3) << " studentu failas" << endl;
-        failoNuskaitymasRusiavimas(grupeVector, grupeBad, grupeGood, laikasSkaitymas, laikasSkaiciavimas, i, vidMed, choice);
+        
+        failoNuskaitymasRusiavimas(grupeVector, grupeBad, grupeGood, i, vidMed, ivedimasKonteineris, choice);
         //isvedimasFailai(grupeGood, grupeBad, i, vidMed, choice);
         cout << "--------------------------------------------------" << endl;
         

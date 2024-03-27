@@ -161,6 +161,13 @@ void pasirinkimasVidMed(string& vidMed) {
         printf("--------------------------------------------------\n");
     } while (vidMed != "1" && vidMed != "2");
 }
+void pasirinkimasIvedimas(string& ivedimas) {
+    do {
+        cout << "1 - Jei norite rusiuoti i du naujus konteinerius" << endl;
+        cout << "2 - Jei norite rusiuoti i viena nauja konteineri" << endl;
+        std::cin >> ivedimas;
+    } while (ivedimas != "1" && ivedimas != "2");
+}
 void failoGeneravimasIsvedimas(int iteracija) {
     ofstream fout("KursiokaiGen" + to_string(iteracija + 1) + ".txt");
     stringstream bufferis;
@@ -196,24 +203,10 @@ void failoGeneravimasIsvedimas(int iteracija) {
     cout << pow(10, iteracija + 3) << " studentu" << endl;
     cout << "Studentu generavimas ir rasymas i faila uztruko: " << duration.count() << " sek." << endl;
 }
-//void generateFiles(int iteracija, int kiekis) {
-//    ofstream fout("KursiokaiGen" + to_string(iteracija + 1) + ".txt");
-//    fout << left << setw(20) << "Vardas" << setw(20) << "Pavarde";
-//    for (int i = 0; i < 10; ++i)
-//    {
-//        fout << setw(5) << "ND" + to_string(i + 1);
-//    }
-//    fout << setw(5) << "Egz." << endl;
-//
-//    for (int i = 1; i <= kiekis; i++)
-//    {
-//        fout << left << setw(20) << "Vardas" + to_string(i)
-//            << setw(20) << "Pavarde" + to_string(i);
-//        for (int j = 0; j < 15; j++)
-//        {
-//            fout << setw(5) << (rand() % 10 + 1);
-//        }
-//        fout << setw(5) << (rand() % 10 + 1);
-//        fout << endl;
-//    }
-//}
+void pazymiuFailoGeneravimas() {
+    for (int i = 0; i < 5; i++) {
+        failoGeneravimasIsvedimas(i);
+        cout << "Duomenys isvesti i faila!!!!" << endl;
+        cout << "--------------------------------------------------" << endl;
+    }
+}

@@ -12,15 +12,13 @@
 
 #include "common.h"
 
-using namespace std;
-
 void fileReadingDeque(std::deque<studentasD>& grupeDeque, std::string failas) {
     std::ifstream fin;
     do {
         fin.open(failas);
         if (!fin.is_open()) {
-            std::cerr << "Error: nepavyko atidaryti failo!!!\nIveskite failo pavadinima is naujo!!!\n" << std::endl;
-            std::cin >> failas;
+            cerr << "Error: nepavyko atidaryti failo!!!\n" << endl;
+            pazymiuFailoGeneravimas();
         }
     } while (!fin.is_open());
     auto start = std::chrono::high_resolution_clock::now();

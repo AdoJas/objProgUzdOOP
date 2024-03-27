@@ -38,6 +38,8 @@ int main()
     string failas = " ";
     string vidMed;
     string choice = " ";
+    string ivedimasKonteineris = " ";
+    string failoGeneravimoPasirinkimas = " ";
 
     vector<studentasV> grupeVector;
     vector<studentasV> grupeBad;
@@ -99,21 +101,42 @@ do{
         break;
     }
     case 5: {
-        vektoriaiMain(vidMed, choice, grupeVector, grupeBad, grupeGood);
+        do {
+            cout << "Ar norite generuoti failus?" << endl;
+            cout << "1 - taip" << endl;
+            cout << "2 - ne" << endl;
+            cin >> failoGeneravimoPasirinkimas;
+        } while (failoGeneravimoPasirinkimas != "1" || failoGeneravimoPasirinkimas != "2");
+
+        if (failoGeneravimoPasirinkimas == "1")
+            pazymiuFailoGeneravimas();
+
+        vektoriaiMain(vidMed, choice, grupeVector, grupeBad, grupeGood, ivedimasKonteineris);
         break;
     }
     case 6: {
+        do {
+            cout << "Ar norite generuoti failus?" << endl;
+            cout << "1 - taip" << endl;
+            cout << "2 - ne" << endl;
+            cin >> failoGeneravimoPasirinkimas;
+        } while (failoGeneravimoPasirinkimas != "1" && failoGeneravimoPasirinkimas != "2");
+
+        if (failoGeneravimoPasirinkimas == "1")
+            pazymiuFailoGeneravimas();
+
+
         meniuKonteineriai(containerPasirinkimas);
         switch (stoi(containerPasirinkimas)) {
         case 1: {
             cout << "Vector konteineris" << endl;
-            vektoriaiMain(vidMed, choice, grupeVector, grupeBad, grupeGood);
+            vektoriaiMain(vidMed, choice, grupeVector, grupeBad, grupeGood, ivedimasKonteineris);
             break;
         }
         case 2: {
             cout << "List konteineris" << endl;
 
-            listMain(vidMed, choice, grupeList, grupeListBad, grupeListGood, ivedimasList);
+            listMain(vidMed, choice, grupeList, grupeListBad, grupeListGood, ivedimasKonteineris);
             break;
         }
         case 3: {

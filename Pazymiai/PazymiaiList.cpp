@@ -10,15 +10,13 @@
 #include <sstream>
 #include "chrono"
 
-using namespace std;
-
 void fileReadingList(list<studentasL>& grupeList, string failas) {
     ifstream fin;
     do {
         fin.open(failas);
         if (!fin.is_open()) {
-            cerr << "Error: nepavyko atidaryti failo!!!\nIveskite failo pavadinima is naujo!!!\n" << endl;
-            cin >> failas;
+            cerr << "Error: nepavyko atidaryti failo!!!\n" << endl;
+            pazymiuFailoGeneravimas();
         }
     } while (!fin.is_open());
     auto start = std::chrono::high_resolution_clock::now();
@@ -130,7 +128,7 @@ void listPartition2(string vidMed, list<studentasL>& grupeList, list<studentasL>
 
     }
 }
-void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas, string choice) {
+void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, string ivedimasKonteineris, string choice) {
     int fakePazymiai;
     fileReadingList(grupeList, "KursiokaiGen" + to_string(i + 1) + ".txt");
 
@@ -139,14 +137,8 @@ void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
     
-    do {
-        cout << "1 - Jei norite rusiuoti i du naujus konteinerius" << endl;
-        cout << "2 - Jei norite rusiuoti i viena nauja konteineri" << endl;
-        std::cin >> ivedimas;
-    } while (ivedimas != 1 && ivedimas != 2);
-    
     auto start = std::chrono::high_resolution_clock::now();
-    if (ivedimas == 1) {
+    if (ivedimasKonteineris == "1") {
         listPartition(vidMed, grupeList, grupeListBad, grupeListGood);
     }
     else {
@@ -155,9 +147,9 @@ void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
     cout << "LIST - studentu konteinerio rusiavimas truko: " << duration1.count() << endl;
-    cout << "VECTOR - Studentu rusiavimas i du konteinerius su " << ivedimas << " truko:  " << duration.count() << " sek." << endl;
+    cout << "LIST - Studentu rusiavimas i du konteinerius su " << ivedimasKonteineris << " pasirinkimu truko:  " << duration.count() << " sek." << endl;
 }
-void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas, string choice) {
+void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, string ivedimasKonteineris, string choice) {
     ofstream fout;
     fout.open("KursiokaiGood" + to_string(i + 1) + ".txt");
 
@@ -168,7 +160,7 @@ void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeList
     stringstream bufferisB;
 
     auto start1 = std::chrono::high_resolution_clock::now();
-    if (ivedimas == 1) {
+    if (ivedimasKonteineris == "1") {
         if (vidMed == "1") {
             bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
             bufferis << "--------------------------------------------------" << endl;
@@ -214,7 +206,7 @@ void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeList
             bufferisB.clear();
         }
     }
-    else {
+    else{
         if (vidMed == "1") {
             bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
             bufferis << "--------------------------------------------------" << endl;
@@ -313,15 +305,16 @@ void clearList(std::list<studentasL>& grupeList) {
     }
     grupeList.clear();
 }
-void listMain(string vidMed, string choice, list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int ivedimas) {
+void listMain(string vidMed, string choice, list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, string ivedimasKonteineris) {
     pasirinkimasVidMed(vidMed);
     sortChoice(choice);
+    pasirinkimasIvedimas(ivedimasKonteineris);
     //pazymiuFailoGeneravimas();
     auto start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < 5; i++) {
         cout << pow(10, i + 3) << " studentu failas" << endl;
-        failoNuskaitymasRusiavimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
-        failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
+        failoNuskaitymasRusiavimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimasKonteineris, choice);
+        failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimasKonteineris, choice);
 
         auto start = std::chrono::high_resolution_clock::now();
         sortInputList(choice, grupeListBad);
