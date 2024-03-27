@@ -138,12 +138,12 @@ void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL
     sortInputList(choice, grupeList);
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
-    cout << "LIST - studentu konteinerio rusiavimas truko: " << duration1.count() << endl;
-    /*do {
+    
+    do {
         cout << "1 - Jei norite rusiuoti i du naujus konteinerius" << endl;
         cout << "2 - Jei norite rusiuoti i viena nauja konteineri" << endl;
         std::cin >> ivedimas;
-    } while (ivedimas != 1 && ivedimas != 2);*/
+    } while (ivedimas != 1 && ivedimas != 2);
     
     auto start = std::chrono::high_resolution_clock::now();
     if (ivedimas == 1) {
@@ -154,10 +154,8 @@ void failoNuskaitymasRusiavimasList(list<studentasL>& grupeList, list<studentasL
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
-
-    /*std::cout << "Studentu nuskaitymas is failo  " << laikasSkaitymas << " sek." << std::endl;
-    std::cout << "Studentu duomenu apskaiciavimas truko:  " << laikasSkaiciavimas << " sek." << std::endl;*/
-    cout << "LIST - Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << endl;
+    cout << "LIST - studentu konteinerio rusiavimas truko: " << duration1.count() << endl;
+    cout << "VECTOR - Studentu rusiavimas i du konteinerius su " << ivedimas << " truko:  " << duration.count() << " sek." << endl;
 }
 void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeListBad, list<studentasL>& grupeListGood, int i, string vidMed, int& ivedimas, string choice) {
     ofstream fout;
@@ -170,50 +168,97 @@ void failoIsvedimasList(list<studentasL>& grupeList, list<studentasL>& grupeList
     stringstream bufferisB;
 
     auto start1 = std::chrono::high_resolution_clock::now();
-    if (vidMed == "1") {
-        bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
-        bufferis << "--------------------------------------------------" << endl;
-
-        for (auto& student : grupeListGood) {
-            bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+    if (ivedimas == 1) {
+        if (vidMed == "1") {
+            bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
+            bufferis << "--------------------------------------------------" << endl;
+            for (auto& student : grupeListGood) {
+                bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+            }
+            fout << bufferis.str();
+            bufferis.str("");
+            bufferis.clear();
         }
-        fout << bufferis.str();
-        bufferis.str("");
-        bufferis.clear();
+        else if (vidMed == "2") {
+            bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
+            bufferis << "--------------------------------------------------" << endl;
+
+            for (auto& student : grupeListGood) {
+                bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+            }
+            fout << bufferis.str();
+            bufferis.str("");
+            bufferis.clear();
+        }
+
+        if (vidMed == "1") {
+            bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
+            bufferisB << "--------------------------------------------------" << endl;
+
+            for (auto& student : grupeListBad) {
+                bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+            }
+            foutB << bufferisB.str();
+            bufferisB.str("");
+            bufferisB.clear();
+        }
+        else if (vidMed == "2") {
+            bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
+            bufferisB << "--------------------------------------------------" << endl;
+
+            for (auto& student : grupeListBad) {
+                bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+            }
+            foutB << bufferisB.str();
+            bufferisB.str("");
+            bufferisB.clear();
+        }
     }
-    else if (vidMed == "2") {
-        bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
-        bufferis << "--------------------------------------------------" << endl;
-
-        for (auto& student : grupeListGood) {
-            bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+    else {
+        if (vidMed == "1") {
+            bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
+            bufferis << "--------------------------------------------------" << endl;
+            for (auto& student : grupeList) {
+                bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+            }
+            fout << bufferis.str();
+            bufferis.str("");
+            bufferis.clear();
         }
-        fout << bufferis.str();
-        bufferis.str("");
-        bufferis.clear();
-    }
+        else if (vidMed == "2") {
+            bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
+            bufferis << "--------------------------------------------------" << endl;
 
-    if (vidMed == "1") {
-        bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
-        bufferisB << "--------------------------------------------------" << endl;
-
-        for (auto& student : grupeListBad) {
-            bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+            for (auto& student : grupeList) {
+                bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+            }
+            fout << bufferis.str();
+            bufferis.str("");
+            bufferis.clear();
         }
-        foutB << bufferisB.str();
-        bufferisB.str("");
-        bufferisB.clear();
-    }
-    else if (vidMed == "2") {
-        bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
-        bufferisB << "--------------------------------------------------" << endl;
 
-        for (auto& student : grupeListBad) {
-            bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+        if (vidMed == "1") {
+            bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
+            bufferisB << "--------------------------------------------------" << endl;
+
+            for (auto& student : grupeListBad) {
+                bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+            }
+            foutB << bufferisB.str();
+            bufferisB.str("");
+            bufferisB.clear();
         }
-        foutB << bufferisB.str();
-        bufferisB.str("");
-        bufferisB.clear();
+        else if (vidMed == "2") {
+            bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
+            bufferisB << "--------------------------------------------------" << endl;
+
+            for (auto& student : grupeListBad) {
+                bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+            }
+            foutB << bufferisB.str();
+            bufferisB.str("");
+            bufferisB.clear();
+        }
     }
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
@@ -276,7 +321,7 @@ void listMain(string vidMed, string choice, list<studentasL>& grupeList, list<st
     for (int i = 0; i < 5; i++) {
         cout << pow(10, i + 3) << " studentu failas" << endl;
         failoNuskaitymasRusiavimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
-
+        failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
 
         auto start = std::chrono::high_resolution_clock::now();
         sortInputList(choice, grupeListBad);

@@ -380,12 +380,17 @@ void pazymiuFailoGeneravimas() {
         cout << "--------------------------------------------------" << endl;
     }
 }
-void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed, string choice) {
+void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, int i, string vidMed, int& ivedimas, string choice) {
     fileReading(grupeVector, "KursiokaiGen" + to_string(i + 1) + ".txt", laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
 
     auto start1 = std::chrono::high_resolution_clock::now();
     sortInput(choice, grupeVector);
     auto end1 = std::chrono::high_resolution_clock::now();
+    do {
+        cout << "1 - Jei norite rusiuoti i du naujus konteinerius" << endl;
+        cout << "2 - Jei norite rusiuoti i viena nauja konteineri" << endl;
+        std::cin >> ivedimas;
+    } while (ivedimas != 1 && ivedimas != 2);
     std::chrono::duration<double> duration1 = end1 - start1;
     
 
@@ -395,9 +400,8 @@ void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studenta
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
 
-    cout << "VECTOR - Studentu nuskaitymas is failo  " << laikasSkaitymas << " sek." << endl;
     cout << "VECTOR - studentu konteinerio rusiavimas truko: " << duration1.count() << " sek." << endl;
-    cout << "VECTOR - Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << endl;
+    cout << "VECTOR - Studentu rusiavimas i du konteinerius su " << ivedimas << " truko:  " << duration.count() << " sek." << endl;
 }
 void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad,int i, string& vidMed, string& choice) {
 
@@ -509,6 +513,7 @@ void vectorPartition2(string vidMed, vector<studentasV>& grupeVector, vector<stu
 
     }
 }
+
 void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood) {
 
     pasirinkimasVidMed(vidMed);

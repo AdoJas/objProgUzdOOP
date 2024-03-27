@@ -39,7 +39,7 @@ void studentuGeneravimas(vector<studentasV>& grupeVector, studentasV& stud, int 
 void pazymiuFailoGeneravimas();
 void failoGeneravimasIsvedimas(int iteracija);
 void sortInput(string& choice, vector<studentasV>& grupeVector);
-void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, double& laikasSkaitymas, double& laikasSkaiciavimas, int i, string vidMed, string choice);
+void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, int i, string vidMed, int& ivedimas, string choice);
 void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad, int i, string& vidMed, string& choice);
 void pasirinkimasVidMed(string& vidMed);
 void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood);

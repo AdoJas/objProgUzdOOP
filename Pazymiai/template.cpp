@@ -16,13 +16,10 @@
 using namespace std;
 
 //uzkomentuota iki tolesnio darbo........
-
-
-
-////namespace fs = std::filesystem;
+//enum class Strategija {Pirma, Antra};
 //enum class KonteinerioTipas {Nera, Vector, List, Deque};
 //enum class Veiksmas { GenerateFilesAndSort, SortExistingStudents, Nera};
-
+//
 //KonteinerioTipas getKonteinerioTipas() {
 //    int choice;
 //    do {
@@ -100,7 +97,7 @@ using namespace std;
 //            continue;
 //        }
 //
-//        //performAction
+//        performAction
 //
 //        bool validInput = false;
 //        cout << "Ar norite testi?? (1 - Taip/ 2 - Ne)";
@@ -129,48 +126,3 @@ using namespace std;
 //        }
 //    }
 //}
-//
-//
-////
-////void generalVidurkisCalculate(KonteinerioTipas& grupeContainer) {
-////    for (auto& student : grupeContainer) {
-////        if (student.pazymiai.empty()) {
-////            student.pazVid = student.egzaminas * 0.6;
-////        }
-////        else {
-////            double suma = std::accumulate(student.pazymiai.begin(), student.pazymiai.end(), 0.0);
-////            student.pazVid = suma / student.pazymiai.size() * 0.4 + student.egzaminas * 0.6;
-////        }
-////    }
-////}
-////
-////void generalMedianaCalculate(KonteinerioTipas& grupeContainer) {
-////
-////    for (auto& studentas : grupeContainer) {
-////        std::sort(studentas.pazymiai.begin(), studentas.pazymiai.end());
-////
-////        size_t size = studentas.pazymiai.size();
-////        if (size < 2) studentas.mediana = -1;
-////        if (size % 2 == 0) {
-////            studentas.mediana = (studentas.pazymiai[size / 2 - 1] + studentas.pazymiai[size / 2]) / 2.0 * 0.4 + studentas.egzaminas * 0.6;
-////        }
-////        else {
-////            studentas.mediana = studentas.pazymiai[size / 2] * 0.4 + studentas.egzaminas * 0.6;
-////        }
-////    }
-////}
-////
-////void turimiFailai() {
-////    vector<string> failai;
-////
-////    cout << "Turimi studentu failai: \n";
-////    int fileIndex = 1;
-////    for (const auto& paieska : std::filesystem::directory_iterator(".")) {
-////        string filename = paieska.path().filename().string();
-////        if (filename.find("studentai") != string::npos && filename.find(".txt") != string::npos) {
-////            failai .push_back(filename);
-////            cout << fileIndex++ << ". " << filename << "\n";
-////        }
-////    }
-////
-////}
