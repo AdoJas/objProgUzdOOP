@@ -314,7 +314,7 @@ void listMain(string vidMed, string choice, list<studentasL>& grupeList, list<st
     for (int i = 0; i < 5; i++) {
         cout << pow(10, i + 3) << " studentu failas" << endl;
         failoNuskaitymasRusiavimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimasKonteineris, choice);
-        failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimasKonteineris, choice);
+        //failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimasKonteineris, choice);
 
         auto start = std::chrono::high_resolution_clock::now();
         sortInputList(choice, grupeListBad);
@@ -322,11 +322,8 @@ void listMain(string vidMed, string choice, list<studentasL>& grupeList, list<st
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end - start;
         cout << "--------------------------------------------------" << endl;
-        //cout << "LIST - Abieju studentu konteineriu rusiavimas pagal pasirinkima :  " << duration.count() << " sek." << endl;
-        //failoIsvedimasList(grupeList, grupeListBad, grupeListGood, i, vidMed, ivedimas, choice);
         clearList(grupeList);
         clearList(grupeListBad);
         clearList(grupeListGood);
     }
-    
 }
