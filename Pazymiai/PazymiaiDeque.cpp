@@ -124,7 +124,7 @@ void dequePartition2(string vidMed, deque<studentasD>& grupeDeque, deque<student
         grupeDeque.erase(it, grupeDeque.end());
     }
 }
-void failoNuskaitymasRusiavimasDeque(deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, int i, string vidMed, int& ivedimas, string choice) {
+void failoNuskaitymasRusiavimasDeque(deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, int i, string vidMed, string ivedimasKonteineris, string choice) {
     int fakePazymiai;
     fileReadingDeque(grupeDeque, "KursiokaiGen" + to_string(i + 1) + ".txt");
 
@@ -133,14 +133,10 @@ void failoNuskaitymasRusiavimasDeque(deque<studentasD>& grupeDeque, deque<studen
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
     cout << "DEQUE - studentu konteinerio rusiavimas truko: " << duration1.count() << endl;
-    /*do {
-        cout << "1 - Jei norite rusiuoti i du naujus konteinerius" << endl;
-        cout << "2 - Jei norite rusiuoti i viena nauja konteineri" << endl;
-        std::cin >> ivedimas;
-    } while (ivedimas != 1 && ivedimas != 2);*/
+    
 
     auto start = std::chrono::high_resolution_clock::now();
-    if (ivedimas == 1) {
+    if (ivedimasKonteineris == "1") {
         dequePartition(vidMed, grupeDeque, grupeDequeBad, grupeDequeGood);
     }
     else {
@@ -154,7 +150,7 @@ void failoNuskaitymasRusiavimasDeque(deque<studentasD>& grupeDeque, deque<studen
     std::cout << "Studentu duomenu apskaiciavimas truko:  " << laikasSkaiciavimas << " sek." << std::endl;*/
     cout << "DEQUE - Studentu rusiavimas i du konteinerius truko:  " << duration.count() << " sek." << endl;
 }
-void failoIsvedimasDeque(deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, int i, string vidMed, int& ivedimas, string choice) {
+void failoIsvedimasDeque(deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, int i, string vidMed, string ivedimasKonteineris, string choice) {
     ofstream fout;
     fout.open("KursiokaiGood" + to_string(i + 1) + ".txt");
 
@@ -165,51 +161,101 @@ void failoIsvedimasDeque(deque<studentasD>& grupeDeque, deque<studentasD>& grupe
     stringstream bufferisB;
 
     auto start1 = std::chrono::high_resolution_clock::now();
-    if (vidMed == "1") {
-        bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
-        bufferis << "--------------------------------------------------" << endl;
+    if (ivedimasKonteineris == "1") {
+        if (vidMed == "1") {
+            bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
+            bufferis << "--------------------------------------------------" << endl;
 
-        for (auto& student : grupeDequeGood) {
-            bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+            for (auto& student : grupeDequeGood) {
+                bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+            }
+            fout << bufferis.str();
+            bufferis.str("");
+            bufferis.clear();
         }
-        fout << bufferis.str();
-        bufferis.str("");
-        bufferis.clear();
-    }
-    else if (vidMed == "2") {
-        bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
-        bufferis << "--------------------------------------------------" << endl;
+        else if (vidMed == "2") {
+            bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
+            bufferis << "--------------------------------------------------" << endl;
 
-        for (auto& student : grupeDequeGood) {
-            bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+            for (auto& student : grupeDequeGood) {
+                bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+            }
+            fout << bufferis.str();
+            bufferis.str("");
+            bufferis.clear();
         }
-        fout << bufferis.str();
-        bufferis.str("");
-        bufferis.clear();
-    }
 
-    if (vidMed == "1") {
-        bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
-        bufferisB << "--------------------------------------------------" << endl;
+        if (vidMed == "1") {
+            bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
+            bufferisB << "--------------------------------------------------" << endl;
 
-        for (auto& student : grupeDequeBad) {
-            bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+            for (auto& student : grupeDequeBad) {
+                bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+            }
+            foutB << bufferisB.str();
+            bufferisB.str("");
+            bufferisB.clear();
         }
-        foutB << bufferisB.str();
-        bufferisB.str("");
-        bufferisB.clear();
-    }
-    else if (vidMed == "2") {
-        bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
-        bufferisB << "--------------------------------------------------" << endl;
+        else if (vidMed == "2") {
+            bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
+            bufferisB << "--------------------------------------------------" << endl;
 
-        for (auto& student : grupeDequeBad) {
-            bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+            for (auto& student : grupeDequeBad) {
+                bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+            }
+            foutB << bufferisB.str();
+            bufferisB.str("");
+            bufferisB.clear();
         }
-        foutB << bufferisB.str();
-        bufferisB.str("");
-        bufferisB.clear();
     }
+    else {
+        if (vidMed == "1") {
+            bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
+            bufferis << "--------------------------------------------------" << endl;
+
+            for (auto& student : grupeDeque) {
+                bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+            }
+            fout << bufferis.str();
+            bufferis.str("");
+            bufferis.clear();
+        }
+        else if (vidMed == "2") {
+            bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
+            bufferis << "--------------------------------------------------" << endl;
+
+            for (auto& student : grupeDeque) {
+                bufferis << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+            }
+            fout << bufferis.str();
+            bufferis.str("");
+            bufferis.clear();
+        }
+
+        if (vidMed == "1") {
+            bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
+            bufferisB << "--------------------------------------------------" << endl;
+
+            for (auto& student : grupeDequeBad) {
+                bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.pazVid << endl;
+            }
+            foutB << bufferisB.str();
+            bufferisB.str("");
+            bufferisB.clear();
+        }
+        else if (vidMed == "2") {
+            bufferisB << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
+            bufferisB << "--------------------------------------------------" << endl;
+
+            for (auto& student : grupeDequeBad) {
+                bufferisB << left << setw(20) << student.vardas << left << setw(20) << student.pavarde << left << setw(20) << setprecision(3) << student.mediana << endl;
+            }
+            foutB << bufferisB.str();
+            bufferisB.str("");
+            bufferisB.clear();
+        }
+    }
+        
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
     cout << "Abieju studentu konteineriu(DEQUE) isvedimas truko:  " << duration1.count() << " sek." << endl;
@@ -265,14 +311,15 @@ void clearDeque(deque<studentasD>& grupeDeque) {
     }
     grupeDeque.clear();
 }
-void dequeMain(string vidMed, string choice, deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, int ivedimas) {
+void dequeMain(string vidMed, string choice, deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, string ivedimasKonteineris) {
     pasirinkimasVidMed(vidMed);
     sortChoice(choice);
+    pasirinkimasIvedimas(ivedimasKonteineris);
     //pazymiuFailoGeneravimas();
     auto start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < 5; i++) {
         cout << pow(10, i + 3) << " studentu failas" << endl;
-        failoNuskaitymasRusiavimasDeque(grupeDeque, grupeDequeBad, grupeDequeGood, i, vidMed, ivedimas, choice);
+        failoNuskaitymasRusiavimasDeque(grupeDeque, grupeDequeBad, grupeDequeGood, i, vidMed, ivedimasKonteineris, choice);
 
 
         auto start = std::chrono::high_resolution_clock::now();

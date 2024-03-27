@@ -14,8 +14,6 @@
 #include <list>
 #include <deque>
 
-using namespace std;
-
 struct studentasD {
     string vardas;
     string pavarde;
@@ -30,7 +28,7 @@ void generalVidurkisCalculateDeque(deque<studentasD>& grupeDeque);
 void fileReadingDeque(std::deque<studentasD>& grupeDeque, std::string failas);
 void dequePartition(string vidMed, deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood);
 void dequePartition2(string vidMed, deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad);
-void failoNuskaitymasRusiavimasDeque(deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, int i, string vidMed, int& ivedimas, string choice);
-void failoIsvedimasDeque(deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, int i, string vidMed, int& ivedimas, string choice);
+void failoNuskaitymasRusiavimasDeque(deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, int i, string vidMed, string ivedimasKonteineris, string choice);
+void failoIsvedimasDeque(deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, int i, string vidMed, string ivedimasKonteineris, string choice);
 void sortInputDeque(string& choice, deque<studentasD>& grupeDeque);
-void dequeMain(string vidMed, string choice, deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, int ivedimas);
+void dequeMain(string vidMed, string choice, deque<studentasD>& grupeDeque, deque<studentasD>& grupeDequeBad, deque<studentasD>& grupeDequeGood, string ivedimasKonteineris);
