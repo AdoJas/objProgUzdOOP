@@ -196,3 +196,12 @@ Lenteles:
 
 Vidutinis laikas: 
 
+Kaip pasinaudoti kodu? (Windows ir macOS)
+1. Atsisiuntę ir išsisaugoję projekto failus savo kompiuteryje, atsisiųskite CLion IDE. [https://www.jetbrains.com/clion/download/#section=mac]
+2. Aktyvuokite CLion IDE su savo gautu kodu, kuris jums bus atsiūstas i el. pašto adresą, su kuriuo registravotės į JETBRAINS.
+3. Atlikę šiuos žingsnius, atsidarykite failus per CLion.
+4. Atidarius į failus, paspauskite ant Program.cpp du kartus.
+5. Viršuje iššokęs langelis praneš, kad reikia sukonfiguruoti CMake projektą.
+6. Paspauskite šį mygtuką ir nurodykite CMakeLists.txt failo vietą savo kompiuteryje.
+7. Atlikus šiuos žingsnius, lango viršuje paspauskite "RUN" mygtuką.
+8. Smagaus naudojimo!!!
