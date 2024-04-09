@@ -8,7 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include "chrono"
-#include "common.h"
+#include "Common.h"
 
 float studentasV::getMediana() {
     if (pazymiai.size() < 2) return -1;
@@ -94,6 +94,7 @@ void fileReading(vector<studentasV>& grupeVector, string failas, double & laikas
         fin.open(failas);
         if (!fin.is_open()) {
             cerr << "Error: nepavyko atidaryti failo!!!\n" << endl;
+            cerr << "Generuojami reikalingi failai!!\n";
             pazymiuFailoGeneravimas();
         }
     } while (!fin.is_open());

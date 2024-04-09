@@ -55,7 +55,6 @@ int main()
 
 do{
     meniu(pasirinkimas);
-    //pasirinkimas = 0;
     switch (stoi(pasirinkimas)) {
     case 1: {
         printf("Kiek studentu yra grupeje? (iveskite 0, jei norite ivesti neribota kieki)\n");
@@ -122,9 +121,9 @@ do{
             cin >> failoGeneravimoPasirinkimas;
         } while (failoGeneravimoPasirinkimas != "1" && failoGeneravimoPasirinkimas != "2");
 
-        if (failoGeneravimoPasirinkimas == "1")
+        if (failoGeneravimoPasirinkimas == "1"){
             pazymiuFailoGeneravimas();
-
+        }
 
         meniuKonteineriai(containerPasirinkimas);
         switch (stoi(containerPasirinkimas)) {

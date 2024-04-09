@@ -4,7 +4,7 @@
 #include <vector>
 #include <numeric>
 #include <algorithm>
-#include <cmath>"
+#include <cmath>
 #include "PazymiaiArrays.h"
 #include <fstream>
 #include <sstream>

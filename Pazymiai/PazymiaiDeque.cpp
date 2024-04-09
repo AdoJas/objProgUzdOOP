@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include <vector>
 #include <numeric>
 #include <algorithm>
 #include <cmath>
@@ -9,8 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include "chrono"
-
-#include "common.h"
+#include "Common.h"
 
 void fileReadingDeque(std::deque<studentasD>& grupeDeque, std::string failas) {
     std::ifstream fin;
@@ -18,6 +16,7 @@ void fileReadingDeque(std::deque<studentasD>& grupeDeque, std::string failas) {
         fin.open(failas);
         if (!fin.is_open()) {
             cerr << "Error: nepavyko atidaryti failo!!!\n" << endl;
+            cerr << "Generuojami reikalingi failai!!\n";
             pazymiuFailoGeneravimas();
         }
     } while (!fin.is_open());

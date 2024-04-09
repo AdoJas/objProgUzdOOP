@@ -16,6 +16,7 @@ void fileReadingList(list<studentasL>& grupeList, string failas) {
         fin.open(failas);
         if (!fin.is_open()) {
             cerr << "Error: nepavyko atidaryti failo!!!\n" << endl;
+            cerr << "Generuojami reikalingi failai!!\n";
             pazymiuFailoGeneravimas();
         }
     } while (!fin.is_open());
