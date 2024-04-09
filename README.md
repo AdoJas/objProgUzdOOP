@@ -202,7 +202,7 @@ Ka daro programa?
 3. Leidzia automatiskai atsitiktinai generuoti studentu vardus, pavardes ir ju pazymius, dirbti su jais.
 4. Leidzia nuskaityti duomenis is failo ir dirbti su tais duomenimis.
 5. Leidzia generuoti studentu duomenu faila su pazymiais, juos nuskaityti ir dirbti su jais.
-6. 5. funkcija, su pridetu pasirinkimu rusiuoti duomenis i skirtingus konteinerius(Vector, list, deque).
+6. 5 funkcija, su pridetu pasirinkimu rusiuoti duomenis i skirtingus konteinerius(Vector, list, deque).
 
 
 Kaip pasinaudoti kodu? (Windows ir macOS)
