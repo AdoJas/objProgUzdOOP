@@ -1,21 +1,12 @@
 #include <iostream>
 #include <string>
-#include <iomanip>
-#include <cstring>
 #include <ctime>
 #include "PazymiaiVectors.h"
 #include "PazymiaiArrays.h"
 #include "PazymiaiList.h"
 #include "PazymiaiDeque.h"
 #include "Common.h"
-#include "cstdlib"
-#include <iostream>
-#include <cstdlib> 
-#include <ctime>
-#include <fstream>
-#include <cmath>
 #include <stdlib.h>
-#include "chrono"
 using namespace std;
 
 int main()
