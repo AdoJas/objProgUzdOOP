@@ -149,6 +149,7 @@ Lenteles:
 ![image](https://github.com/AdoJas/objProgUzd/assets/147920380/dea1a0eb-9b14-4665-afa6-decc806648ad)
 
 Vidutinis laikas: 
+![image](https://github.com/AdoJas/objProgUzd/assets/147920380/df6134d6-feff-41e5-9a41-bf433aac7c9a)
 
 
 Testavimas su List:
@@ -172,6 +173,7 @@ Lenteles:
 ![image](https://github.com/AdoJas/objProgUzd/assets/147920380/1cdb15ee-e755-4c0b-9490-f5ab3f0a9ec1)
 
 Vidutinis laikas: 
+![image](https://github.com/AdoJas/objProgUzd/assets/147920380/1e2ae4e6-8fca-4ec1-9df7-bbfc014bd33e)
 
 
 Testavimas su Deque:
@@ -195,6 +197,10 @@ Lenteles:
 
 
 Vidutinis laikas: 
+![image](https://github.com/AdoJas/objProgUzd/assets/147920380/84c111cf-0b06-45dc-b865-6f1ddbc4150d)
+
+
+Isvados: Testavimo metu gautuose rezultatuose akivaizdu, kad vector konteineris yra pats greiciausias. Jei darbas vyksta su maziau nei 1 milijonu studentu, laiko skirtumai zmogui nera pastebimi, taciau kai kalba eina apie 1 arba 10 milijonu studentu, tada sis skirtumas yra pastebimas, ypac studentu konteinerio rusiavimo greityje ir studentu duomenu irasyme i viena nauja vektoriu. Todel, remiantis siais atliktais tyrimais, galime teigti, kad vector konteineris yra pats greiciausias, todel ji apsimoka naudoti.
 
 Ka daro programa?
 1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
