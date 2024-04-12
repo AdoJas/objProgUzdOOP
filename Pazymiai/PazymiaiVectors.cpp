@@ -10,23 +10,23 @@
 #include "chrono"
 #include "Common.h"
 
-float studentasV::getMediana() {
-    if (pazymiai.size() < 2) return -1;
-    int laikinas = round(pazymiai.size() * 1.0 / 2);
-    float med;
-    sort(pazymiai.begin(), pazymiai.end());
-    if (pazymiai.size() % 2 == 0) {
-        med = (pazymiai[laikinas] + pazymiai[laikinas - 1]) * 1.0 / 2;
-    }
-    else {
-        med = pazymiai[laikinas - 1];
-    }
-    return med * 0.4 + egzaminas * 0.6;
-}
-float studentasV::getVidurkis() {
-    if (pazymiai.empty()) return egzaminas * 0.6;
-    return accumulate(pazymiai.begin(), pazymiai.end(), 0) * 1.0 / pazymiai.size() * 0.4 + egzaminas * 0.6;
-}
+//float studentasV::getMediana() {
+//    if (pazymiai.size() < 2) return -1;
+//    int laikinas = round(pazymiai.size() * 1.0 / 2);
+//    float med;
+//    sort(pazymiai.begin(), pazymiai.end());
+//    if (pazymiai.size() % 2 == 0) {
+//        med = (pazymiai[laikinas] + pazymiai[laikinas - 1]) * 1.0 / 2;
+//    }
+//    else {
+//        med = pazymiai[laikinas - 1];
+//    }
+//    return med * 0.4 + egzaminas * 0.6;
+//}
+//float studentasV::getVidurkis() {
+//    if (pazymiai.empty()) return egzaminas * 0.6;
+//    return accumulate(pazymiai.begin(), pazymiai.end(), 0) * 1.0 / pazymiai.size() * 0.4 + egzaminas * 0.6;
+//}
 
 double laikasSkaitymas = 0.0;
 double laikasSkaiciavimas = 0.0;
