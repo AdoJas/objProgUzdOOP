@@ -9,47 +9,7 @@
 
 using namespace std;
 
-class studentasV {
-    string vardas;
-    string pavarde;
-    vector<int> pazymiai;
-    float pazVid = 0.0;
-    float egzaminas = 0.0;
-    float mediana = 0.0;
-//    float getMediana();
-//    float getVidurkis();
-    float pazSuma = 0.0;
 
-public:
-    void getVardasCin(){
-        cin >> vardas;
-    }
-    void getPavardeCin(){
-        cin >> pavarde;
-    }
-    void getPazymiaiEgzaminasCin() {
-        string pazymys;
-        do{
-            cout << "Iveskite pazymi (arba S jei norite baigti ivedima)" << endl;
-            cin >> pazymys;
-            if (pazymys == "S" || pazymys == "s"){
-                break;
-            }
-            try{
-                int grade = stoi(pazymys);
-                pazymiai.push_back(grade);
-            }
-            catch(...) {
-                cout << "Blogas ivedimas!!! Duomuo nebuvo itrauktas i pazymiu sarasa" << endl;
-            }
-        }while(true);
-        bool egzaminasIvestas;
-        string laikinasEgz;
-        cin >> laikinasEgz;
-        float egzaminasLaikinas = stof(laikinasEgz);
-        egzaminas = egzaminasLaikinas;
-    }
-};
 void ivedimas(vector<studentasV>& grupeVector, int n);
 void ivedimasNoSize(vector<studentasV>& grupeVector);
 void ivedimasCaseTwo(vector<studentasV>& grupeVector);
