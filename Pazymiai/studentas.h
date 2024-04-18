@@ -8,19 +8,25 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include "numeric"
+#include <algorithm>
 class studentasBase {
-public:
+protected:
     std::string vardas;
     std::string pavarde;
+    float vidurkis;
+    float mediana;
+    float galutinisVidurkis;
+public:
+    studentasBase() : vardas(" "), pavarde(" "), vidurkis(0.0), mediana(0.0){};
 
 };
 
-class studentasVector : public studentasBase {
+class studentasV : public studentasBase {
 public:
     std::vector<double> pazymiai;
     double egzaminas{};
-    studentasVector() : egzaminas(0.0) {}
+    studentasV() : egzaminas(0.0) {}
 
     void setVardas(std::string &vardas);
     const std::string getVardas();
@@ -28,19 +34,20 @@ public:
     void setPavarde(std::string &pavarde);
     const std::string getPavarde();
 
-    void setNamuDarbai(std::vector<int> &nd);
-    const std::vector<int> getNamuDarbai();
+    void setNamuDarbai(std::vector<double> &pazRinkinys);
+    const std::vector<double> getNamuDarbai();
 
     void setEgzaminas(int &egzaminas);
     const int getEgzaminas();
 
+    const float setVidurkis();
+    const float setMediana();
     const float getVidurkis();
     const float getMediana();
-    const float galutinisVidurkis(int pasirinkimas);
     void setAtsitiktiniaiPazymiai();
     void setAtsitiktiniaiDuomenys();
 
-    ~studentasVector();
+    ~studentasV();
 };
 
 #endif //OOPUZD_STUDENTAS_H

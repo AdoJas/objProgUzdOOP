@@ -30,9 +30,9 @@ int main()
     string ivedimasKonteineris = " ";
     string failoGeneravimoPasirinkimas = " ";
 
-    vector<studentasVector> grupeVector;
-    vector<studentasVector> grupeBad;
-    vector<studentasVector> grupeGood;
+    vector<studentasV> grupeVector;
+    vector<studentasV> grupeBad;
+    vector<studentasV> grupeGood;
 
 
 do{
@@ -64,7 +64,7 @@ do{
         printf("Kiek studentu yra grupeje?\n");
         cin >> n;
         for (int z = 0; z < n; z++) {
-            studentasVector stud = studentasVector();
+            studentasV stud = studentasV();
             generateRandomNames(stud);
             generateRandomGrades(stud);
             grupeVector.push_back(stud);

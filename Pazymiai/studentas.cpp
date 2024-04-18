@@ -3,27 +3,86 @@
 //
 #include "studentas.h"
 #include <fstream>
+
+
 double mediana(std::vector<double>){
 
 }
-
-void studentasVector::readStudent(std::istream& is) {
-    std::string laikinasPaz;
-    if (!(is >> vardas)) {
-        std::cerr << "Nepavyko nuskaityti duomenų iš failo!" << std::endl;
-        return;
-    }
-    is >> pavarde >> egzaminas;
-    while (is >> laikinasPaz) {
-        try {
-            int pazymys = std::stoi(laikinasPaz);
-            if (pazymys >= 0 && pazymys <= 10) {
-                pazymiai.push_back(pazymys);
-            }
-        }
-        catch (const std::exception& e) {
-        }
-    }
-    egzaminas = pazymiai.back();
-    pazymiai.pop_back();
+void studentasV::setVardas(std::string &vardas) {
+    this-> vardas = vardas;
 }
+const std::string studentasV::getVardas() {
+    return vardas;
+}
+void studentasV::setPavarde(std::string &pavarde) {
+    this -> pavarde = pavarde;
+}
+const std::string studentasV::getPavarde() {
+    return pavarde;
+}
+void studentasV::setNamuDarbai(std::vector<double> &pazRinkinys) {
+    pazymiai = pazRinkinys;
+}
+const std::vector<double> studentasV::getNamuDarbai() {
+    return pazymiai;
+}
+
+void studentasV::setEgzaminas(int &egzaminas) {
+    this -> egzaminas = egzaminas;
+}
+const int studentasV::getEgzaminas() {
+    return egzaminas;
+}
+const float studentasV::setVidurkis() {
+    if (pazymiai.empty()) {
+        vidurkis = egzaminas * 0.6;
+    } else {
+        double suma = std::accumulate(pazymiai.begin(), pazymiai.end(), 0.0);
+        vidurkis = suma / pazymiai.size() * 0.4 + egzaminas * 0.6;
+    }
+}
+const float studentasV::setMediana() {
+    std::sort(pazymiai.begin(), pazymiai.end());
+
+    size_t size = pazymiai.size();
+    if (size < 2) mediana = -1;
+    if (size % 2 == 0) {
+        mediana = (pazymiai[size / 2 - 1] + pazymiai[size / 2]) / 2.0 * 0.4 + egzaminas * 0.6;
+    }
+    else {
+        mediana = pazymiai[size / 2] * 0.4 + egzaminas * 0.6;
+    }
+}
+const float studentasV::getVidurkis() {
+    return vidurkis;
+}
+const float studentasV::getMediana() {
+    return mediana;
+}
+void studentasV::setAtsitiktiniaiPazymiai() {
+    pazymiai.resize(rand() % 10 + 1);
+    for (double & paz : pazymiai) {
+        paz = rand() % 10 + 1;
+    }
+    egzaminas = rand() % 10 + 1;
+}
+void studentasV::setAtsitiktiniaiDuomenys() {
+    setAtsitiktiniaiPazymiai(); // Assuming this function sets pazymiai
+
+    const std::vector<std::string> vardai = { "Bronius", "Juozas", "Rimas", "Tomas", "Matas", "Markas", "Ignas", "Kristupas", "Joris", "Arnas" };
+    const std::vector<std::string> pavardes = { "Broniauskas", "Juozevicius", "Rimauskas", "Tomavicius", "Matkevicius", "Markevicius", "Igniauskas", "Kristevicius", "Jorevicius", "Arniavicius" };
+
+    int vardasIndex = rand() % vardai.size();
+    int pavardeIndex = rand() % pavardes.size();
+
+    this->vardas = vardai[vardasIndex];
+    this->pavarde = pavardes[pavardeIndex];
+}
+studentasV::~studentasV(){
+    pazymiai.clear();
+    vardas.clear();
+    pavarde.clear();
+    vidurkis = 0;
+    mediana = 0;
+    galutinisVidurkis = 0;
+};
