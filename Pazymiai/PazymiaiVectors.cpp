@@ -297,45 +297,45 @@ bool compareByMediana(const studentasV& a, const studentasV& b){
 }
 
 //Dinaminis pazymiu ivedimas
-void readNumbersV(studentasV &stud, int maxItems = 0) {
-    string s;
-    bool testi = true;
-    int notNumbers = 0;
-    int badValues = 0;
-    if (maxItems > 0) {
-        cout << "Iveskite " << maxItems << " pazymius. Noredami baigti ivedima spauskite 0." << endl;
-        cout << "---------------------------------------------------------" << endl;
-    }
-    else {
-        cout << "Iveskite pazymius. Noredami baigti ivedima spauskite 0." << endl;
-        cout << "---------------------------------------------------------" << endl;
-    }
-    while (testi) {
-        while (s != "0") {
-            cin >> s;
-            try {
-                int value = std::stoi(s);
-                badValues += value >= 0 && value <= 10 ? 0 : 1;
-                if ((stud.pazymiai.size() < maxItems || maxItems == 0) && value > 0 && value < 11) {
-                    stud.pazymiai.push_back(stoi(s));
-                }
-            }
-            catch (...) {
-                notNumbers++;
-            }
-        }
-        testi = maxItems > 0 && stud.pazymiai.size() < maxItems;
-        if (testi) {
-            if (notNumbers > 0)
-                cout << "Ivestu neteisingu pazymiu skaicius: " << notNumbers << endl;
-            if (badValues)
-                cout << "Ivestu pazymiu, kurie nera intervale [1,10], skaicius: " << badValues << endl;
-            cout << "Trukstamu pazymiu skaicius: " << maxItems - stud.pazymiai.size() << ". Teskite ivedima" << endl;
-            s = "";
-            notNumbers = badValues = 0;
-        }
-    }
-}
+//void readNumbersV(studentasV &stud, int maxItems = 0) {
+//    string s;
+//    bool testi = true;
+//    int notNumbers = 0;
+//    int badValues = 0;
+//    if (maxItems > 0) {
+//        cout << "Iveskite " << maxItems << " pazymius. Noredami baigti ivedima spauskite 0." << endl;
+//        cout << "---------------------------------------------------------" << endl;
+//    }
+//    else {
+//        cout << "Iveskite pazymius. Noredami baigti ivedima spauskite 0." << endl;
+//        cout << "---------------------------------------------------------" << endl;
+//    }
+//    while (testi) {
+//        while (s != "0") {
+//            cin >> s;
+//            try {
+//                int value = std::stoi(s);
+//                badValues += value >= 0 && value <= 10 ? 0 : 1;
+//                if ((stud.pazymiai.size() < maxItems || maxItems == 0) && value > 0 && value < 11) {
+//                    stud.pazymiai.push_back(stoi(s));
+//                }
+//            }
+//            catch (...) {
+//                notNumbers++;
+//            }
+//        }
+//        testi = maxItems > 0 && stud.pazymiai.size() < maxItems;
+//        if (testi) {
+//            if (notNumbers > 0)
+//                cout << "Ivestu neteisingu pazymiu skaicius: " << notNumbers << endl;
+//            if (badValues)
+//                cout << "Ivestu pazymiu, kurie nera intervale [1,10], skaicius: " << badValues << endl;
+//            cout << "Trukstamu pazymiu skaicius: " << maxItems - stud.pazymiai.size() << ". Teskite ivedima" << endl;
+//            s = "";
+//            notNumbers = badValues = 0;
+//        }
+//    }
+//}
 //Sortinimo funkcija
 void sortInput(string& choice, vector<studentasV>& grupeVector){
     auto start = std::chrono::high_resolution_clock::now();
