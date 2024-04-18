@@ -25,6 +25,7 @@ void ivedimasV(vector<studentasV>& grupeVector, studentasV& stud, int studentoNr
     stud.getPavarde();
     cout << "Iveskite mokinio pazymius: ";
     readNumbersV(stud, pazymiuKiekis);
+
     cout << "Iveskite " << studentoNr + 1 << " mokinio egzamino rezultata: ";
     do {
         cin >> s;
@@ -48,34 +49,35 @@ void ivedimas(vector<studentasV>& grupeVector, int n) {
 }
 void ivedimasNoSize(vector<studentasV>& grupeVector) {
     char testi = 't';
-    do {
+    string laikVardas;
+    string laikPavarde;
+    float laikEgzaminas;
+    do{
         studentasV laikinasV;
-        ivedstudentasVector::studentasVector(std::istream& is) {
-    // Read data from the input stream to initialize the object
-    std::cout << "Enter vardas: ";
-    std::getline(is, vardas);
+    std::cout << "Iveskite vardas: ";
+    cin >> laikVardas;
 
-    std::cout << "Enter pavarde: ";
-    std::getline(is, pavarde);
+    std::cout << "Iveskite pavarde: ";
+    cin >> laikPavarde;
 
-    std::cout << "Enter egzaminas: ";
-    is >> egzaminas;
+    std::cout << "Iveskite egzaminas: ";
+    cin >> laikEgzaminas;
 
     // Read pazymiai vector size
     int pazymiaiSize;
-    std::cout << "Enter number of pazymiai: ";
-    is >> pazymiaiSize;
+    std::cout << "Iveskite pazymiu kieki: ";
+    cin >> pazymiaiSize;
 
     // Read pazymiai vector elements
     std::cout << "Enter pazymiai: ";
     for (int i = 0; i < pazymiaiSize; ++i) {
         double pazymys;
-        is >> pazymys;
+        cin >> pazymys;
         pazymiai.push_back(pazymys);
     }
-}imasV(grupeVector, laikinasV, grupeVector.size(), 0);
-        cout << "Jei norite testi, iveskite t, jei nenorite testi, iveskite n ";
-        cin >> testi;
+        ivedimasV(grupeVector, laikinasV, grupeVector.size(), 0);
+            cout << "Jei norite testi, iveskite t, jei nenorite testi, iveskite n ";
+            cin >> testi;
     } while (testi == 't' || testi == 'T');
 }
 void ivedimasCaseTwo(vector<studentasV>& grupeVector) {
@@ -297,45 +299,45 @@ bool compareByMediana(const studentasV& a, const studentasV& b){
 }
 
 //Dinaminis pazymiu ivedimas
-//void readNumbersV(studentasV &stud, int maxItems = 0) {
-//    string s;
-//    bool testi = true;
-//    int notNumbers = 0;
-//    int badValues = 0;
-//    if (maxItems > 0) {
-//        cout << "Iveskite " << maxItems << " pazymius. Noredami baigti ivedima spauskite 0." << endl;
-//        cout << "---------------------------------------------------------" << endl;
-//    }
-//    else {
-//        cout << "Iveskite pazymius. Noredami baigti ivedima spauskite 0." << endl;
-//        cout << "---------------------------------------------------------" << endl;
-//    }
-//    while (testi) {
-//        while (s != "0") {
-//            cin >> s;
-//            try {
-//                int value = std::stoi(s);
-//                badValues += value >= 0 && value <= 10 ? 0 : 1;
-//                if ((stud.pazymiai.size() < maxItems || maxItems == 0) && value > 0 && value < 11) {
-//                    stud.pazymiai.push_back(stoi(s));
-//                }
-//            }
-//            catch (...) {
-//                notNumbers++;
-//            }
-//        }
-//        testi = maxItems > 0 && stud.pazymiai.size() < maxItems;
-//        if (testi) {
-//            if (notNumbers > 0)
-//                cout << "Ivestu neteisingu pazymiu skaicius: " << notNumbers << endl;
-//            if (badValues)
-//                cout << "Ivestu pazymiu, kurie nera intervale [1,10], skaicius: " << badValues << endl;
-//            cout << "Trukstamu pazymiu skaicius: " << maxItems - stud.pazymiai.size() << ". Teskite ivedima" << endl;
-//            s = "";
-//            notNumbers = badValues = 0;
-//        }
-//    }
-//}
+void readNumbersV(studentasV &stud, int maxItems = 0) {
+    string s;
+    bool testi = true;
+    int notNumbers = 0;
+    int badValues = 0;
+    if (maxItems > 0) {
+        cout << "Iveskite " << maxItems << " pazymius. Noredami baigti ivedima spauskite 0." << endl;
+        cout << "---------------------------------------------------------" << endl;
+    }
+    else {
+        cout << "Iveskite pazymius. Noredami baigti ivedima spauskite 0." << endl;
+        cout << "---------------------------------------------------------" << endl;
+    }
+    while (testi) {
+        while (s != "0") {
+            cin >> s;
+            try {
+                int value = std::stoi(s);
+                badValues += value >= 0 && value <= 10 ? 0 : 1;
+                if ((stud.pazymiai.size() < maxItems || maxItems == 0) && value > 0 && value < 11) {
+                    stud.pazymiai.push_back(stoi(s));
+                }
+            }
+            catch (...) {
+                notNumbers++;
+            }
+        }
+        testi = maxItems > 0 && stud.pazymiai.size() < maxItems;
+        if (testi) {
+            if (notNumbers > 0)
+                cout << "Ivestu neteisingu pazymiu skaicius: " << notNumbers << endl;
+            if (badValues)
+                cout << "Ivestu pazymiu, kurie nera intervale [1,10], skaicius: " << badValues << endl;
+            cout << "Trukstamu pazymiu skaicius: " << maxItems - stud.pazymiai.size() << ". Teskite ivedima" << endl;
+            s = "";
+            notNumbers = badValues = 0;
+        }
+    }
+}
 //Sortinimo funkcija
 void sortInput(string& choice, vector<studentasV>& grupeVector){
     auto start = std::chrono::high_resolution_clock::now();

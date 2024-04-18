@@ -6,7 +6,7 @@
 #include <utility>
 #include <vector>
 #include <numeric>
-
+#include "studentas.h"
 using namespace std;
 
 

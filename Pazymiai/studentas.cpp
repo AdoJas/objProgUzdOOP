@@ -5,9 +5,7 @@
 #include <fstream>
 
 
-double mediana(std::vector<double>){
 
-}
 void studentasV::setVardas(std::string &vardas) {
     this-> vardas = vardas;
 }
