@@ -2,11 +2,9 @@
 #include <string>
 #include <ctime>
 #include "PazymiaiVectors.h"
-#include "PazymiaiArrays.h"
-#include "PazymiaiList.h"
-#include "PazymiaiDeque.h"
 #include "Common.h"
 #include <stdlib.h>
+#include "studentas.h"
 using namespace std;
 
 int main()
@@ -32,17 +30,10 @@ int main()
     string ivedimasKonteineris = " ";
     string failoGeneravimoPasirinkimas = " ";
 
-    vector<studentasV> grupeVector;
-    vector<studentasV> grupeBad;
-    vector<studentasV> grupeGood;
+    vector<studentasVector> grupeVector;
+    vector<studentasVector> grupeBad;
+    vector<studentasVector> grupeGood;
 
-    list<studentasL> grupeList;
-    list<studentasL> grupeListBad;
-    list<studentasL> grupeListGood;
-
-    deque<studentasD> grupeDeque;
-    deque<studentasD> grupeDequeGood;
-    deque<studentasD> grupeDequeBad;
 
 do{
     meniu(pasirinkimas);
@@ -73,7 +64,7 @@ do{
         printf("Kiek studentu yra grupeje?\n");
         cin >> n;
         for (int z = 0; z < n; z++) {
-            studentasV stud = studentasV();
+            studentasVector stud = studentasVector();
             generateRandomNames(stud);
             generateRandomGrades(stud);
             grupeVector.push_back(stud);
@@ -116,31 +107,11 @@ do{
             pazymiuFailoGeneravimas();
         }
 
-        meniuKonteineriai(containerPasirinkimas);
-        switch (stoi(containerPasirinkimas)) {
-        case 1: {
-            cout << "Vector konteineris" << endl;
-            vektoriaiMain(vidMed, choice, grupeVector, grupeBad, grupeGood, ivedimasKonteineris);
-            ivedimasKonteineris.clear();
-            break;
-        }
-        case 2: {
-            cout << "List konteineris" << endl;
-
-            listMain(vidMed, choice, grupeList, grupeListBad, grupeListGood, ivedimasKonteineris);
-            ivedimasKonteineris.clear();
-            break;
-        }
-        case 3: {
-            cout << "Deque konteineris" << endl;
-            dequeMain(vidMed, choice, grupeDeque, grupeDequeBad, grupeDequeGood, ivedimasKonteineris);
-            ivedimasKonteineris.clear();
-            break;
-        }
-        }
-
-
+        cout << "Vector konteineris" << endl;
+        vektoriaiMain(vidMed, choice, grupeVector, grupeBad, grupeGood, ivedimasKonteineris);
+        ivedimasKonteineris.clear();
         break;
+
     }    
     case 7:
         printf("Sekmingai baigete darba!!!\n");

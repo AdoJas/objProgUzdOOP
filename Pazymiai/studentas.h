@@ -13,18 +13,34 @@ class studentasBase {
 public:
     std::string vardas;
     std::string pavarde;
-    double egzaminas;
 
 };
-class studentasVector : public studentasBase{
-    std::vector<double> pazymiai;
-    studentasVector() : egzaminas(0) { }
-    studentasVector(std::istream& is);
-    std::string getVardas() const { return vardas; }
-    std::string getPavarde() const { return pavarde; }
-    double galBalas(double (*) (std::vector<double>)) const;
-    void readStudent(std::istream&);
 
+class studentasVector : public studentasBase {
+public:
+    std::vector<double> pazymiai;
+    double egzaminas{};
+    studentasVector() : egzaminas(0.0) {}
+
+    void setVardas(std::string &vardas);
+    const std::string getVardas();
+
+    void setPavarde(std::string &pavarde);
+    const std::string getPavarde();
+
+    void setNamuDarbai(std::vector<int> &nd);
+    const std::vector<int> getNamuDarbai();
+
+    void setEgzaminas(int &egzaminas);
+    const int getEgzaminas();
+
+    const float getVidurkis();
+    const float getMediana();
+    const float galutinisVidurkis(int pasirinkimas);
+    void setAtsitiktiniaiPazymiai();
+    void setAtsitiktiniaiDuomenys();
+
+    ~studentasVector();
 };
 
 #endif //OOPUZD_STUDENTAS_H

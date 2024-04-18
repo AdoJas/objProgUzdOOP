@@ -5,11 +5,11 @@
 #include <numeric>
 #include <algorithm>
 #include <cmath>
-#include "PazymiaiArrays.h"
 #include <fstream>
 #include <sstream>
 #include "chrono"
 
+using namespace std;
 void addToArray(int*& arr, int& size, int value) {
     size++;
     int* tmp = new int[size];
@@ -21,16 +21,6 @@ void addToArray(int*& arr, int& size, int value) {
     arr = tmp;
 }
 
-void addToArray(studentasA*& arr, int& size, studentasA value) {
-    size++;
-    studentasA* tmp = new studentasA[size];
-    for (int i = 0; i < size - 1; i++) {
-        tmp[i] = arr[i];
-    }
-    tmp[size - 1] = value;
-    delete[] arr;
-    arr = tmp;
-}
 void meniu(string& pasirinkimas) {
     bool validInput = false;
     do {

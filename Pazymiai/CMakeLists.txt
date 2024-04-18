@@ -7,7 +7,7 @@ endif()
 
 project ("OOPuzd")
 
-add_executable (OOPuzd  "Common.cpp" "Common.h" "PazymiaiArrays.cpp" "PazymiaiArrays.h" "PazymiaiDeque.cpp" "PazymiaiDeque.h" "PazymiaiList.cpp" "PazymiaiList.h" "PazymiaiVectors.cpp" "PazymiaiVectors.h" "Program.cpp"
+add_executable (OOPuzd  "Common.cpp" "Common.h" "PazymiaiVectors.cpp" "PazymiaiVectors.h" "Program.cpp"
         studentas.h
         studentas.cpp)
 

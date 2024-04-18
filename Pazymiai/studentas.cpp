@@ -7,7 +7,7 @@ double mediana(std::vector<double>){
 
 }
 
-void studentasV::readStudent(std::istream& is) {
+void studentasVector::readStudent(std::istream& is) {
     std::string laikinasPaz;
     if (!(is >> vardas)) {
         std::cerr << "Nepavyko nuskaityti duomenų iš failo!" << std::endl;
@@ -26,7 +26,4 @@ void studentasV::readStudent(std::istream& is) {
     }
     egzaminas = pazymiai.back();
     pazymiai.pop_back();
-}
-studentasV::studentasV(std::istream &is) {
-    readStudent(is);
 }

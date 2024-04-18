@@ -10,31 +10,12 @@
 #include "chrono"
 #include "Common.h"
 
-
-//float studentasV::getMediana() {
-//    if (pazymiai.size() < 2) return -1;
-//    int laikinas = round(pazymiai.size() * 1.0 / 2);
-//    float med;
-//    sort(pazymiai.begin(), pazymiai.end());
-//    if (pazymiai.size() % 2 == 0) {
-//        med = (pazymiai[laikinas] + pazymiai[laikinas - 1]) * 1.0 / 2;
-//    }
-//    else {
-//        med = pazymiai[laikinas - 1];
-//    }
-//    return med * 0.4 + egzaminas * 0.6;
-//}
-//float studentasV::getVidurkis() {
-//    if (pazymiai.empty()) return egzaminas * 0.6;
-//    return accumulate(pazymiai.begin(), pazymiai.end(), 0) * 1.0 / pazymiai.size() * 0.4 + egzaminas * 0.6;
-//}
-//
 //double laikasSkaitymas = 0.0;
 //double laikasSkaiciavimas = 0.0;
 //double laikasRusiavimas = 0.0;
 //int fakePazymiai = 0;
 //
-////Duomenu ivedimo/nuskaitymo funkcijos
+//Duomenu ivedimo/nuskaitymo funkcijos
 //void ivedimasV(vector<studentasV>& grupeVector, studentasV& stud, int studentoNr, int pazymiuKiekis) {
 //    string s;
 //    cout << "Iveskite " << studentoNr + 1 << " mokinio varda: ";
@@ -68,7 +49,30 @@
 //    char testi = 't';
 //    do {
 //        studentasV laikinasV;
-//        ivedimasV(grupeVector, laikinasV, grupeVector.size(), 0);
+//        ivedstudentasVector::studentasVector(std::istream& is) {
+//    // Read data from the input stream to initialize the object
+//    std::cout << "Enter vardas: ";
+//    std::getline(is, vardas);
+//
+//    std::cout << "Enter pavarde: ";
+//    std::getline(is, pavarde);
+//
+//    std::cout << "Enter egzaminas: ";
+//    is >> egzaminas;
+//
+//    // Read pazymiai vector size
+//    int pazymiaiSize;
+//    std::cout << "Enter number of pazymiai: ";
+//    is >> pazymiaiSize;
+//
+//    // Read pazymiai vector elements
+//    std::cout << "Enter pazymiai: ";
+//    for (int i = 0; i < pazymiaiSize; ++i) {
+//        double pazymys;
+//        is >> pazymys;
+//        pazymiai.push_back(pazymys);
+//    }
+//}imasV(grupeVector, laikinasV, grupeVector.size(), 0);
 //        cout << "Jei norite testi, iveskite t, jei nenorite testi, iveskite n ";
 //        cin >> testi;
 //    } while (testi == 't' || testi == 'T');
