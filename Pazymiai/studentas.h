@@ -16,34 +16,34 @@ protected:
     std::string pavarde;
     float vidurkis;
     float mediana;
-    float galutinisVidurkis;
 public:
     studentasBase() : vardas(" "), pavarde(" "), vidurkis(0.0), mediana(0.0){};
 
 };
 
 class studentasV : public studentasBase {
-public:
+private:
     std::vector<double> pazymiai;
     double egzaminas{};
+public:
     studentasV() : egzaminas(0.0) {}
 
     void setVardas(std::string &vardas);
-    const std::string getVardas();
+    std::string getVardas() const;
 
     void setPavarde(std::string &pavarde);
-    const std::string getPavarde();
+    std::string getPavarde() const;
 
-    void setNamuDarbai(std::vector<double> &pazRinkinys);
-    const std::vector<double> getNamuDarbai();
+    void setPazymiai(int pazRinkinys);
+    std::vector<double> getPazymiai() const;
+    void resizePazymiai(int n);
+    void setEgzaminas(int egzaminas);
+    int getEgzaminas() const;
 
-    void setEgzaminas(int &egzaminas);
-    const int getEgzaminas();
-
-    const float setVidurkis();
-    const float setMediana();
-    const float getVidurkis();
-    const float getMediana();
+    float setVidurkis();
+    float setMediana();
+    float getVidurkis() const;
+    float getMediana() const;
     void setAtsitiktiniaiPazymiai();
     void setAtsitiktiniaiDuomenys();
 

@@ -9,29 +9,33 @@
 void studentasV::setVardas(std::string &vardas) {
     this-> vardas = vardas;
 }
-const std::string studentasV::getVardas() {
+std::string studentasV::getVardas() const{
     return vardas;
 }
 void studentasV::setPavarde(std::string &pavarde) {
     this -> pavarde = pavarde;
 }
-const std::string studentasV::getPavarde() {
+std::string studentasV::getPavarde() const{
     return pavarde;
 }
-void studentasV::setNamuDarbai(std::vector<double> &pazRinkinys) {
-    pazymiai = pazRinkinys;
+void studentasV::setPazymiai(int pazRinkinys) {
+    pazymiai.clear();
+    pazymiai.push_back(pazRinkinys);
 }
-const std::vector<double> studentasV::getNamuDarbai() {
+void studentasV::resizePazymiai(int n) {
+    pazymiai.resize(n);
+}
+std::vector<double> studentasV::getPazymiai() const {
     return pazymiai;
 }
 
-void studentasV::setEgzaminas(int &egzaminas) {
+void studentasV::setEgzaminas(int egzaminas) {
     this -> egzaminas = egzaminas;
 }
-const int studentasV::getEgzaminas() {
+int studentasV::getEgzaminas() const{
     return egzaminas;
 }
-const float studentasV::setVidurkis() {
+float studentasV::setVidurkis(){
     if (pazymiai.empty()) {
         vidurkis = egzaminas * 0.6;
     } else {
@@ -39,7 +43,7 @@ const float studentasV::setVidurkis() {
         vidurkis = suma / pazymiai.size() * 0.4 + egzaminas * 0.6;
     }
 }
-const float studentasV::setMediana() {
+float studentasV::setMediana() {
     std::sort(pazymiai.begin(), pazymiai.end());
 
     size_t size = pazymiai.size();
@@ -51,10 +55,10 @@ const float studentasV::setMediana() {
         mediana = pazymiai[size / 2] * 0.4 + egzaminas * 0.6;
     }
 }
-const float studentasV::getVidurkis() {
+float studentasV::getVidurkis() const{
     return vidurkis;
 }
-const float studentasV::getMediana() {
+float studentasV::getMediana() const{
     return mediana;
 }
 void studentasV::setAtsitiktiniaiPazymiai() {
@@ -82,5 +86,4 @@ studentasV::~studentasV(){
     pavarde.clear();
     vidurkis = 0;
     mediana = 0;
-    galutinisVidurkis = 0;
 };

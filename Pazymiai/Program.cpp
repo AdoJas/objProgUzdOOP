@@ -124,9 +124,7 @@ do{
     if (stoi(pasirinkimas) == 7) {
         break;
     }
-    for (int i = 0; i < grupeVector.size(); i++) {
-        grupeVector[i].pazymiai.clear();
-    }
+
     grupeVector.clear();
 
 }while (stoi(pasirinkimas) != 7);
