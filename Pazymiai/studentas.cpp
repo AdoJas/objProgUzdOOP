@@ -47,11 +47,11 @@ void studentasV::setMediana() {
     std::sort(pazymiai.begin(), pazymiai.end());
 
     size_t size = pazymiai.size();
-    if (size < 2) mediana = -1;
-    if (size % 2 == 0) {
+    if (size == 0) {
+        mediana = -1;
+    } else if (size % 2 == 0) {
         mediana = (pazymiai[size / 2 - 1] + pazymiai[size / 2]) / 2.0 * 0.4 + egzaminas * 0.6;
-    }
-    else {
+    } else {
         mediana = pazymiai[size / 2] * 0.4 + egzaminas * 0.6;
     }
 }
@@ -82,8 +82,4 @@ void studentasV::setAtsitiktiniaiDuomenys() {
 }
 studentasV::~studentasV(){
     pazymiai.clear();
-    vardas.clear();
-    pavarde.clear();
-    vidurkis = 0;
-    mediana = 0;
 };
