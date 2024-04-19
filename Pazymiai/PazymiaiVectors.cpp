@@ -96,7 +96,7 @@ void fileReading(vector<studentasV>& grupeVector, string failas, double & laikas
         string line;
         istringstream iss;
         string grade = "";
-        vector<int> laikiniPazymiai;
+        vector<double> laikiniPazymiai;
         getline(fin, line); // nereikalingas line'as pasalinamas
         while(getline(fin,line)){
             iss.str(line);
@@ -117,6 +117,7 @@ void fileReading(vector<studentasV>& grupeVector, string failas, double & laikas
             }
             laikinasV.setEgzaminas(laikiniPazymiai.back());
             laikiniPazymiai.pop_back();
+            laikinasV.setPazymiai(-1 ,laikiniPazymiai);
             grupeVector.push_back(laikinasV);
             iss.clear();
         }
@@ -292,6 +293,7 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
     bool testi = true;
     int notNumbers = 0;
     int badValues = 0;
+    std::vector<double> fakeVector;
     if (maxItems > 0) {
         cout << "Iveskite " << maxItems << " pazymius. Noredami baigti ivedima spauskite 0." << endl;
         cout << "---------------------------------------------------------" << endl;
@@ -307,7 +309,7 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
                 int value = std::stoi(s);
                 badValues += value >= 0 && value <= 10 ? 0 : 1;
                 if ((stud.getPazymiai().size() < maxItems || maxItems == 0) && value > 0 && value < 11) {
-                    stud.setPazymiai(stoi(s));
+                    stud.setPazymiai(stoi(s), fakeVector);
                 }
             }
             catch (...) {
@@ -516,9 +518,8 @@ void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector
         isvedimasFailai(grupeGood, grupeBad, i, vidMed, choice);
         cout << "--------------------------------------------------" << endl;
 
-        clearVector(grupeVector);
-        clearVector(grupeGood);
-        clearVector(grupeBad);
+
+
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;

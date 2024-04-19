@@ -18,9 +18,14 @@ void studentasV::setPavarde(std::string pavarde) {
 std::string studentasV::getPavarde() const{
     return pavarde;
 }
-void studentasV::setPazymiai(int pazRinkinys) {
-    pazymiai.clear();
-    pazymiai.push_back(pazRinkinys);
+void studentasV::setPazymiai(int pazRinkinys, const std::vector<double> &pazVector) {
+    if (pazRinkinys == -1) {
+
+        pazymiai = pazVector;
+    } else {
+        pazymiai.clear();
+        pazymiai.push_back(pazRinkinys);
+    }
 }
 void studentasV::resizePazymiai(int n) {
     pazymiai.resize(n);

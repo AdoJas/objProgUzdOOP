@@ -34,7 +34,7 @@ public:
     void setPavarde(std::string pavarde);
     std::string getPavarde() const;
 
-    void setPazymiai(int pazRinkinys);
+    void setPazymiai(int pazRinkinys, const std::vector<double> &pazVector);
     std::vector<double> getPazymiai() const;
     void resizePazymiai(int n);
     void setEgzaminas(int egzaminas);
