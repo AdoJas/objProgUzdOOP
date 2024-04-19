@@ -6,13 +6,13 @@
 
 
 
-void studentasV::setVardas(std::string &vardas) {
+void studentasV::setVardas(std::string vardas) {
     this-> vardas = vardas;
 }
 std::string studentasV::getVardas() const{
     return vardas;
 }
-void studentasV::setPavarde(std::string &pavarde) {
+void studentasV::setPavarde(std::string pavarde) {
     this -> pavarde = pavarde;
 }
 std::string studentasV::getPavarde() const{
@@ -35,7 +35,7 @@ void studentasV::setEgzaminas(int egzaminas) {
 int studentasV::getEgzaminas() const{
     return egzaminas;
 }
-float studentasV::setVidurkis(){
+void studentasV::setVidurkis(){
     if (pazymiai.empty()) {
         vidurkis = egzaminas * 0.6;
     } else {
@@ -43,7 +43,7 @@ float studentasV::setVidurkis(){
         vidurkis = suma / pazymiai.size() * 0.4 + egzaminas * 0.6;
     }
 }
-float studentasV::setMediana() {
+void studentasV::setMediana() {
     std::sort(pazymiai.begin(), pazymiai.end());
 
     size_t size = pazymiai.size();

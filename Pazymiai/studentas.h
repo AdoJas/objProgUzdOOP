@@ -28,10 +28,10 @@ private:
 public:
     studentasV() : egzaminas(0.0) {}
 
-    void setVardas(std::string &vardas);
+    void setVardas(std::string vardas);
     std::string getVardas() const;
 
-    void setPavarde(std::string &pavarde);
+    void setPavarde(std::string pavarde);
     std::string getPavarde() const;
 
     void setPazymiai(int pazRinkinys);
@@ -40,8 +40,8 @@ public:
     void setEgzaminas(int egzaminas);
     int getEgzaminas() const;
 
-    float setVidurkis();
-    float setMediana();
+    void setVidurkis();
+    void setMediana();
     float getVidurkis() const;
     float getMediana() const;
     void setAtsitiktiniaiPazymiai();
