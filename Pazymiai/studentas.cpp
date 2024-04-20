@@ -18,19 +18,17 @@ void studentasV::setPavarde(std::string pavarde) {
 std::string studentasV::getPavarde() const{
     return pavarde;
 }
-void studentasV::setPazymiai(int pazRinkinys, const std::vector<double> &pazVector) {
-    if (pazRinkinys == -1) {
-
+void studentasV::setPazymiaiVector(const std::vector<int> &pazVector) {
         pazymiai = pazVector;
-    } else {
-        pazymiai.clear();
-        pazymiai.push_back(pazRinkinys);
-    }
+}
+void studentasV::setPazymiai(const int paz){
+    pazymiai.push_back(paz);
 }
 void studentasV::resizePazymiai(int n) {
     pazymiai.resize(n);
 }
-std::vector<double> studentasV::getPazymiai() const {
+std::vector<int> studentasV::getPazymiai() const {
+
     return pazymiai;
 }
 
@@ -68,7 +66,7 @@ float studentasV::getMediana() const{
 }
 void studentasV::setAtsitiktiniaiPazymiai() {
     pazymiai.resize(rand() % 10 + 1);
-    for (double & paz : pazymiai) {
+    for (int & paz : pazymiai) {
         paz = rand() % 10 + 1;
     }
     egzaminas = rand() % 10 + 1;

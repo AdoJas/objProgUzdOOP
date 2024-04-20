@@ -23,7 +23,7 @@ public:
 
 class studentasV : public studentasBase {
 private:
-    std::vector<double> pazymiai;
+    std::vector<int> pazymiai;
     double egzaminas{};
 public:
     studentasV() : egzaminas(0.0) {}
@@ -34,8 +34,9 @@ public:
     void setPavarde(std::string pavarde);
     std::string getPavarde() const;
 
-    void setPazymiai(int pazRinkinys, const std::vector<double> &pazVector);
-    std::vector<double> getPazymiai() const;
+    void setPazymiaiVector(const std::vector<int> &pazVector);
+    void setPazymiai(int paz);
+    std::vector<int> getPazymiai() const;
     void resizePazymiai(int n);
     void setEgzaminas(int egzaminas);
     int getEgzaminas() const;

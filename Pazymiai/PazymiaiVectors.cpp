@@ -81,7 +81,7 @@ void ivedimasCaseTwo(vector<studentasV>& grupeVector) {
         }
     } while (testi == 't');
 }
-void fileReading(vector<studentasV>& grupeVector, string failas, double & laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas){
+void fileReading(vector<studentasV>& grupeVector, const string &failas, double& laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas) {
     ifstream fin;
     do {
         fin.open(failas);
@@ -92,49 +92,50 @@ void fileReading(vector<studentasV>& grupeVector, string failas, double & laikas
         }
     } while (!fin.is_open());
 
-    auto start = std::chrono::high_resolution_clock::now();
-        string line;
-        istringstream iss;
-        string grade = "";
-        vector<double> laikiniPazymiai;
-        getline(fin, line); // nereikalingas line'as pasalinamas
-        while(getline(fin,line)){
-            iss.str(line);
-            studentasV laikinasV;
-            string laikinasVardas, laikinaPavarde;
-            iss >> laikinasVardas >> laikinaPavarde;
-            laikinasV.setVardas(laikinasVardas);
-            laikinasV.setPavarde(laikinaPavarde);
-            while (iss >> grade) {
-                try {
-                    if(stoi(grade) >= 0 && stoi(grade) <= 10) {
-                        laikiniPazymiai.push_back(std::stoi(grade));
-                    }
+    auto start = chrono::high_resolution_clock::now();
+    string line;
+    istringstream iss;
+    string grade = "";
+    vector<int> laikiniPazymiai;
+    getline(fin, line); // Skip header
+    while (getline(fin, line)) {
+        iss.str(line);
+        studentasV laikinasV;
+        string laikinasVardas, laikinaPavarde;
+
+        iss >> laikinasVardas >> laikinaPavarde;
+        laikinasV.setVardas(laikinasVardas);
+        laikinasV.setPavarde(laikinaPavarde);
+        while (iss >> grade) {
+            try {
+                int pazymys = std::stoi(grade);
+                if (pazymys >= 0 && pazymys <= 10) {
+                    laikiniPazymiai.push_back(pazymys);
                 }
-                catch (std::exception& e) {
-                    fakePazymiai++;
-                }
+            } catch (const std::exception& e) {
+                fakePazymiai++;
             }
-            laikinasV.setEgzaminas(laikiniPazymiai.back());
-            laikiniPazymiai.pop_back();
-            laikinasV.setPazymiai(-1 ,laikiniPazymiai);
-            grupeVector.push_back(laikinasV);
-            iss.clear();
         }
+        laikinasV.setEgzaminas(laikiniPazymiai.back());
+        laikiniPazymiai.pop_back();
+        laikinasV.setPazymiaiVector(laikiniPazymiai);
+        grupeVector.emplace_back(std::move(laikinasV));
+        laikiniPazymiai.clear();
+        iss.clear();
+    }
     fin.close();
 
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration = end - start;
-
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> duration = end - start;
     laikasSkaitymas = duration.count();
     cout << "VECTOR - Studentu nuskaitymas is failo truko: " << laikasSkaitymas << " sek." << endl;
-    auto skStart = std::chrono::high_resolution_clock::now();
 
+    auto skStart = chrono::high_resolution_clock::now();
     generalVidurkisCalculate(grupeVector);
     generalMedianaCalculate(grupeVector);
+    auto skEnd = chrono::high_resolution_clock::now();
 
-    auto skEnd = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> skDuration = skEnd - skStart;
+    chrono::duration<double> skDuration = skEnd - skStart;
     laikasSkaiciavimas = skDuration.count();
 }
 
@@ -255,29 +256,32 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
 
 //Comparinimo bool funkcijos
 bool compareByName(const studentasV& a, const studentasV& b) {
-    bool bothStartWithVardas = (a.getVardas().find("Vardas") == 0) && (b.getVardas().find("Vardas") == 0);
+    std::string nameA = a.getVardas();
+    std::string nameB = b.getVardas();
 
-    if (bothStartWithVardas) {
-        int num1 = std::stoi(a.getVardas().substr(6));
-        int num2 = std::stoi(b.getVardas().substr(6));
+    if (nameA.compare(0, 6, "Vardas") == 0 && nameB.compare(0, 6, "Vardas") == 0) {
+        int num1 = std::stoi(nameA.substr(6));
+        int num2 = std::stoi(nameB.substr(6));
         return num1 > num2;
     } else {
-        return a.getVardas() < b.getVardas();
+        return nameA < nameB;
     }
 }
-bool compareBySurname(const studentasV& a, const studentasV& b) {
-    bool bothStartWithPavarde = (a.getPavarde().find("Pavarde") == 0) && (b.getPavarde().find("Pavarde") == 0);
 
-    if (bothStartWithPavarde) {
+bool compareBySurname(const studentasV& a, const studentasV& b) {
+    std::string surnameA = a.getPavarde();
+    std::string surnameB = b.getPavarde();
+
+    if (surnameA.compare(0, 7, "Pavarde") == 0 && surnameB.compare(0, 7, "Pavarde") == 0) {
         try {
-            int num1 = std::stoi(a.getPavarde().substr(7));
-            int num2 = std::stoi(b.getPavarde().substr(7));
+            int num1 = std::stoi(surnameA.substr(7));
+            int num2 = std::stoi(surnameB.substr(7));
             return num1 > num2;
         } catch(const std::invalid_argument& e) {
-            return a.getPavarde() < b.getPavarde();
+            return surnameA < surnameB;
         }
     } else {
-        return a.getPavarde() < b.getPavarde();
+        return surnameA < surnameB;
     }
 }
 bool compareByAverage(const studentasV& a, const studentasV& b){
@@ -293,7 +297,6 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
     bool testi = true;
     int notNumbers = 0;
     int badValues = 0;
-    std::vector<double> fakeVector;
     if (maxItems > 0) {
         cout << "Iveskite " << maxItems << " pazymius. Noredami baigti ivedima spauskite 0." << endl;
         cout << "---------------------------------------------------------" << endl;
@@ -309,7 +312,7 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
                 int value = std::stoi(s);
                 badValues += value >= 0 && value <= 10 ? 0 : 1;
                 if ((stud.getPazymiai().size() < maxItems || maxItems == 0) && value > 0 && value < 11) {
-                    stud.setPazymiai(stoi(s), fakeVector);
+                    stud.setPazymiai(stoi(s));
                 }
             }
             catch (...) {
@@ -331,22 +334,43 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
 //Sortinimo funkcija
 void sortInput(string& choice, vector<studentasV>& grupeVector){
     auto start = std::chrono::high_resolution_clock::now();
-    switch(stoi(choice)){
+
+    int choiceInt = stoi(choice);
+    if (choiceInt < 1 || choiceInt > 4) {
+        cerr << "Klaida: netinkamas rūšiavimo pasirinkimas!\n";
+        return;
+    }
+
+    switch(choiceInt){
         case 1:
-            sort(grupeVector.begin(),grupeVector.end(), compareByName);
+            sort(grupeVector.begin(), grupeVector.end(), [](const studentasV& a, const studentasV& b) {
+                return (a.getVardas().find("Vardas") == 0 && b.getVardas().find("Vardas") == 0) ?
+                       std::stoi(a.getVardas().substr(6)) > std::stoi(b.getVardas().substr(6)) :
+                       a.getVardas() < b.getVardas();
+            });
             break;
         case 2:
-            sort(grupeVector.begin(),grupeVector.end(), compareBySurname);
+            sort(grupeVector.begin(), grupeVector.end(), [](const studentasV& a, const studentasV& b) {
+                return (a.getPavarde().find("Pavarde") == 0 && b.getPavarde().find("Pavarde") == 0) ?
+                       std::stoi(a.getPavarde().substr(7)) > std::stoi(b.getPavarde().substr(7)) :
+                       a.getPavarde() < b.getPavarde();
+            });
             break;
         case 3:
-            sort(grupeVector.begin(),grupeVector.end(), compareByAverage);
+            sort(grupeVector.begin(), grupeVector.end(), [](const studentasV& a, const studentasV& b) {
+                return a.getVidurkis() < b.getVidurkis();
+            });
             break;
         case 4:
-            sort(grupeVector.begin(),grupeVector.end(), compareByMediana);
+            sort(grupeVector.begin(), grupeVector.end(), [](const studentasV& a, const studentasV& b) {
+                return a.getMediana() < b.getMediana();
+            });
             break;
         default:
             cerr << "Klaida: nepavyko surusiuoti failu!\n";
-        }
+            return;
+    }
+
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
     laikasRusiavimas = duration.count();
@@ -374,7 +398,7 @@ void studentuGeneravimas(vector<studentasV>& grupeVector, int kiekis) {
 }
 
 void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, int i, string vidMed, string ivedimasKonteineris, string choice) {
-    fileReading(grupeVector, "KursiokaiGen" + to_string(i + 1) + ".txt", laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
+    fileReading(grupeVector, "studentai" + to_string(i + 1) + ".txt", laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
 
     auto start1 = std::chrono::high_resolution_clock::now();
     sortInput(choice, grupeVector);
@@ -395,7 +419,7 @@ void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studenta
     cout << "VECTOR - studentu konteinerio rusiavimas truko: " << duration1.count() << " sek." << endl;
     cout << "VECTOR - Studentu rusiavimas i du konteinerius su " << ivedimasKonteineris << " pasirinkimu truko:  " << duration.count() << " sek." << endl;
 }
-void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad,int i, string& vidMed, string& choice) {
+void isvedimasFailai(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad,int i, string& vidMed, string& choice) {
 
         ofstream fout("KursiokaiGood" + to_string(i + 1) + ".txt");
         ofstream foutB("KursiokaiBad" + to_string(i + 1) + ".txt");
@@ -413,8 +437,9 @@ void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad
             bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Vid.)" << endl;
             bufferis << "--------------------------------------------------" << endl;
 
-            for (auto& student : grupeVector) {
-                bufferis << left << setw(20) << student.getVardas() << left << setw(20) << student.getPavarde() << left << setw(20) << setprecision(3) << student.getVidurkis() << endl;
+            for (auto& studentGeras : grupeVector) {
+                cout << grupeVector.size() << endl;
+                bufferis << left << setw(20) << studentGeras.getVardas() << left << setw(20) << studentGeras.getPavarde() << left << setw(20) << setprecision(3) << studentGeras.getVidurkis() << endl;
             }
             fout << bufferis.str();
             bufferis.str("");
@@ -423,7 +448,7 @@ void isvedimasFailai(vector<studentasV> grupeVector, vector<studentasV> grupeBad
         else if (vidMed == "2") {
             bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
             bufferis << "--------------------------------------------------" << endl;
-
+            cout << grupeVector.size() << endl;
             for (auto& student : grupeVector) {
                 bufferis << left << setw(20) << student.getVardas() << left << setw(20) << student.getPavarde() << left << setw(20) << setprecision(3) << student.getMediana() << endl;
             }
@@ -487,19 +512,16 @@ void vectorPartition2(string vidMed, vector<studentasV>& grupeVector, vector<stu
     if (vidMed == "1") {
         auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
             return student.getVidurkis() >= 5;
-            });
-
+        });
         grupeBad.insert(grupeBad.end(), it, grupeVector.end());
         grupeVector.erase(it, grupeVector.end());
     }
     else {
-        auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
+        auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV &student) {
             return student.getMediana() >= 5;
-            });
-
+        });
         grupeBad.insert(grupeBad.end(), it, grupeVector.end());
         grupeVector.erase(it, grupeVector.end());
-
     }
 }
 
@@ -515,10 +537,8 @@ void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector
         cout << pow(10, i + 3) << " studentu failas" << endl;
 
         failoNuskaitymasRusiavimas(grupeVector, grupeBad, grupeGood, i, vidMed, ivedimasKonteineris, choice);
-        isvedimasFailai(grupeGood, grupeBad, i, vidMed, choice);
+        isvedimasFailai(grupeVector, grupeBad, i, vidMed, choice);
         cout << "--------------------------------------------------" << endl;
-
-
 
     }
     auto end = std::chrono::high_resolution_clock::now();

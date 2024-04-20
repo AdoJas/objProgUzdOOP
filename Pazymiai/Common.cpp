@@ -159,7 +159,7 @@ void pasirinkimasIvedimas(string& ivedimas) {
     } while (ivedimas != "1" && ivedimas != "2");
 }
 void failoGeneravimasIsvedimas(int iteracija) {
-    ofstream fout("KursiokaiGen" + to_string(iteracija + 1) + ".txt");
+    ofstream fout("studentai" + to_string(iteracija + 1) + ".txt");
     stringstream bufferis;
     int laikinas = 0;
     auto start = std::chrono::high_resolution_clock::now();
