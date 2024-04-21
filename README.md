@@ -2,7 +2,6 @@
 
 ## Kompiuterio komponentai naudoti testavimo metu 
 
-Pavadinimas Resursai
 |   Komponentas  |                   Pavadinimas                       |                      
 |:--------------:|:---------------------------------------------------:|
 |     **CPU**    |            `AMD Ryzen 5 3600 6-core`              |
