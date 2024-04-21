@@ -8,8 +8,7 @@ endif()
 project ("OOPuzd")
 
 add_executable (OOPuzd  "Common.cpp" "Common.h" "PazymiaiArrays.cpp" "PazymiaiArrays.h" "PazymiaiDeque.cpp" "PazymiaiDeque.h" "PazymiaiList.cpp" "PazymiaiList.h" "PazymiaiVectors.cpp" "PazymiaiVectors.h" "Program.cpp"
-        studentas.h
-        studentas.cpp)
+)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET OOPuzd PROPERTY CXX_STANDARD 20)
