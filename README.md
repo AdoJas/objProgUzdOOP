@@ -1,4 +1,3 @@
-# objProgUzd
 # ***Klasės*** ***ir*** ***struktūros***
 
 ## Kompiuterio komponentai naudoti testavimo metu 
@@ -6,9 +5,9 @@
 Pavadinimas Resursai
 |   Komponentas  |                   Pavadinimas                       |                      
 |:--------------:|:---------------------------------------------------:|
-|     **CPU**    |            `*AMD Ryzen 5 3600 6-core*`              |
-|     **GPU**    |`*G.Skill Trident Z RGB DDR4 16GB (2x8GB) 3200MHz*`  |
-|     **SSD**    |           `*Samsung SSD 970 EVO Plus, 500GB*`       |
+|     **CPU**    |            `AMD Ryzen 5 3600 6-core`              |
+|     **GPU**    |`G.Skill Trident Z RGB DDR4 16GB (2x8GB) 3200MHz`  |
+|     **SSD**    |           `Samsung SSD 970 EVO Plus, 500GB`       |
 
 ## ***Class testavimas***
 ### 1 testas
