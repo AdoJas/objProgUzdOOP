@@ -438,7 +438,6 @@ void isvedimasFailai(vector<studentasV>& grupeVector, vector<studentasV>& grupeB
             bufferis << "--------------------------------------------------" << endl;
 
             for (auto& studentGeras : grupeVector) {
-                cout << grupeVector.size() << endl;
                 bufferis << left << setw(20) << studentGeras.getVardas() << left << setw(20) << studentGeras.getPavarde() << left << setw(20) << setprecision(3) << studentGeras.getVidurkis() << endl;
             }
             fout << bufferis.str();
@@ -448,7 +447,6 @@ void isvedimasFailai(vector<studentasV>& grupeVector, vector<studentasV>& grupeB
         else if (vidMed == "2") {
             bufferis << left << setw(20) << "Vardas" << left << setw(20) << "Pavarde" << left << setw(20) << "Galutinis (Med.)" << endl;
             bufferis << "--------------------------------------------------" << endl;
-            cout << grupeVector.size() << endl;
             for (auto& student : grupeVector) {
                 bufferis << left << setw(20) << student.getVardas() << left << setw(20) << student.getPavarde() << left << setw(20) << setprecision(3) << student.getMediana() << endl;
             }
