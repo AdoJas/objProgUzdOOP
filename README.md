@@ -8,7 +8,7 @@
 |     **GPU**    |`G.Skill Trident Z RGB DDR4 16GB (2x8GB) 3200MHz`  |
 |     **SSD**    |           `Samsung SSD 970 EVO Plus, 500GB`       |
 
-## ***Class testavimas***
+## ***Testavimas***
 ### 1 testas
 
 > **Nenaudoti kompiliatoriaus flag'ai**
