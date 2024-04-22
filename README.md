@@ -97,7 +97,7 @@
 ![image](https://github.com/AdoJas/objProgUzdOOP/assets/147920380/cc4603d8-8978-4d84-a432-431a7365c929)
 
 # Isvados
-> Class .exe uzima maziau vietos nei struct .exe.
+>1.Class .exe uzima maziau vietos nei struct .exe.
 > Failo duomenu nuskaitymas naudojant class objektus yra greitesnis su visais flag'ais nei struct.
 > Class greiciau rikiuoja duomenis nei struct su visais flagais.
 > Class studentus isskirsto i nauja vektoriu leciau, nei struct (galioja su visais flagais)
