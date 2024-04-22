@@ -89,18 +89,18 @@
 | Studentu vektoriaus rusiavimas|        0.0001718 |      0.0013918     |        0.0186832             |       0.231952          |       2.86875       |
 | Studentu isskirstymas i viena nauja vektoriu | 0.0000866   |         0.000419           |     0.0073544            |    0.124034                |      1.35888        |
 
-#Failu dydziai
-##Class
+# Failu dydziai
+## Class
 ![image](https://github.com/AdoJas/objProgUzdOOP/assets/147920380/40f39fa3-3fea-4a21-ae2e-38f4fbe52d3a)
 
-##Struct
+## Struct
 ![image](https://github.com/AdoJas/objProgUzdOOP/assets/147920380/cc4603d8-8978-4d84-a432-431a7365c929)
 
-#Isvados
-
->
-
-
+# Isvados
+> Class .exe uzima maziau vietos nei struct .exe.
+> Failo duomenu nuskaitymas naudojant class objektus yra greitesnis su visais flag'ais nei struct.
+> Class greiciau rikiuoja duomenis nei struct su visais flagais.
+> Class studentus isskirsto i nauja vektoriu leciau, nei struct (galioja su visais flagais)
 
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
