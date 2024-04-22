@@ -124,19 +124,19 @@ do{
             ivedimasKonteineris.clear();
             break;
         }
-        case 2: {
-            cout << "List konteineris" << endl;
-
-            listMain(vidMed, choice, grupeList, grupeListBad, grupeListGood, ivedimasKonteineris);
-            ivedimasKonteineris.clear();
-            break;
-        }
-        case 3: {
-            cout << "Deque konteineris" << endl;
-            dequeMain(vidMed, choice, grupeDeque, grupeDequeBad, grupeDequeGood, ivedimasKonteineris);
-            ivedimasKonteineris.clear();
-            break;
-        }
+//        case 2: {
+//            cout << "List konteineris" << endl;
+//
+//            listMain(vidMed, choice, grupeList, grupeListBad, grupeListGood, ivedimasKonteineris);
+//            ivedimasKonteineris.clear();
+//            break;
+//        }
+//        case 3: {
+//            cout << "Deque konteineris" << endl;
+//            dequeMain(vidMed, choice, grupeDeque, grupeDequeBad, grupeDequeGood, ivedimasKonteineris);
+//            ivedimasKonteineris.clear();
+//            break;
+//        }
         }
 
 
