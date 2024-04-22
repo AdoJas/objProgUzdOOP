@@ -57,17 +57,17 @@
 ### 5 testu vidutinis greitis
 | Uzduotis                      | 1 tukst. studentu | 10 tukst. studentu | 100 tukst. studentu | 1 mil. studentu | 10 mil. studentu |
 |:-----------------------------|:-----------------:|:------------------:|:-------------------:|:---------------:|:----------------:|
-| Duomenu nuskaitymas is failo |                   |                    |                    |                 |                  |
-| Studentu vektoriaus rusiavimas|                  |                     |                     |                 |              |
-| Studentu isskirstymas i viena nauja vektoriu |    |                    |                 |                    |              |
+| Duomenu nuskaitymas is failo |      0.0015257             |          0.0128526         |        0.12072            |       1.31859          |       13.2169           |
+| Studentu vektoriaus rusiavimas|         0.0004939         |          0.0064294           |         0.0909277            |        1.25708         |         16.0835     |
+| Studentu isskirstymas i viena nauja vektoriu |  0.0001084   |           0.0010046         |         0.0147161        |          0.156942          |       2.01143       |
 
 > > **Struct**
 ### 5 testu vidutinis greitis
 | Uzduotis                      | 1 tukst. studentu | 10 tukst. studentu | 100 tukst. studentu | 1 mil. studentu | 10 mil. studentu |
 |:-----------------------------|:-----------------:|:------------------:|:-------------------:|:---------------:|:----------------:|
-| Duomenu nuskaitymas is failo |                   |                    |                    |                 |                  |
-| Studentu vektoriaus rusiavimas|                  |                     |                     |                 |              |
-| Studentu isskirstymas i viena nauja vektoriu |    |                    |                 |                    |              |
+| Duomenu nuskaitymas is failo |       0.0028197       |         0.0210583           |      0.199602              |         1.97542        |          20.4567        |
+| Studentu vektoriaus rusiavimas|      0.0001363            |        0.0014126             |       0.0189935              |      0.229544           |      2.83798        |
+| Studentu isskirstymas i viena nauja vektoriu |  0.0000856  |         0.0005389           |          0.0076005       |          0.117614          |         1.47488     |
 
 ### 4 testas
 
@@ -77,17 +77,26 @@
 ### 5 testu vidutinis greitis
 | Uzduotis                      | 1 tukst. studentu | 10 tukst. studentu | 100 tukst. studentu | 1 mil. studentu | 10 mil. studentu |
 |:-----------------------------|:-----------------:|:------------------:|:-------------------:|:---------------:|:----------------:|
-| Duomenu nuskaitymas is failo |                   |                    |                    |                 |                  |
-| Studentu vektoriaus rusiavimas|                  |                     |                     |                 |              |
-| Studentu isskirstymas i viena nauja vektoriu |    |                    |                 |                    |              |
+| Duomenu nuskaitymas is failo |        0.0017578           |        0.0125731            |        0.121042            |       1.30694          |        13.0638          |
+| Studentu vektoriaus rusiavimas|          0.0004931        |            0.006687         |         0.0973416            |       1.30329          |       16.4065       |
+| Studentu isskirstymas i viena nauja vektoriu |  0.0001012  |            0.0010361        |         0.0116608        |            0.163537        |        1.76682      |
 
 > > **Struct**
 ### 5 testu vidutinis greitis
 | Uzduotis                      | 1 tukst. studentu | 10 tukst. studentu | 100 tukst. studentu | 1 mil. studentu | 10 mil. studentu |
 |:-----------------------------|:-----------------:|:------------------:|:-------------------:|:---------------:|:----------------:|
-| Duomenu nuskaitymas is failo |                   |                    |                    |                 |                  |
-| Studentu vektoriaus rusiavimas|                  |                     |                     |                 |              |
-| Studentu isskirstymas i viena nauja vektoriu |    |                    |                 |                    |              |
+| Duomenu nuskaitymas is failo |       0.0030781   |   0.0207778    |         0.19936           |      1.9889           |           20.2972       |
+| Studentu vektoriaus rusiavimas|        0.0001718 |      0.0013918     |        0.0186832             |       0.231952          |       2.86875       |
+| Studentu isskirstymas i viena nauja vektoriu | 0.0000866   |         0.000419           |     0.0073544            |    0.124034                |      1.35888        |
+
+
+
+#Isvados
+
+>
+
+
+
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
 >2. Leidzia ivedus studentu vardus ir pavardes generuoti ju pazymius ir dirbti su jais.
