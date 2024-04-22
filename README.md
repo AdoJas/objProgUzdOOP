@@ -106,7 +106,7 @@
 >6. 5 funkcija, su pridetu pasirinkimu rusiuoti duomenis i skirtingus konteinerius(Vector, list, deque).
 
 
-# *** Kaip pasinaudoti kodu? (Windows ir macOS) ***
+# ***Kaip pasinaudoti kodu? (Windows ir macOS)***
 >1. Atsisiuntę ir išsisaugoję projekto failus savo kompiuteryje, atsisiųskite CLion IDE. [https://www.jetbrains.com/clion/download/#section=mac]
 >2. Aktyvuokite CLion IDE su savo gautu kodu, kuris jums bus atsiūstas i el. pašto adresą, su kuriuo registravotės į JETBRAINS.
 >3. Atlikę šiuos žingsnius, atsidarykite failus per CLion.
