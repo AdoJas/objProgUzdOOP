@@ -187,7 +187,7 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
 
     pasirinkimasVidMed(vidMed);
     cout << "--------------------------------------------------" << endl;
-    sortInput(choice, grupeVector);
+    //sortInput(choice, grupeVector);
     cout << "--------------------------------------------------" << endl;
     isvedimoPasirinkimas(pasirinkimasConsole);
     cout << "--------------------------------------------------" << endl;

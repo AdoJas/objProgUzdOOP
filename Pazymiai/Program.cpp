@@ -87,7 +87,7 @@ do{
             cout << "1 - taip" << endl;
             cout << "2 - ne" << endl;
             cin >> failoGeneravimoPasirinkimas;
-        } while (failoGeneravimoPasirinkimas != "1" || failoGeneravimoPasirinkimas != "2");
+        } while (failoGeneravimoPasirinkimas != "1" && failoGeneravimoPasirinkimas != "2");
 
         if (failoGeneravimoPasirinkimas == "1")
             pazymiuFailoGeneravimas();
