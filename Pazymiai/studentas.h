@@ -55,7 +55,6 @@ public:
     studentasV(studentasV &&kita) noexcept; //Perkelimo konstruktorius
     studentasV &operator=(studentasV &&kita) noexcept; //Perkelimo priskyrimo konstruktorius
     ~studentasV(); //Destruktorius
-    std::string vardas;
 };
 
 #endif //OOPUZD_STUDENTAS_H

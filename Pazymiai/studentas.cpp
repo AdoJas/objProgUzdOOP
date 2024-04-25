@@ -84,8 +84,15 @@ void studentasV::setAtsitiktiniaiDuomenys() {
     this->vardas = vardai[vardasIndex];
     this->pavarde = pavardes[pavardeIndex];
 }
+//Kopijavimo konstruktorius
 studentasV::studentasV(const studentasV& kita)
-        : studentasBase(kita), vardas(kita.vardas), pavarde(kita.pavarde), pazymiai(kita.pazymiai), egzaminas(kita.egzaminas) {}
+        : studentasBase(kita),
+          pazymiai(kita.pazymiai), egzaminas(kita.egzaminas) {
+    vardas = kita.vardas;
+    pavarde = kita.pavarde;
+    vidurkis = kita.vidurkis;
+    mediana = kita.mediana;
+}
 //Priskyrimo konstruktorius
 studentasV& studentasV::operator=(const studentasV &kita) {
     if (this != &kita) {
