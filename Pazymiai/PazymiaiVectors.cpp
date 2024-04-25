@@ -105,6 +105,7 @@ void fileReading(vector<studentasV>& grupeVector, const string &failas, double& 
         string laikinasVardas, laikinaPavarde;
 
         iss >> laikinasVardas >> laikinaPavarde;
+
         laikinasV.setVardas(laikinasVardas);
         laikinasV.setPavarde(laikinaPavarde);
         while (iss >> grade) {
@@ -348,9 +349,6 @@ void sortInput(string& choice, vector<studentasV>& grupeVector){
                 return a.getMediana() < b.getMediana();
             });
             break;
-        default:
-            cerr << "Klaida: nepavyko surusiuoti failu!\n";
-            return;
     }
 
     auto end = std::chrono::high_resolution_clock::now();
@@ -383,7 +381,10 @@ void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studenta
     fileReading(grupeVector, "studentai" + to_string(i + 1) + ".txt", laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
 
     auto start1 = std::chrono::high_resolution_clock::now();
+    cout << "Contents of grupeVector:" << endl;
+
     sortInput(choice, grupeVector);
+
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
 
@@ -420,6 +421,7 @@ void isvedimasFailai(vector<studentasV>& grupeVector, vector<studentasV>& grupeB
             bufferis << "--------------------------------------------------" << endl;
 
             for (auto& studentGeras : grupeVector) {
+                cout << studentGeras.getVardas() << endl;
                 bufferis << left << setw(20) << studentGeras.getVardas() << left << setw(20) << studentGeras.getPavarde() << left << setw(20) << setprecision(3) << studentGeras.getVidurkis() << endl;
             }
             fout << bufferis.str();
@@ -503,6 +505,7 @@ void vectorPartition2(string vidMed, vector<studentasV>& grupeVector, vector<stu
         grupeBad.insert(grupeBad.end(), it, grupeVector.end());
         grupeVector.erase(it, grupeVector.end());
     }
+
 }
 
 void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, string ivedimasKonteineris) {
