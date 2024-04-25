@@ -17,8 +17,11 @@
 > 5. Destruktorius
 
 ## Kopijavimo konstruktorius
-### Atsakingas uz kompleksini objekto kopijavima, kai objektas turi tuos pacius duomenis arba kintamuosius.
+Atsakingas uz kompleksini objekto kopijavima, kai objektas turi tuos pacius duomenis arba kintamuosius.
       studentasV(const studentasV &kita);
+      
+## Priskyrimo konstruktorius  
+
       
     
 
