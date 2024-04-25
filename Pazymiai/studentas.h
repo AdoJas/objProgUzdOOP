@@ -49,8 +49,13 @@ public:
     void setAtsitiktiniaiPazymiai();
     void setAtsitiktiniaiDuomenys();
 
-
-    ~studentasV(); //destruktorius
+    //Rule of Five headers
+    studentasV(const studentasV &kita); //Kopijavimo konstruktorius
+    studentasV &operator=(const studentasV &kita); //Priskyrimo konstruktorius
+    studentasV(studentasV &&kita) noexcept; //Perkelimo konstruktorius
+    studentasV &operator=(studentasV &&kita) noexcept; //Perkelimo priskyrimo konstruktorius
+    ~studentasV(); //Destruktorius
+    std::string vardas;
 };
 
 #endif //OOPUZD_STUDENTAS_H

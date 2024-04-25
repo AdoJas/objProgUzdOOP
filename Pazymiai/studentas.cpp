@@ -64,6 +64,7 @@ float studentasV::getVidurkis() const{
 float studentasV::getMediana() const{
     return mediana;
 }
+
 void studentasV::setAtsitiktiniaiPazymiai() {
     pazymiai.resize(rand() % 10 + 1);
     for (int & paz : pazymiai) {
@@ -83,6 +84,54 @@ void studentasV::setAtsitiktiniaiDuomenys() {
     this->vardas = vardai[vardasIndex];
     this->pavarde = pavardes[pavardeIndex];
 }
+studentasV::studentasV(const studentasV& kita)
+        : studentasBase(kita), vardas(kita.vardas), pavarde(kita.pavarde), pazymiai(kita.pazymiai), egzaminas(kita.egzaminas) {}
+//Priskyrimo konstruktorius
+studentasV& studentasV::operator=(const studentasV &kita) {
+    if (this != &kita) {
+        vardas = kita.vardas;
+        pavarde = kita.pavarde;
+        vidurkis = kita.vidurkis;
+        mediana = kita.mediana;
+        pazymiai = kita.pazymiai;
+        egzaminas = kita.egzaminas;
+    }
+    return *this;
+}
+//Perkelimo konstruktorius
+studentasV::studentasV(studentasV&& kita) noexcept :
+        studentasBase(),
+        pazymiai(std::move(kita.pazymiai)),
+        egzaminas(kita.egzaminas) {
+        vardas = std::move(kita.vardas);
+        pavarde = std::move(kita.pavarde);
+        vidurkis = kita.vidurkis;
+        mediana = kita.mediana;
+
+        kita.vidurkis = 0.0;
+        kita.mediana = 0.0;
+        kita.egzaminas = 0.0;
+}
+// Perkelimo priskyrimo operatorius
+studentasV& studentasV::operator=(studentasV&& kita) noexcept {
+    if (this != &kita) {
+        studentasBase::operator=(std::move(kita));
+
+        pazymiai = std::move(kita.pazymiai);
+        egzaminas = kita.egzaminas;
+
+        vardas = std::move(kita.vardas);
+        pavarde = std::move(kita.pavarde);
+        vidurkis = kita.vidurkis;
+        mediana = kita.mediana;
+
+        kita.vidurkis = 0.0;
+        kita.mediana = 0.0;
+        kita.egzaminas = 0.0;
+    }
+    return *this;
+}
+//Destruktorius
 studentasV::~studentasV(){
     pazymiai.clear();
 };
