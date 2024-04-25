@@ -55,6 +55,9 @@ public:
     studentasV(studentasV &&kita) noexcept; //Perkelimo konstruktorius
     studentasV &operator=(studentasV &&kita) noexcept; //Perkelimo priskyrimo konstruktorius
     ~studentasV(); //Destruktorius
+
+    friend std::ostream &operator<<(std::ostream &os, const studentasV &studentas);
+    friend std::istream &operator>>(std::istream &is, studentasV &studentas);
 };
 
 #endif //OOPUZD_STUDENTAS_H
