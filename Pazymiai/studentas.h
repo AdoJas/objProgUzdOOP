@@ -26,6 +26,7 @@ private:
     std::vector<int> pazymiai;
     double egzaminas{};
 public:
+
     studentasV() : egzaminas(0.0) {}
 
     void setVardas(std::string vardas);
@@ -48,7 +49,8 @@ public:
     void setAtsitiktiniaiPazymiai();
     void setAtsitiktiniaiDuomenys();
 
-    ~studentasV();
+
+    ~studentasV(); //destruktorius
 };
 
 #endif //OOPUZD_STUDENTAS_H
