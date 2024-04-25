@@ -7,7 +7,7 @@
 
 
 void studentasV::setVardas(std::string vardas) {
-    this-> vardas = vardas;
+    this -> vardas = vardas;
 }
 std::string studentasV::getVardas() const{
     return vardas;
