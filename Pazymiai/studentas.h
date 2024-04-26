@@ -49,7 +49,7 @@ public:
     void setAtsitiktiniaiPazymiai();
     void setAtsitiktiniaiDuomenys();
 
-    //Rule of Five headers
+//    //Rule of Five headers
     studentasV(const studentasV &kita); //Kopijavimo konstruktorius
     studentasV &operator=(const studentasV &kita); //Priskyrimo konstruktorius
     studentasV(studentasV &&kita) noexcept; //Perkelimo konstruktorius

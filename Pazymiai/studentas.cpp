@@ -93,7 +93,7 @@ studentasV::studentasV(const studentasV& kita)
     vidurkis = kita.vidurkis;
     mediana = kita.mediana;
 }
-//Priskyrimo konstruktorius
+////Priskyrimo konstruktorius
 studentasV& studentasV::operator=(const studentasV &kita) {
     if (this != &kita) {
         vardas = kita.vardas;
@@ -105,7 +105,7 @@ studentasV& studentasV::operator=(const studentasV &kita) {
     }
     return *this;
 }
-//Perkelimo konstruktorius
+////Perkelimo konstruktorius
 studentasV::studentasV(studentasV&& kita) noexcept :
         studentasBase(),
         pazymiai(std::move(kita.pazymiai)),
@@ -119,7 +119,7 @@ studentasV::studentasV(studentasV&& kita) noexcept :
         kita.mediana = 0.0;
         kita.egzaminas = 0.0;
 }
-// Perkelimo priskyrimo operatorius
+//// Perkelimo priskyrimo operatorius
 studentasV& studentasV::operator=(studentasV&& kita) noexcept {
     if (this != &kita) {
         studentasBase::operator=(std::move(kita));
@@ -142,21 +142,21 @@ studentasV& studentasV::operator=(studentasV&& kita) noexcept {
 studentasV::~studentasV(){
     pazymiai.clear();
 }
-////output streamo operatorius <<
-//std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
-//    outputas << studentas.vardas << " " << studentas.pavarde << " " << studentas.egzaminas << " ";
-//    for (int pazymys : studentas.pazymiai) {
-//        outputas << pazymys << " ";
-//    }
-//    return outputas;
-//}
-////input streamo operatorius >>
-//std::istream &operator>>(std::istream &inputas, studentasV &studentas){
-//    inputas >> studentas.vardas >> studentas.pavarde >> studentas.egzaminas;
-//    studentas.pazymiai.clear();
-//    int pazymys;
-//    while (inputas >> pazymys) {
-//        studentas.pazymiai.push_back(pazymys);
-//    }
-//    return inputas;
-//}
+//output streamo operatorius <<
+std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
+    outputas << studentas.vardas << " " << studentas.pavarde << " " << studentas.egzaminas << " ";
+    for (int pazymys : studentas.pazymiai) {
+        outputas << pazymys << " ";
+    }
+    return outputas;
+}
+//input streamo operatorius >>
+std::istream &operator>>(std::istream &inputas, studentasV &studentas){
+    inputas >> studentas.vardas >> studentas.pavarde >> studentas.egzaminas;
+    studentas.pazymiai.clear();
+    int pazymys;
+    while (inputas >> pazymys) {
+        studentas.pazymiai.push_back(pazymys);
+    }
+    return inputas;
+}
