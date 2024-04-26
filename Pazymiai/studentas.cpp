@@ -122,16 +122,16 @@ studentasV::studentasV(studentasV&& kita) noexcept :
 //// Perkelimo priskyrimo operatorius
 studentasV& studentasV::operator=(studentasV&& kita) noexcept {
     if (this != &kita) {
-        studentasBase::operator=(std::move(kita));
-
-        pazymiai = std::move(kita.pazymiai);
+        pazymiai = kita.pazymiai;
         egzaminas = kita.egzaminas;
-
-        vardas = std::move(kita.vardas);
-        pavarde = std::move(kita.pavarde);
+        setVardas(kita.vardas);
+        setPavarde(kita.pavarde);
         vidurkis = kita.vidurkis;
         mediana = kita.mediana;
 
+        kita.vardas.clear();
+        kita.pavarde.clear();
+        kita.pazymiai.clear();
         kita.vidurkis = 0.0;
         kita.mediana = 0.0;
         kita.egzaminas = 0.0;
