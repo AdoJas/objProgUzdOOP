@@ -31,7 +31,6 @@ std::vector<int> studentasV::getPazymiai() const {
 
     return pazymiai;
 }
-
 void studentasV::setEgzaminas(int egzaminas) {
     this -> egzaminas = egzaminas;
 }
