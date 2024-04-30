@@ -12,10 +12,10 @@
 #include <algorithm>
 class studentasBase {
 protected:
-    std::string vardas;
-    std::string pavarde;
-    float vidurkis;
-    float mediana;
+    std::string vardas = "";
+    std::string pavarde = "";
+    float vidurkis = 0.0;
+    float mediana = 0.0;
 public:
     studentasBase() : vardas(" "), pavarde(" "), vidurkis(0.0), mediana(0.0){};
 
@@ -35,7 +35,7 @@ public:
     void setPavarde(std::string pavarde);
     std::string getPavarde() const;
 
-    void setPazymiaiVector(const std::vector<int> &pazVector);
+    void setPazymiaiVector(std::vector<int> pazVector);
     void setPazymiai(int paz);
     std::vector<int> getPazymiai() const;
     void resizePazymiai(int n);

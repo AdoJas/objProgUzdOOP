@@ -112,22 +112,62 @@ do{
         ivedimasKonteineris.clear();
         break;
 
-    }    
-    case 7:
-        printf("Sekmingai baigete darba!!!\n");
-        break;
-
-    default:
-        printf("Neteisingai ivesti duomenys\n");
     }
-    //printf("--------------------------------------------------\n");
-    if (stoi(pasirinkimas) == 7) {
+    case 7:{
+        try{
+            studentasV pirminis;
+            vector<int> nd = {10, 2};
+            pirminis.setPazymiai(8);
+            pirminis.setPazymiaiVector(nd);
+            pirminis.setEgzaminas(10);
+
+            // Kopijavimo konstruktorius
+            studentasV copy(pirminis);
+            cout << "Copy Constructor: " << copy << endl;
+            cout << "Original Object: " << pirminis << endl;
+
+            // Kopijavimo priskyrimo
+            studentasV kopPrisk;
+            kopPrisk = pirminis;
+            cout << "Copy Assignment: " << kopPrisk << endl;
+            cout << "Original Object: " << pirminis << endl;
+
+            // Perkelimo konstruktorius
+            studentasV perkelimas(std::move(pirminis));
+            cout << "Move konstruktorius: " << perkelimas << endl;
+            cout << "Pradinis objektas po perkelimo: " << pirminis << endl;
+
+            // Perkelimo priskyrimo
+            studentasV perkeltas;
+            perkeltas = std::move(perkelimas);
+            cout << "perkelimas priskyrimas: " << perkeltas << endl;
+            cout << "pradinis objektas po perkelimo: " << perkelimas << endl;
+
+            cout << "ROF testai pereiti sekmingai!" << endl;
+        }catch(...){
+            cerr << "ROF testai nepereiti" << endl;
+        }
+    }
+    case 8:{
+        printf("Sekmingai baigete darba!!!\n");
+        return 0;
+        break;
+    }
+    default:{
+        printf("Neteisingai ivesti duomenys\n");
+        return 0;
+        break;
+    }
+
+    }
+    printf("--------------------------------------------------\n");
+    if (stoi(pasirinkimas) == 8) {
         break;
     }
 
     grupeVector.clear();
 
-}while (stoi(pasirinkimas) != 7);
+}while (stoi(pasirinkimas) != 8);
 
     return 0;
 }

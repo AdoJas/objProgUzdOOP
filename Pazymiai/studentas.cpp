@@ -18,8 +18,8 @@ void studentasV::setPavarde(std::string pavarde) {
 std::string studentasV::getPavarde() const{
     return pavarde;
 }
-void studentasV::setPazymiaiVector(const std::vector<int> &pazVector) {
-        pazymiai = pazVector;
+void studentasV::setPazymiaiVector(std::vector<int> pazVector) {
+    pazymiai.insert(pazymiai.end(), pazVector.begin(), pazVector.end());
 }
 void studentasV::setPazymiai(const int paz){
     pazymiai.push_back(paz);

@@ -31,14 +31,15 @@ void meniu(string& pasirinkimas) {
             << "4 - Skaityti duomenis is failo\n"
             << "5 - Studentu duomenu generavimas, rasymas i faila, failo nuskaitymas\n"
             << "6 - Studentu rusiavimas is failu pasirenkant konteinerio tipa\n"
-            << "7 - Baigti darba\n"
+            << "7 - Testavimas"
+            << "8 - Baigti darba\n"
             << "--------------------------------------------------\n"
             << "Pasirinkite norima opcija: ";
 
         try {
             cin >> pasirinkimas;
             int option = stoi(pasirinkimas);
-            if (option >= 1 && option <= 7) {
+            if (option >= 1 && option <= 8) {
                 validInput = true;
             }
             else {
