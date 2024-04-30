@@ -12,13 +12,12 @@
 #include <algorithm>
 class studentasBase {
 protected:
-    std::string vardas = "";
-    std::string pavarde = "";
+    std::string vardas = " ";
+    std::string pavarde = " ";
     float vidurkis = 0.0;
     float mediana = 0.0;
 public:
-    studentasBase() : vardas(" "), pavarde(" "), vidurkis(0.0), mediana(0.0){};
-
+    studentasBase(); // fix constructor
 };
 
 class studentasV : public studentasBase {

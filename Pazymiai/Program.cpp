@@ -147,6 +147,7 @@ do{
         }catch(...){
             cerr << "ROF testai nepereiti" << endl;
         }
+        break;
     }
     case 8:{
         printf("Sekmingai baigete darba!!!\n");

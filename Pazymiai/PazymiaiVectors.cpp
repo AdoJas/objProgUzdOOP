@@ -381,10 +381,6 @@ void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studenta
     fileReading(grupeVector, "studentai" + to_string(i + 1) + ".txt", laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
 
     auto start1 = std::chrono::high_resolution_clock::now();
-    cout << "Contents of grupeVector:" << endl;
-    for(int i = 0; i < 10; i++){
-        cout << grupeVector[i].getVardas() << endl;
-    }
     sortInput(choice, grupeVector);
 
     for(int i = 0; i < 10; i++){
