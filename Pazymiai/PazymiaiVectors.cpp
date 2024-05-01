@@ -383,9 +383,6 @@ void failoNuskaitymasRusiavimas(vector<studentasV>& grupeVector, vector<studenta
     auto start1 = std::chrono::high_resolution_clock::now();
     sortInput(choice, grupeVector);
 
-    for(int i = 0; i < 10; i++){
-        cout << grupeVector[i].getVardas() << endl;
-    }
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
 

@@ -17,7 +17,7 @@ protected:
     float vidurkis = 0.0;
     float mediana = 0.0;
 public:
-    studentasBase(); // fix constructor
+    studentasBase() = default;
 };
 
 class studentasV : public studentasBase {
