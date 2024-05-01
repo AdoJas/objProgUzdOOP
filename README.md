@@ -19,29 +19,29 @@
 ## Kopijavimo konstruktorius
 Atsakingas uz kompleksini objekto kopijavima, kai objektas turi tuos pacius duomenis arba kintamuosius.
 
-<p>studentasV(const studentasV &kita);</p>
+studentasV(const studentasV &kita);
 ## Priskyrimo konstruktorius  
 Atsakingas uz kompleksinio objekto priskyrima. 
 
-<p>studentasV& studentasV::operator=(const studentasV &kita)</p>      
+studentasV& studentasV::operator=(const studentasV &kita)     
 ## Perkelimo konstruktorius
 Atsakingas uz kompleksinio objekto perkelima is vieno objekto i kita.
 
-<p>studentasV::studentasV(studentasV&& kita) noexcept :
+studentasV::studentasV(studentasV&& kita) noexcept :
         studentasBase(),
         pazymiai(std::move(kita.pazymiai)),
-        egzaminas(kita.egzaminas) </p>
+        egzaminas(kita.egzaminas)
 ## Perkelimo priskyrimo konstruktorius
 Atsakingas uz kompleksinio objekto perkelima ir priskyrima naujam objektui.
 
-<p>studentasV& studentasV::operator=(studentasV&& kita) noexcept </p>
+studentasV& studentasV::operator=(studentasV&& kita) noexcept
 ## Destruktorius
 Atsakingas uz kompleksinio objekto sunaikinima programai baigus veikti.
 
-<p>studentasV::~studentasV()</p>
+studentasV::~studentasV()
 ## Ivesties metodo perdengimas
 
-<p> std::istream &operator>>(std::istream &inputas, studentasV &studentas){
+std::istream &operator>>(std::istream &inputas, studentasV &studentas){
     inputas >> studentas.vardas >> studentas.pavarde >> studentas.egzaminas;
     studentas.pazymiai.clear();
     int pazymys;
@@ -49,16 +49,16 @@ Atsakingas uz kompleksinio objekto sunaikinima programai baigus veikti.
         studentas.pazymiai.push_back(pazymys);
     }
     return inputas;
-}</p>
+}
 ## Isvesties metodo perdengimas
 
-<p> std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
+std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
     outputas << studentas.vardas << " " << studentas.pavarde << " " << studentas.egzaminas << " ";
     for (int pazymys : studentas.pazymiai) {
         outputas << pazymys << " ";
     }
     return outputas;
-}</p>
+}
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
 >2. Leidzia ivedus studentu vardus ir pavardes generuoti ju pazymius ir dirbti su jais.
