@@ -18,28 +18,29 @@
 
 ## Kopijavimo konstruktorius
 Atsakingas uz kompleksini objekto kopijavima, kai objektas turi tuos pacius duomenis arba kintamuosius.
+
 <p>studentasV(const studentasV &kita);</p>
-      
 ## Priskyrimo konstruktorius  
 Atsakingas uz kompleksinio objekto priskyrima. 
-<p>studentasV& studentasV::operator=(const studentasV &kita)</p>      
 
+<p>studentasV& studentasV::operator=(const studentasV &kita)</p>      
 ## Perkelimo konstruktorius
 Atsakingas uz kompleksinio objekto perkelima is vieno objekto i kita.
+
 <p>studentasV::studentasV(studentasV&& kita) noexcept :
         studentasBase(),
         pazymiai(std::move(kita.pazymiai)),
         egzaminas(kita.egzaminas) </p>
-
 ## Perkelimo priskyrimo konstruktorius
 Atsakingas uz kompleksinio objekto perkelima ir priskyrima naujam objektui.
-<p>studentasV& studentasV::operator=(studentasV&& kita) noexcept </p>
 
+<p>studentasV& studentasV::operator=(studentasV&& kita) noexcept </p>
 ## Destruktorius
 Atsakingas uz kompleksinio objekto sunaikinima programai baigus veikti.
-<p>studentasV::~studentasV()</p>
 
+<p>studentasV::~studentasV()</p>
 ## Ivesties metodo perdengimas
+
 <p> std::istream &operator>>(std::istream &inputas, studentasV &studentas){
     inputas >> studentas.vardas >> studentas.pavarde >> studentas.egzaminas;
     studentas.pazymiai.clear();
@@ -49,8 +50,8 @@ Atsakingas uz kompleksinio objekto sunaikinima programai baigus veikti.
     }
     return inputas;
 }</p>
-
 ## Isvesties metodo perdengimas
+
 <p> std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
     outputas << studentas.vardas << " " << studentas.pavarde << " " << studentas.egzaminas << " ";
     for (int pazymys : studentas.pazymiai) {
@@ -58,7 +59,6 @@ Atsakingas uz kompleksinio objekto sunaikinima programai baigus veikti.
     }
     return outputas;
 }</p>
-              
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
 >2. Leidzia ivedus studentu vardus ir pavardes generuoti ju pazymius ir dirbti su jais.
