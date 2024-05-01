@@ -23,11 +23,11 @@ studentasV(const studentasV &kita);
 ## Priskyrimo konstruktorius  
 ### Atsakingas uz kompleksinio objekto priskyrima. 
 
-studentasV& studentasV::operator=(const studentasV &kita)     
+> studentasV& studentasV::operator=(const studentasV &kita)     
 ## Perkelimo konstruktorius
 ### Atsakingas uz kompleksinio objekto perkelima is vieno objekto i kita.
 
-studentasV::studentasV(studentasV&& kita) noexcept :
+> studentasV::studentasV(studentasV&& kita) noexcept :
         studentasBase(),
         pazymiai(std::move(kita.pazymiai)),
         egzaminas(kita.egzaminas)
@@ -38,10 +38,10 @@ studentasV& studentasV::operator=(studentasV&& kita) noexcept
 ## Destruktorius
 ### Atsakingas uz kompleksinio objekto sunaikinima programai baigus veikti.
 
-studentasV::~studentasV()
+> studentasV::~studentasV()
 ## Ivesties metodo perdengimas
 
-std::istream &operator>>(std::istream &inputas, studentasV &studentas){
+> std::istream &operator>>(std::istream &inputas, studentasV &studentas){
     inputas >> studentas.vardas >> studentas.pavarde >> studentas.egzaminas;
     studentas.pazymiai.clear();
     int pazymys;
@@ -52,7 +52,7 @@ std::istream &operator>>(std::istream &inputas, studentasV &studentas){
 }
 ## Isvesties metodo perdengimas
 
-std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
+> std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
     outputas << studentas.vardas << " " << studentas.pavarde << " " << studentas.egzaminas << " ";
     for (int pazymys : studentas.pazymiai) {
         outputas << pazymys << " ";
