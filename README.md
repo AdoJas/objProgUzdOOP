@@ -17,26 +17,26 @@
 > 5. Destruktorius
 
 ## Kopijavimo konstruktorius
-Atsakingas uz kompleksini objekto kopijavima, kai objektas turi tuos pacius duomenis arba kintamuosius.
+### Atsakingas uz kompleksini objekto kopijavima, kai objektas turi tuos pacius duomenis arba kintamuosius.
 
 studentasV(const studentasV &kita);
 ## Priskyrimo konstruktorius  
-Atsakingas uz kompleksinio objekto priskyrima. 
+### Atsakingas uz kompleksinio objekto priskyrima. 
 
 studentasV& studentasV::operator=(const studentasV &kita)     
 ## Perkelimo konstruktorius
-Atsakingas uz kompleksinio objekto perkelima is vieno objekto i kita.
+### Atsakingas uz kompleksinio objekto perkelima is vieno objekto i kita.
 
 studentasV::studentasV(studentasV&& kita) noexcept :
         studentasBase(),
         pazymiai(std::move(kita.pazymiai)),
         egzaminas(kita.egzaminas)
 ## Perkelimo priskyrimo konstruktorius
-Atsakingas uz kompleksinio objekto perkelima ir priskyrima naujam objektui.
+### Atsakingas uz kompleksinio objekto perkelima ir priskyrima naujam objektui.
 
 studentasV& studentasV::operator=(studentasV&& kita) noexcept
 ## Destruktorius
-Atsakingas uz kompleksinio objekto sunaikinima programai baigus veikti.
+### Atsakingas uz kompleksinio objekto sunaikinima programai baigus veikti.
 
 studentasV::~studentasV()
 ## Ivesties metodo perdengimas
