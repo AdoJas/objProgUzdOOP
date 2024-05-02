@@ -28,7 +28,6 @@ void studentasV::resizePazymiai(int n) {
     pazymiai.resize(n);
 }
 std::vector<int> studentasV::getPazymiai() const {
-
     return pazymiai;
 }
 

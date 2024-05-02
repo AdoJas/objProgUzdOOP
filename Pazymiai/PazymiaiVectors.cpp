@@ -200,7 +200,7 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             cout << "--------------------------------------------------" << endl;
 
             for (auto& student : grupeVector) {
-                cout << left << setw(20) << student.getVardas() << left << setw(20) << student.getPavarde() << left << setw(20) << setprecision(3) << student.getVidurkis() << endl;
+                cout << left << setw(20) << student.getVardas() << left << setw(20) << student.getPavarde() << left << setw(20) << setprecision(4) << student.getVidurkis() << endl;
             }
         }
         else if (vidMed == "2") {
@@ -209,7 +209,7 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             cout << "--------------------------------------------------" << endl;
 
             for (auto& student : grupeVector) {
-                cout << left << setw(20) << student.getVardas() << left << setw(20) << student.getPavarde() << left << setw(20) << setprecision(3) << student.getMediana() << endl;
+                cout << left << setw(20) << student.getVardas() << left << setw(20) << student.getPavarde() << left << setw(20) << setprecision(4) << student.getMediana() << endl;
             }
         }
     }else{
@@ -219,7 +219,7 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             fout << "--------------------------------------------------" << endl;
 
             for (auto& student : grupeVector) {
-                fout << left << setw(20) << student.getVardas()<< left << setw(20) << student.getPavarde() << left << setw(20) << setprecision(3) << student.getVidurkis() << endl;
+                fout << left << setw(20) << student.getVardas()<< left << setw(20) << student.getPavarde() << left << setw(20) << setprecision(4) << student.getVidurkis() << endl;
             }
 
         }
@@ -229,7 +229,7 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             fout << "--------------------------------------------------" << endl;
 
             for (auto& student : grupeVector) {
-                fout << left << setw(20) << student.getVardas() << left << setw(20) << student.getPavarde() << left << setw(20) << setprecision(3) << student.getMediana() << endl;
+                fout << left << setw(20) << student.getVardas() << left << setw(20) << student.getPavarde() << left << setw(20) << /*setprecision(4) <<*/ student.getMediana() << endl;
             }
         }
     }
