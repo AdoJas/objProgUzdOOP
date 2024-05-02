@@ -40,7 +40,7 @@
 
         studentasV::~studentasV()
 ## Ivesties metodo perdengimas
-
+### Jei prie >> nurodome tik objekta, >> nuskaito duomenis i visus objekto turimus kintamuosius
         std::istream &operator>>(std::istream &inputas, studentasV &studentas){
             inputas >> studentas.vardas >> studentas.pavarde >> studentas.egzaminas;
             studentas.pazymiai.clear();
@@ -51,7 +51,7 @@
             return inputas;
         }
 ## Isvesties metodo perdengimas
-
+### Jei prie << nurodome tik objekta, << isveda visus objekto turimus kintamuosius
         std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
             outputas << studentas.vardas << " " << studentas.pavarde << " " << studentas.egzaminas << " ";
             for (int pazymys : studentas.pazymiai) {
@@ -59,6 +59,27 @@
             }
             return outputas;
         }
+
+### 5 testu vidutinis greitis netaikant perdengimo
+| Uzduotis                      | 1 tukst. studentu | 10 tukst. studentu | 100 tukst. studentu | 1 mil. studentu | 10 mil. studentu |
+|:-----------------------------|:-----------------:|:------------------:|:-------------------:|:---------------:|:----------------:|
+| Duomenu nuskaitymas is failo |          0.0026477         |          0.0265865          |            0.252269         |          2.81425       |         26.5251         |
+| Studentu vektoriaus rusiavimas|           0.0021881       |          0.0336719           |          0.448841           |           5.96909       |         71.667      |
+| Studentu isskirstymas i viena nauja vektoriu |  0.0003975  |          0.0042534           |          0.0427784        |            0.490452        |          4.93333     |
+
+### 5 testu vidutinis greitis taikant perdengima
+| Uzduotis                      | 1 tukst. studentu | 10 tukst. studentu | 100 tukst. studentu | 1 mil. studentu | 10 mil. studentu |
+|:-----------------------------|:-----------------:|:------------------:|:-------------------:|:---------------:|:----------------:|
+| Duomenu nuskaitymas is failo |          0.00778871         |          0.0646578          |            0.642699         |          6.65068       |         65.52         |
+| Studentu vektoriaus rusiavimas|           0.00150954       |          0.0149694           |          0.150593           |           1.58109       |         15.6407      |
+| Studentu isskirstymas i viena nauja vektoriu |  0.000546334  |          0.0059035           |          0.0629156        |            0.649014        |          6.30503     |
+
+## Isvados 
+>1. Perdengus funkcijas pagal *rule of five* programos veikimo greitis pasikeite keliuose aspektuose!
+>2. Suletejo duomenu nuskaitymas is failo
+>3. Pagreitejo studentu vektoriaus rusiavimas
+>4. Suletejo studentu skirstymas i studentai bad vektoriu
+
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
 >2. Leidzia ivedus studentu vardus ir pavardes generuoti ju pazymius ir dirbti su jais.
