@@ -19,46 +19,46 @@
 ## Kopijavimo konstruktorius
 ### Atsakingas uz kompleksini objekto kopijavima, kai objektas turi tuos pacius duomenis arba kintamuosius.
 
-studentasV(const studentasV &kita);
+        studentasV(const studentasV &kita);
 ## Priskyrimo konstruktorius  
 ### Atsakingas uz kompleksinio objekto priskyrima. 
 
-> studentasV& studentasV::operator=(const studentasV &kita)     
+        studentasV& studentasV::operator=(const studentasV &kita)     
 ## Perkelimo konstruktorius
 ### Atsakingas uz kompleksinio objekto perkelima is vieno objekto i kita.
 
-> studentasV::studentasV(studentasV&& kita) noexcept :
-        studentasBase(),
-        pazymiai(std::move(kita.pazymiai)),
-        egzaminas(kita.egzaminas)
+        studentasV::studentasV(studentasV&& kita) noexcept :
+                studentasBase(),
+                pazymiai(std::move(kita.pazymiai)),
+                egzaminas(kita.egzaminas)
 ## Perkelimo priskyrimo konstruktorius
 ### Atsakingas uz kompleksinio objekto perkelima ir priskyrima naujam objektui.
 
-studentasV& studentasV::operator=(studentasV&& kita) noexcept
+        studentasV& studentasV::operator=(studentasV&& kita) noexcept
 ## Destruktorius
 ### Atsakingas uz kompleksinio objekto sunaikinima programai baigus veikti.
 
-> studentasV::~studentasV()
+        studentasV::~studentasV()
 ## Ivesties metodo perdengimas
 
-> std::istream &operator>>(std::istream &inputas, studentasV &studentas){
-    inputas >> studentas.vardas >> studentas.pavarde >> studentas.egzaminas;
-    studentas.pazymiai.clear();
-    int pazymys;
-    while (inputas >> pazymys) {
-        studentas.pazymiai.push_back(pazymys);
-    }
-    return inputas;
-}
+        std::istream &operator>>(std::istream &inputas, studentasV &studentas){
+            inputas >> studentas.vardas >> studentas.pavarde >> studentas.egzaminas;
+            studentas.pazymiai.clear();
+            int pazymys;
+            while (inputas >> pazymys) {
+                studentas.pazymiai.push_back(pazymys);
+            }
+            return inputas;
+        }
 ## Isvesties metodo perdengimas
 
-> std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
-    outputas << studentas.vardas << " " << studentas.pavarde << " " << studentas.egzaminas << " ";
-    for (int pazymys : studentas.pazymiai) {
-        outputas << pazymys << " ";
-    }
-    return outputas;
-}
+        std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
+            outputas << studentas.vardas << " " << studentas.pavarde << " " << studentas.egzaminas << " ";
+            for (int pazymys : studentas.pazymiai) {
+                outputas << pazymys << " ";
+            }
+            return outputas;
+        }
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
 >2. Leidzia ivedus studentu vardus ir pavardes generuoti ju pazymius ir dirbti su jais.
