@@ -229,7 +229,7 @@ void isvedimas(vector<studentasV> grupeVector, double laikasSkaitymas, double la
             fout << "--------------------------------------------------" << endl;
 
             for (auto& student : grupeVector) {
-                fout << left << setw(20) << student.getVardas() << left << setw(20) << student.getPavarde() << left << setw(20) << /*setprecision(4) <<*/ student.getMediana() << endl;
+                fout << left << setw(20) << student.getVardas() << left << setw(20) << student.getPavarde() << left << setw(20) << fixed << setprecision(3) << student.getMediana() << endl;
             }
         }
     }

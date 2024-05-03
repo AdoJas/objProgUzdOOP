@@ -42,7 +42,7 @@ void studentasV::setVidurkis(){
         vidurkis = egzaminas * 0.6;
     } else {
         double suma = std::accumulate(pazymiai.begin(), pazymiai.end(), 0.0);
-        vidurkis = suma / pazymiai.size() * 0.4 + egzaminas * 0.6;
+        vidurkis = (suma / pazymiai.size()) * 0.4 + egzaminas * 0.6;
     }
 }
 void studentasV::setMediana() {
@@ -54,7 +54,7 @@ void studentasV::setMediana() {
     } else if (size % 2 == 0) {
         mediana = (pazymiai[size / 2 - 1] + pazymiai[size / 2]) / 2.0 * 0.4 + egzaminas * 0.6;
     } else {
-        mediana = pazymiai[size / 2] * 0.4 + egzaminas * 0.6;
+        mediana = (pazymiai[size / 2]) * 0.4 + egzaminas * 0.6;
     }
 }
 float studentasV::getVidurkis() const{
