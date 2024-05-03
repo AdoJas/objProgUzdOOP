@@ -20,12 +20,6 @@
         };
 > virtual - funkcijos panaudoti negalima, jai yra priskiriama reiksme 0 tam, kad derived klasej reiketu ja overide'int, sukuriant savo funkcija tuo paciu pavadinimu.
 
-## Isvados 
->1. Perdengus funkcijas pagal *rule of five* programos veikimo greitis pasikeite keliuose aspektuose!
->2. Suletejo duomenu nuskaitymas is failo
->3. Pagreitejo studentu vektoriaus rusiavimas
->4. Suletejo studentu skirstymas i studentai bad vektoriu
-
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
 >2. Leidzia ivedus studentu vardus ir pavardes generuoti ju pazymius ir dirbti su jais.
