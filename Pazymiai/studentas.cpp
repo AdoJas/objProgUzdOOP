@@ -85,7 +85,7 @@ void studentasV::setAtsitiktiniaiDuomenys() {
 }
 //Kopijavimo konstruktorius
 studentasV::studentasV(const studentasV& kita)
-        : studentasBase(kita),
+        : Zmogus(kita),
           pazymiai(kita.pazymiai), egzaminas(kita.egzaminas) {
     vardas = kita.vardas;
     pavarde = kita.pavarde;
@@ -106,7 +106,7 @@ studentasV& studentasV::operator=(const studentasV &kita) {
 }
 ////Perkelimo konstruktorius
 studentasV::studentasV(studentasV&& kita) noexcept :
-        studentasBase(),
+        Zmogus(),
         pazymiai(std::move(kita.pazymiai)),
         egzaminas(kita.egzaminas) {
         vardas = std::move(kita.vardas);
