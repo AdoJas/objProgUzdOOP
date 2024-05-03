@@ -8,17 +8,9 @@
 |     **GPU**    |`G.Skill Trident Z RGB DDR4 16GB (2x8GB) 3200MHz`  |
 |     **SSD**    |           `Samsung SSD 970 EVO Plus, 500GB`       |
 
-# Abstrakcioji klase
-## Abstrakcioji klase - klase, kurios kintamuju ar funkciju naudoti negalima
-        class Zmogus {
-        public:
-            virtual void setVardas(std::string vardas) = 0;
-            virtual std::string getVardas() const = 0;
-            virtual void setPavarde(std::string pavarde) = 0;
-            virtual std::string getPavarde() const = 0;
-            virtual ~Zmogus() = default;
-        };
-> virtual - funkcijos panaudoti negalima, jai yra priskiriama reiksme 0 tam, kad derived klasej reiketu ja overide'int, sukuriant savo funkcija tuo paciu pavadinimu.
+# Projekto dokumentacija
+## Doxygen
+
 
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
