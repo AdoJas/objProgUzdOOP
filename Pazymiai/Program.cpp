@@ -33,9 +33,9 @@ int main()
     vector<studentasV> grupeVector;
     vector<studentasV> grupeBad;
     vector<studentasV> grupeGood;
-    vector<Zmogus> grupeZmogus;
-    grupeZmogus[0].setVardas("adomas");
-    cout << grupeZmogus[0].getVardas() << endl;
+
+    //Atkomentavus gauname errora, Zmogus yra abstrakti klase
+    //Zmogus grupeZmogus;
 
 do{
     meniu(pasirinkimas);

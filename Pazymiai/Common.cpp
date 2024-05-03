@@ -31,7 +31,7 @@ void meniu(string& pasirinkimas) {
             << "4 - Skaityti duomenis is failo\n"
             << "5 - Studentu duomenu generavimas, rasymas i faila, failo nuskaitymas\n"
             << "6 - Studentu rusiavimas is failu pasirenkant konteinerio tipa\n"
-            << "7 - Testavimas"
+            << "7 - Testavimas\n"
             << "8 - Baigti darba\n"
             << "--------------------------------------------------\n"
             << "Pasirinkite norima opcija: ";
