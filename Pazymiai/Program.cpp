@@ -34,7 +34,8 @@ int main()
     vector<studentasV> grupeBad;
     vector<studentasV> grupeGood;
     vector<Zmogus> grupeZmogus;
-
+    grupeZmogus[0].setVardas("adomas");
+    cout << grupeZmogus[0].getVardas() << endl;
 
 do{
     meniu(pasirinkimas);
