@@ -16,7 +16,7 @@ public:
     virtual std::string getVardas() const = 0;
     virtual void setPavarde(std::string pavarde) = 0;
     virtual std::string getPavarde() const = 0;
-    ~Zmogus() = default;
+    virtual ~Zmogus() = default;
 };
 
 class studentasV : public Zmogus {

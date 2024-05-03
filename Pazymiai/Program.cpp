@@ -33,6 +33,7 @@ int main()
     vector<studentasV> grupeVector;
     vector<studentasV> grupeBad;
     vector<studentasV> grupeGood;
+    vector<Zmogus> grupeZmogus;
 
 
 do{
