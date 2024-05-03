@@ -10,29 +10,32 @@
 #include <vector>
 #include "numeric"
 #include <algorithm>
-class studentasBase {
-protected:
+class Zmogus {
+public:
+    virtual void setVardas(std::string vardas) = 0;
+    virtual std::string getVardas() const = 0;
+    virtual void setPavarde(std::string pavarde) = 0;
+    virtual std::string getPavarde() const = 0;
+    ~Zmogus() = default;
+};
+
+class studentasV : public Zmogus {
+private:
     std::string vardas = " ";
     std::string pavarde = " ";
     float vidurkis = 0.0;
     float mediana = 0.0;
-public:
-    studentasBase() = default;
-};
-
-class studentasV : public studentasBase {
-private:
     std::vector<int> pazymiai;
     double egzaminas{};
 public:
 
     studentasV() : egzaminas(0.0) {}
 
-    void setVardas(std::string vardas);
-    std::string getVardas() const;
+    void setVardas(std::string vardas) override;
+    std::string getVardas() const override;
 
-    void setPavarde(std::string pavarde);
-    std::string getPavarde() const;
+    void setPavarde(std::string pavarde) override;
+    std::string getPavarde() const override;
 
     void setPazymiaiVector(std::vector<int> pazVector);
     void setPazymiai(int paz);
