@@ -72,7 +72,7 @@ void studentasV::setAtsitiktiniaiPazymiai() {
     egzaminas = rand() % 10 + 1;
 }
 void studentasV::setAtsitiktiniaiDuomenys() {
-    setAtsitiktiniaiPazymiai(); // Assuming this function sets pazymiai
+    setAtsitiktiniaiPazymiai();
 
     const std::vector<std::string> vardai = { "Bronius", "Juozas", "Rimas", "Tomas", "Matas", "Markas", "Ignas", "Kristupas", "Joris", "Arnas" };
     const std::vector<std::string> pavardes = { "Broniauskas", "Juozevicius", "Rimauskas", "Tomavicius", "Matkevicius", "Markevicius", "Igniauskas", "Kristevicius", "Jorevicius", "Arniavicius" };
