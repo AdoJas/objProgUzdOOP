@@ -35,7 +35,7 @@ int main()
     vector<studentasV> grupeGood;
 
     //Atkomentavus gauname errora, Zmogus yra abstrakti klase
-    //Zmogus grupeZmogus;
+//    Zmogus grupeZmogus;
 
 do{
     meniu(pasirinkimas);

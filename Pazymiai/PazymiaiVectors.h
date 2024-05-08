@@ -9,7 +9,11 @@
 #include "studentas.h"
 using namespace std;
 
-
+/**
+ * @brief
+ * @param grupeVector
+ * @param n
+ */
 void ivedimas(vector<studentasV>& grupeVector, int n);
 void ivedimasNoSize(vector<studentasV>& grupeVector);
 void ivedimasCaseTwo(vector<studentasV>& grupeVector);
