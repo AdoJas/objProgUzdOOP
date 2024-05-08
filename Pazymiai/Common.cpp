@@ -10,16 +10,6 @@
 #include "chrono"
 
 using namespace std;
-void addToArray(int*& arr, int& size, int value) {
-    size++;
-    int* tmp = new int[size];
-    for (int i = 0; i < size - 1; i++) {
-        tmp[i] = arr[i];
-    }
-    tmp[size - 1] = value;
-    delete[] arr;
-    arr = tmp;
-}
 
 void meniu(string& pasirinkimas) {
     bool validInput = false;
