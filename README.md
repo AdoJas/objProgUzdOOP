@@ -10,7 +10,14 @@
 
 # Projekto dokumentacija
 ## Doxygen
+> Projekto dokumentacija galite perzvelgti naudodami savo IDE arba overleaf.com online Latex compiliatoriu, tereikia ikelti latex failo .zip rinkini.
 
+## Testavimas 
+> Testavimas buvo darytas su Googel Test Unit testu testavimo frameworku.
+> Linkas i Google Test -> https://github.com/google/googletest/releases
+> Buvo testuojamos .setVardas(), .setPavarde(), .getVardas(), .getPavarde() bei vectorPartition() funkcijos
+> vectorPartition funkcijoje buvo palikta klaida tam, kad vienas testas suveiktu pilnai, .getVardas() ir t.t., o vectorPartition() ne.
+> 
 
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
