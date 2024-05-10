@@ -7,6 +7,12 @@ if(POLICY CMP0141)
 endif()
 
 project(OOPuzd)
+# Add the path to the Google Test library
+include_directories(/Users/adomas/Documents/googletest-1.14.0/googletest/include)
+link_directories(/Users/adomas/Documents/googletest-1.14.0/googletest/lib)
+
+# Link the Google Test library to your test executable
+
 
 add_executable(OOPuzd
         "Common.cpp"
@@ -16,8 +22,9 @@ add_executable(OOPuzd
         "Program.cpp"
         "studentas.h"
         "studentas.cpp"
+        googletest/include/gtest/gtest.h
 )
-
+target_link_libraries(OOPuzd gtest gtest_main)
 if(CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET OOPuzd PROPERTY CXX_STANDARD 20)
 endif()
@@ -30,6 +37,7 @@ add_executable(OOPuzdO3
         "Program.cpp"
         "studentas.h"
         "studentas.cpp"
+        googletest/include/gtest/gtest.h
 )
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)
@@ -51,6 +59,7 @@ add_executable(OOPuzdO2
         "Program.cpp"
         "studentas.h"
         "studentas.cpp"
+        googletest/include/gtest/gtest.h
 )
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)
@@ -72,6 +81,7 @@ add_executable(OOPuzdO1
         "Program.cpp"
         "studentas.h"
         "studentas.cpp"
+        googletest/include/gtest/gtest.h
 )
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)

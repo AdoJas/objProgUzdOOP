@@ -5,6 +5,7 @@
 #include "Common.h"
 #include <stdlib.h>
 #include "studentas.h"
+//#include "gtest.h"
 using namespace std;
 
 int main()
@@ -116,39 +117,8 @@ do{
 
     }
     case 7:{
-        try{
-            studentasV pirminis;
-            vector<int> nd = {10, 2};
-            pirminis.setPazymiai(8);
-            pirminis.setPazymiaiVector(nd);
-            pirminis.setEgzaminas(10);
 
-            // Kopijavimo konstruktorius
-            studentasV copy(pirminis);
-            cout << "Copy Constructor: " << copy << endl;
-            cout << "Original Object: " << pirminis << endl;
-
-            // Kopijavimo priskyrimo
-            studentasV kopPrisk;
-            kopPrisk = pirminis;
-            cout << "Copy Assignment: " << kopPrisk << endl;
-            cout << "Original Object: " << pirminis << endl;
-
-            // Perkelimo konstruktorius
-            studentasV perkelimas(std::move(pirminis));
-            cout << "Move konstruktorius: " << perkelimas << endl;
-            cout << "Pradinis objektas po perkelimo: " << pirminis << endl;
-
-            // Perkelimo priskyrimo
-            studentasV perkeltas;
-            perkeltas = std::move(perkelimas);
-            cout << "perkelimas priskyrimas: " << perkeltas << endl;
-            cout << "pradinis objektas po perkelimo: " << perkelimas << endl;
-
-            cout << "ROF testai pereiti sekmingai!" << endl;
-        }catch(...){
-            cerr << "ROF testai nepereiti" << endl;
-        }
+        printf("Testavimas kitame darbe!!!\n");
         break;
     }
     case 8:{
