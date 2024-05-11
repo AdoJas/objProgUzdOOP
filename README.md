@@ -18,67 +18,89 @@
 > Buvo testuojamos .setVardas(), .setPavarde(), .getVardas(), .getPavarde() bei vectorPartition() funkcijos
 > vectorPartition funkcijoje buvo palikta klaida tam, kad vienas testas suveiktu pilnai, .getVardas() ir t.t., o vectorPartition() ne.
 
-## Pirmasis testas
-    TEST(TestStudentas, TestStudentasV) {
-      studentasV stud;
-      stud.setVardas("Jonas");
-      stud.setPavarde("Jonaitis");
-      EXPECT_EQ(stud.getVardas(), "Jonas");
-      EXPECT_EQ(stud.getPavarde(), "Jonaitis");
+## Pirmasis testas - konstruktorius
+    TEST(constructorTest, Constructor) {
+    studentasV stud;
+    EXPECT_EQ(stud.getVardas(), " ");
+    EXPECT_EQ(stud.getPavarde(), " ");
     }
 
-### Rezultatai
-    [==========] Running 2 tests from 2 test suites.
-    [----------] Global test environment set-up.
-    [----------] 1 test from TestStudentas
-    [ RUN      ] TestStudentas.TestStudentasV
-    [       OK ] TestStudentas.TestStudentasV (0 ms)
-    [----------] 1 test from TestStudentas (0 ms total)
-
-## Antrasis testas
-
-    TEST(VectorPartitionTest, PartitionVector) {
-        vector<studentasV> grupeVector;
-        vector<studentasV> grupeBad;
-        vector<studentasV> grupeGood;
-        vector<int> pazymiaiGood = {10, 10, 10, 10, 10};
-        vector<int> pazymiaiBad = {1, 1, 1, 1, 1};
-        studentasV goodStudent;
-        goodStudent.setPazymiaiVector(pazymiaiGood);
-        goodStudent.setVidurkis();
-        studentasV badStudent;
-        badStudent.setPazymiaiVector(pazymiaiBad);
-        badStudent.setVidurkis();
-        grupeVector.push_back(goodStudent);
-        grupeVector.push_back(badStudent);
+### Rezultatai - konstruktorius
+    [----------] 1 test from constructorTest
+    [ RUN      ] constructorTest.Constructor
+    [       OK ] constructorTest.Constructor (0 ms)
+    [----------] 1 test from constructorTest (0 ms total)
     
-        vectorPartition("1", grupeVector, grupeGood, grupeBad);
-        if (!grupeGood.empty() && !grupeBad.empty()) {
-            EXPECT_EQ(grupeGood[0].getVidurkis(), goodStudent.getVidurkis());
-            EXPECT_EQ(grupeBad[0].getVidurkis(), badStudent.getVidurkis());
-        } else {
-            FAIL() << "One of the vectors is empty";
-        }
+## Antrasis testas - move konstruktorius
+    TEST(moveConstructorTest, MoveConstructor) {
+    studentasV stud;
+    stud.setVardas("Jonas");
+    stud.setPavarde("Jonaitis");
+    studentasV stud2 = std::move(stud);
+    EXPECT_EQ(stud2.getVardas(), "Jonas");
+    EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
+    GTEST_EXPECT_FALSE(stud.getVardas() == stud2.getVardas());
+    }
+    
+
+### Rezultatai
+    [----------] 1 test from moveConstructorTest
+    [ RUN      ] moveConstructorTest.MoveConstructor
+    [       OK ] moveConstructorTest.MoveConstructor (0 ms)
+    [----------] 1 test from moveConstructorTest (0 ms total)
+
+## Treciasis testas - kopijavimo konstruktorius
+    TEST(copyConstructorTest, CopyConstructor) {
+    studentasV stud;
+    stud.setVardas("Jonas");
+    stud.setPavarde("Jonaitis");
+    studentasV stud2 = stud;
+    EXPECT_EQ(stud2.getVardas(), "Jonas");
+    EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
+    EXPECT_EQ(stud.getVardas(), stud2.getVardas());
     }
 
-### Rezultatai
+### Rezultatai - kopijavimo konstruktorius
+    [----------] 1 test from copyConstructorTest
+    [ RUN      ] copyConstructorTest.CopyConstructor
+    [       OK ] copyConstructorTest.CopyConstructor (0 ms)
+    [----------] 1 test from copyConstructorTest (0 ms total)
 
-    [----------] 1 test from VectorPartitionTest
-    [ RUN      ] VectorPartitionTest.PartitionVector
-    /Users/adomas/Documents/procedurinisProgramavimas/testavimasUnitTest/main.cpp:35: Failure
-    Failed
-    One of the vectors is empty
+## Ketvirtasis testas - priskyrimo konstruktorius
+    TEST(assignmentTest, Assignment) {
+    studentasV stud;
+    stud.setVardas("Jonas");
+    stud.setPavarde("Jonaitis");
+    studentasV stud2;
+    stud2 = stud;
+    EXPECT_EQ(stud2.getVardas(), "Jonas");
+    EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
+    EXPECT_EQ(stud.getVardas(), stud2.getVardas());
+    }
+
+### Rezultatai - priskyrimo konstruktorius
+    [----------] 1 test from assignmentTest
+    [ RUN      ] assignmentTest.Assignment
+    [       OK ] assignmentTest.Assignment (0 ms)
+    [----------] 1 test from assignmentTest (0 ms total)
     
-    [  FAILED  ] VectorPartitionTest.PartitionVector (0 ms)
-    [----------] 1 test from VectorPartitionTest (0 ms total)
-    
-    [----------] Global test environment tear-down
-    [==========] 2 tests from 2 test suites ran. (0 ms total)
-    [  PASSED  ] 1 test.
-    [  FAILED  ] 1 test, listed below:
-    [  FAILED  ] VectorPartitionTest.PartitionVector
-    
-     1 FAILED TEST
+## Penktasis testas - perkelimo priskyrimo konstruktorius
+    TEST(moveAssignmentTest, MoveAssignment) {
+    studentasV stud;
+    stud.setVardas("Jonas");
+    stud.setPavarde("Jonaitis");
+    studentasV stud2;
+    stud2 = std::move(stud);
+    EXPECT_EQ(stud2.getVardas(), "Jonas");
+    EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
+    GTEST_EXPECT_FALSE(stud.getVardas() == stud2.getVardas());
+    }
+
+### Rezultatai - perkelimo priskyrimo konstruktorius
+    [----------] 1 test from moveAssignmentTest
+    [ RUN      ] moveAssignmentTest.MoveAssignment
+    [       OK ] moveAssignmentTest.MoveAssignment (0 ms)
+    [----------] 1 test from moveAssignmentTest (0 ms total) 
     
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
