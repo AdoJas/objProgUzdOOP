@@ -40,9 +40,6 @@ public:
     //begin()
     //end()
     //rbegin()
-    //rend()
-    //emplace()
-    //emplace_back()
 };
 
 
