@@ -33,13 +33,13 @@ public:
     void Erase(int index);    //+
     void Insert(int index, T &object);  //+
     void Assign(int n, const T& value); //+
-    //operator[]
-    //at()
-    //front()
-    //back()
-    //begin()
-    //end()
-    //rbegin()
+    void operator=(const Vector &rhs);  //+
+    void At(int index);       //+
+    void Front();             //+
+    void Back();              //+
+    void Begin();             //+
+    void End();               //+
+    void RBegin();            //+
 };
 
 
