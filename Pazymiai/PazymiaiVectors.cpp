@@ -10,7 +10,7 @@
 #include "chrono"
 #include "Common.h"
 #include "studentas.h"
-#include <gtest/gtest.h>
+
 
 double laikasSkaitymas = 0.0;
 double laikasSkaiciavimas = 0.0;
