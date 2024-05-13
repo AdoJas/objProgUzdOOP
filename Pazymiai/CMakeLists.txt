@@ -23,6 +23,7 @@ add_executable(OOPuzd
         "studentas.h"
         "studentas.cpp"
         "vectorClass.h"
+        vectorClass.cpp
 )
 target_link_libraries(OOPuzd gtest gtest_main)
 if(CMAKE_VERSION VERSION_GREATER 3.12)
@@ -38,6 +39,7 @@ add_executable(OOPuzdO3
         "studentas.h"
         "studentas.cpp"
         "vectorClass.h"
+        vectorClass.cpp
 )
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)
@@ -60,6 +62,7 @@ add_executable(OOPuzdO2
         "studentas.h"
         "studentas.cpp"
         "vectorClass.h"
+        vectorClass.cpp
 )
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)
@@ -82,6 +85,7 @@ add_executable(OOPuzdO1
         "studentas.h"
         "studentas.cpp"
         "vectorClass.h"
+        vectorClass.cpp
 )
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)

@@ -14,33 +14,31 @@ private:
 
 public:
     Vector();
-    Vector(int n, const T& value);   //+
-    Vector(const Vector &rhs);       //+
+    Vector(int n, const T& value);
+    Vector(const Vector &rhs);
 
-    ~Vector();                //+
+    ~Vector();
+    int Size();
+    int Capacity();
+    bool isEmpty();
 
-    int Size();               //+
-    int Capacity();           //+
-    bool isEmpty();           //+
-
-    void PushBack(T &object); //+
-    void PopBack();           //+
-    void Clear();             //+
-    void Resize(int n);       //+
-    void Reserve(int n);      //+
-    void Swap(Vector &rhs);   //+
-    void ShrinkToFit();       //+
-    void Erase(int index);    //+
-    void Insert(int index, T &object);  //+
-    void Assign(int n, const T& value); //+
-    void operator=(const Vector &rhs);  //+
-    void At(int index);       //+
-    void Front();             //+
-    void Back();              //+
-    void Begin();             //+
-    void End();               //+
-    void RBegin();            //+
+    void PushBack(T &object);
+    void PopBack();
+    void Clear();
+    void Resize(int n);
+    void Reserve(int n);
+    void Swap(Vector &rhs);
+    void ShrinkToFit();
+    void Erase(int index);
+    void Insert(int index, T &object);
+    void Assign(int n, const T& value);
+    void operator=(const Vector &rhs);
+    T& At(int index);
+    T& Front();
+    T& Back();
+    T* Begin();
+    T* End();
+    T* RBegin();
 };
-
 
 #endif //OOPUZD_VECTORCLASS_H
