@@ -33,7 +33,16 @@ public:
     void Erase(int index);    //+
     void Insert(int index, T &object);  //+
     void Assign(int n, const T& value); //+
-
+    //operator[]
+    //at()
+    //front()
+    //back()
+    //begin()
+    //end()
+    //rbegin()
+    //rend()
+    //emplace()
+    //emplace_back()
 };
 
 
