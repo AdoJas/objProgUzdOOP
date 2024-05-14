@@ -5,6 +5,7 @@
 #include "Common.h"
 #include <stdlib.h>
 #include "studentas.h"
+#include "vectorClass.h"
 //#include "gtest.h"
 using namespace std;
 
@@ -31,9 +32,9 @@ int main()
     string ivedimasKonteineris = " ";
     string failoGeneravimoPasirinkimas = " ";
 
-    vector<studentasV> grupeVector;
-    vector<studentasV> grupeBad;
-    vector<studentasV> grupeGood;
+    Vector<studentasV> grupeVector;
+    Vector<studentasV> grupeBad;
+    Vector<studentasV> grupeGood;
 
     //Atkomentavus gauname errora, Zmogus yra abstrakti klase
     //Zmogus grupeZmogus;
@@ -138,7 +139,7 @@ do{
         break;
     }
 
-    grupeVector.clear();
+    grupeVector.Clear();
 
 }while (stoi(pasirinkimas) != 8);
 

@@ -200,7 +200,7 @@ typename Vector<T>::reference Vector<T>::Back() {
 }
 
 template<typename T>
-typename Vector<T>::iterator Vector<T>::Begin() {
+typename Vector<T>::iterator Vector<T>::begin() {
     if (size == 0) {
         throwOutOfRange();
     }
@@ -208,7 +208,7 @@ typename Vector<T>::iterator Vector<T>::Begin() {
 }
 
 template<typename T>
-typename Vector<T>::iterator Vector<T>::End() {
+typename Vector<T>::iterator Vector<T>::end() {
     if (size == 0) {
         throwOutOfRange();
     }
@@ -221,4 +221,13 @@ typename Vector<T>::iterator Vector<T>::RBegin() {
         throwOutOfRange();
     }
     return elements + size - 1;
+}
+
+template<typename T>
+void Vector<T>::EmplaceBack(T&& object) {
+    if (size == capacity) {
+        Reserve(capacity + 1);
+    }
+    elements[size] = std::forward<T>(object);
+    size++;
 }

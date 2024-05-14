@@ -149,6 +149,11 @@ public:
     void operator=(const Vector &rhs);
 
     /**
+     * @brief Prideda elementą į vektoriaus galą
+     * @param object
+     */
+    void EmplaceBack(T&& object);
+    /**
      * @brief Grąžina elementą pagal indeksą (index)
      *
      * @param index Elemento indeksas
@@ -175,14 +180,14 @@ public:
      *
      * @return iterator Rodyklė į vektoriaus pradžią
      */
-    typename Vector<T>::iterator Begin();
+    typename Vector<T>::iterator begin();
 
     /**
      * @brief Grąžina rodyklę į vektoriaus galą
      *
      * @return iterator Rodyklė į vektoriaus galą
      */
-    typename Vector<T>::iterator End();
+    typename Vector<T>::iterator end();
 
     /**
      * @brief Grąžina rodyklę į vektoriaus pradžią iš galo
