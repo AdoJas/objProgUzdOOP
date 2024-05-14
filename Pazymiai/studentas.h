@@ -10,6 +10,7 @@
 #include <vector>
 #include "numeric"
 #include <algorithm>
+#include "vectorClass.h"
 /**
  * @brief Base klasė Zmogus kuria zmogaus objektus - vardas, pavarde
  *
@@ -58,7 +59,7 @@ private:
     std::string pavarde = " ";/**>Studento pavarde.*/
     float vidurkis = 0.0;/**>Studento pazymiu vidurkis.*/
     float mediana = 0.0;/**>Studento pazymiu mediana.*/
-    std::vector<int> pazymiai;/**>Studento pazymiai.*/
+    Vector<int> pazymiai;/**>Studento pazymiai.*/
     double egzaminas{};/**>Studento egzamino ivertinimas.*/
 public:
 
@@ -100,7 +101,7 @@ public:
      *
      * @param pazVector
      */
-    void setPazymiaiVector(std::vector<int> pazVector);
+    void setPazymiaiVector(Vector<int> pazVector);
 
     /**
      * @brief funkcija setPazymiai - priskiriami pazymiai (int tipo).
@@ -113,7 +114,7 @@ public:
      * @brief funkcija getPazymiai - grazina pazymius.
      * @return std::vector<int> pazymiai
      */
-    std::vector<int> getPazymiai() const;
+    Vector<int> getPazymiai() const;
 
     /**
      * @brief funkcija resizePazymiai - pakeicia std::vector<int> pazymiai dydi.

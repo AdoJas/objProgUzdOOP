@@ -7,12 +7,6 @@ if(POLICY CMP0141)
 endif()
 
 project(OOPuzd)
-# Add the path to the Google Test library
-include_directories(/Users/adomas/Documents/googletest-1.14.0/googletest/include)
-link_directories(/Users/adomas/Documents/googletest-1.14.0/googletest/lib)
-
-# Link the Google Test library to your test executable
-
 
 add_executable(OOPuzd
         "Common.cpp"
@@ -23,9 +17,9 @@ add_executable(OOPuzd
         "studentas.h"
         "studentas.cpp"
         "vectorClass.h"
-        vectorClass.cpp
+        "vectorClass.cpp"
 )
-target_link_libraries(OOPuzd gtest gtest_main)
+#target_link_libraries(OOPuzd gtest gtest_main)
 if(CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET OOPuzd PROPERTY CXX_STANDARD 20)
 endif()
@@ -39,7 +33,7 @@ add_executable(OOPuzdO3
         "studentas.h"
         "studentas.cpp"
         "vectorClass.h"
-        vectorClass.cpp
+        "vectorClass.cpp"
 )
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)
@@ -62,7 +56,7 @@ add_executable(OOPuzdO2
         "studentas.h"
         "studentas.cpp"
         "vectorClass.h"
-        vectorClass.cpp
+        "vectorClass.cpp"
 )
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)
@@ -85,7 +79,7 @@ add_executable(OOPuzdO1
         "studentas.h"
         "studentas.cpp"
         "vectorClass.h"
-        vectorClass.cpp
+        "vectorClass.cpp"
 )
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)

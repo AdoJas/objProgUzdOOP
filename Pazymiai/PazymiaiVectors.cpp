@@ -10,7 +10,6 @@
 #include "chrono"
 #include "Common.h"
 #include "studentas.h"
-#include "vectorClass.h"
 
 double laikasSkaitymas = 0.0;
 double laikasSkaiciavimas = 0.0;
@@ -98,7 +97,7 @@ void fileReading(Vector<studentasV>& grupeVector, const string &failas, double& 
     string line;
     istringstream iss;
     string grade = "";
-    vector<int> laikiniPazymiai;
+    Vector<int> laikiniPazymiai;
     getline(fin, line); // Skip header
     while (getline(fin, line)) {
         iss.str(line);
@@ -113,17 +112,17 @@ void fileReading(Vector<studentasV>& grupeVector, const string &failas, double& 
             try {
                 int pazymys = std::stoi(grade);
                 if (pazymys >= 0 && pazymys <= 10) {
-                    laikiniPazymiai.push_back(pazymys);
+                    laikiniPazymiai.PushBack(pazymys);
                 }
             } catch (const std::exception& e) {
                 fakePazymiai++;
             }
         }
-        laikinasV.setEgzaminas(laikiniPazymiai.back());
-        laikiniPazymiai.pop_back();
+        laikinasV.setEgzaminas(laikiniPazymiai.Back());
+        laikiniPazymiai.PopBack();
         laikinasV.setPazymiaiVector(laikiniPazymiai);
-        grupeVector.EmplaceBack(std::move(laikinasV));
-        laikiniPazymiai.clear();
+        grupeVector.PushBack(laikinasV);
+        laikiniPazymiai.Clear();
         iss.clear();
     }
     fin.close();

@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include "studentas.h"
 #include "vectorClass.h"
-//#include "gtest.h"
 using namespace std;
 
 int main()
@@ -71,7 +70,7 @@ do{
             studentasV stud = studentasV();
             generateRandomNames(stud);
             generateRandomGrades(stud);
-            grupeVector.push_back(stud);
+            grupeVector.PushBack(stud);
         }
         generalVidurkisCalculate(grupeVector);
         generalMedianaCalculate(grupeVector);

@@ -28,183 +28,247 @@ public:
     typedef std::ptrdiff_t difference_type;
     typedef size_t size_type;
 
-    /**
-     * @brief Konstruktorius be parametrų
-     */
-    Vector();
+    Vector() {
+        size = 0;
+        capacity = 0;
+        elements = nullptr;
+    }
 
-    /**
-     * @brief Konstruktorius su n elementų
-     *
-     * @param n Elementų skaičius
-     * @param value Pradinė elementų reikšmė
-     */
-    Vector(size_type n, const const_reference value);
+    void throwOutOfRange() {
+        throw std::out_of_range("Out of range");
+    }
 
-    /**
-     * @brief Kopijavimo konstruktorius
-     *
-     * @param rhs Vector objektas, kurį kopijuojame
-     */
-    Vector(const Vector &rhs);
+    Vector(size_type n, const_reference value) {
+        size = n;
+        capacity = n;
+        elements = new value_type[capacity];
+        for (size_type i = 0; i < size; i++) {
+            elements[i] = value;
+        }
+    }
 
-    /**
-     * @brief Destruktorius
-     */
-    ~Vector();
+    Vector(const Vector &rhs) {
+        size = rhs.size;
+        capacity = rhs.capacity;
+        elements = new value_type[capacity];
+        for (size_type i = 0; i < size; i++) {
+            elements[i] = rhs.elements[i];
+        }
+    }
 
-    /**
-     * @brief Grąžina elementų skaičių
-     *
-     * @return size_type Elementų skaičius
-     */
-    typename Vector<T>::size_type Size();
+    ~Vector() {
+        delete[] elements;
+    }
 
-    /**
-     * @brief Grąžina kiek atminties vietos yra išskirta šiam vektoriui
-     *
-     * @return size_type Atminties vietos kiekis
-     */
-    typename Vector<T>::size_type Capacity();
+    size_type Size() {
+        return size;
+    }
 
-    /**
-     * @brief Patikrina ar vektorius yra tuščias
-     *
-     * @return true Jei vektorius yra tuščias
-     * @return false Jei vektorius nėra tuščias
-     */
-    bool isEmpty();
+    size_type Capacity() {
+        return capacity;
+    }
 
-    /**
-     * @brief Įdeda elementą į vektoriaus galą
-     *
-     * @param object Elementas, kurį dedame
-     */
-    void PushBack(reference object);
+    bool isEmpty() {
+        return size == 0;
+    }
 
-    /**
-     * @brief Ištrina paskutinį vektoriaus elementą
-     */
-    void PopBack();
+    void PushBack(reference object) {
+        if (size == capacity) {
+            Reserve(capacity + 1);
+        }
+        elements[size] = object;
+        size++;
+    }
 
-    /**
-     * @brief Ištrina visus elementus iš vektoriaus
-     */
-    void Clear();
+    void PopBack() {
+        if (size == 0) {
+            throwOutOfRange();
+        }
+        size--;
+    }
 
-    /**
-     * @brief Pakeičia vektoriaus dydį (size) į n
-     *
-     * @param n Naujas vektoriaus dydis
-     */
-    void Resize(size_type n);
+    void Clear() {
+        size = 0;
+    }
 
-    /**
-     * @brief Alokuoja atminties vietos vektoriaus elementams
-     *
-     * @param n Kiek atminties vietos norime išskirti
-     */
-    void Reserve(size_type n);
+    void Resize(size_type n) {
+        if (n < size) {
+            size = n;
+        } else {
+            Reserve(n);
+            for (size_type i = size; i < n; i++) {
+                elements[i] = value_type();
+            }
+            size = n;
+        }
+    }
 
-    /**
-     * @brief Sukeičia vektoriaus elementus su kitu vektoriumi
-     *
-     * @param rhs Vector objektas, su kuriuo keičiame elementus
-     */
-    void Swap(Vector &rhs);
+    void Reserve(size_type n) {
+        if (n > capacity) {
+            iterator newElements = new value_type[n];
+            for (size_type i = 0; i < size; i++) {
+                newElements[i] = elements[i];
+            }
+            delete[] elements;
+            elements = newElements;
+            capacity = n;
+        }
+    }
 
-    /**
-     * @brief Sumažina atminties vietos kiekį (capacity) iki vektoriaus dydžio (size)
-     */
-    void ShrinkToFit();
+    void Swap(Vector &rhs) {
+        std::swap(size, rhs.size);
+        std::swap(capacity, rhs.capacity);
+        std::swap(elements, rhs.elements);
+    }
 
-    /**
-     * @brief Ištrina elementą iš vektoriaus pagal indeksą (index)
-     *
-     * @param index Elemento indeksas
-     */
-    void Erase(size_type index);
+    void ShrinkToFit() {
+        if (size < capacity) {
+            iterator newElements = new value_type[size];
+            for (size_type i = 0; i < size; i++) {
+                newElements[i] = elements[i];
+            }
+            delete[] elements;
+            elements = newElements;
+            capacity = size;
+        }
+    }
 
-    void Erase(iterator position, iterator last);
-    /**
-     * @brief Įterpia elementą į vektoriaus vietą pagal indeksą (index)
-     *
-     * @param index Indeksas, į kurį įterpiame elementą
-     * @param object Elementas, kurį įterpiame
-     */
-    void Insert(size_type index, reference object);
+    void Erase(size_type index) {
+        if (index < 0 || index >= size) {
+            throwOutOfRange();
+        }
+        for (size_type i = index; i < size - 1; i++) {
+            elements[i] = elements[i + 1];
+        }
+        size--;
+    }
 
-    /**
-     * @brief Įterpia n elementų į vektoriaus vietą pagal indeksą (index)
-     *
-     * @param index Indeksas, į kurį įterpiame elementus
-     * @param object Elementas, kurį įterpiame
-     * @param n Elementų skaičius
-     */
+    void Erase(iterator position, iterator last) {
+        size_t offset = position - begin();
+        size_t numElements = last - position;
 
-    typename Vector<T>::iterator Insert(iterator position, iterator first, iterator last);
-    /**
-     * @brief Pakeičia vektoriaus elementus į n elementų su reikšme (value)
-     *
-     * @param n Elementų skaičius
-     * @param value Elementų reikšmė
-     */
-    void Assign(size_type n, const_reference value);
+        for (size_t i = offset; i < size - numElements; ++i) {
+            elements[i] = std::move(elements[i + numElements]);
+        }
 
-    /**
-     * @brief Priskyrimo operatoriaus perkrova
-     *
-     * @param rhs Vector objektas, kurį priskiriame
-     */
-    void operator=(const Vector &rhs);
+        size -= numElements;
+    }
 
-    /**
-     * @brief Prideda elementą į vektoriaus galą
-     * @param object
-     */
-    void EmplaceBack(T&& object);
-    /**
-     * @brief Grąžina elementą pagal indeksą (index)
-     *
-     * @param index Elemento indeksas
-     * @return reference Elementas pagal indeksą
-     */
-    typename Vector<T>::reference At(size_type index);
+    void Insert(size_type index, reference object) {
+        if (index < 0 || index > size) {
+            throwOutOfRange();
+        }
+        if (size == capacity) {
+            Reserve(capacity + 1);
+        }
+        for (size_type i = size; i > index; i--) {
+            elements[i] = elements[i - 1];
+        }
+        elements[index] = object;
+        size++;
+    }
 
-    /**
-     * @brief Grąžina pirmąjį vektoriaus elementą
-     *
-     * @return reference Pirmasis elementas
-     */
-    typename Vector<T>::reference Front();
+    iterator Insert(iterator position, iterator first, iterator last) {
+        size_t offset = position - begin();
+        size_t numElements = last - first;
 
-    /**
-     * @brief Grąžina paskutinį vektoriaus elementą
-     *
-     * @return reference Paskutinis elementas
-     */
-    typename Vector<T>::reference Back();
+        if (size + numElements > capacity) {
+            Reserve(size + numElements);
+        }
 
-    /**
-     * @brief Grąžina rodyklę į vektoriaus pradžią
-     *
-     * @return iterator Rodyklė į vektoriaus pradžią
-     */
-    typename Vector<T>::iterator begin();
+        for (size_t i = size; i > offset; --i) {
+            elements[i + numElements - 1] = std::move(elements[i - 1]);
+        }
 
-    /**
-     * @brief Grąžina rodyklę į vektoriaus galą
-     *
-     * @return iterator Rodyklė į vektoriaus galą
-     */
-    typename Vector<T>::iterator end();
+        std::copy(first, last, elements + offset);
+        size += numElements;
 
-    /**
-     * @brief Grąžina rodyklę į vektoriaus pradžią iš galo
-     *
-     * @return iterator Rodyklė į vektoriaus pradžią iš galo
-     */
-    typename Vector<T>::iterator RBegin();
+        return elements + offset;
+    }
+    T& operator[](size_t index) {
+        if (index >= size) {
+            throw std::out_of_range("Index out of range");
+        }
+        return elements[index];
+    }
+
+    const T& operator[](size_t index) const {
+        if (index >= size) {
+            throw std::out_of_range("Index out of range");
+        }
+        return elements[index];
+    }
+    void Assign(size_type n, const_reference value) {
+        if (n > capacity) {
+            Reserve(n);
+        }
+        for (size_type i = 0; i < n; i++) {
+            elements[i] = value;
+        }
+        size = n;
+    }
+
+    void operator=(const Vector &rhs) {
+        if (this != &rhs) {
+            delete[] elements;
+            size = rhs.size;
+            capacity = rhs.capacity;
+            elements = new value_type[capacity];
+            for (size_type i = 0; i < size; i++) {
+                elements[i] = rhs.elements[i];
+            }
+        }
+    }
+
+    reference At(size_type index) {
+        if (index < 0 || index >= size) {
+            throwOutOfRange();
+        }
+        return elements[index];
+    }
+
+    reference Front() {
+        if (size == 0) {
+            throwOutOfRange();
+        }
+        return elements[0];
+    }
+
+    reference Back() {
+        if (size == 0) {
+            throwOutOfRange();
+        }
+        return elements[size - 1];
+    }
+
+    iterator begin() {
+        if (size == 0) {
+            throwOutOfRange();
+        }
+        return elements;
+    }
+
+    iterator end() {
+        if (size == 0) {
+            throwOutOfRange();
+        }
+        return elements + size;
+    }
+
+    iterator RBegin() {
+        if (size == 0) {
+            throwOutOfRange();
+        }
+        return elements + size - 1;
+    }
+
+    void EmplaceBack(T&& object) {
+        if (size == capacity) {
+            Reserve(capacity + 1);
+        }
+        elements[size] = std::forward<T>(object);
+        size++;
+    }
 };
 
 #endif //OOPUZD_VECTORCLASS_H

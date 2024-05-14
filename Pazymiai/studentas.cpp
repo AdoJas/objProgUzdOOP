@@ -4,8 +4,6 @@
 #include "studentas.h"
 #include <fstream>
 
-
-
 void studentasV::setVardas(std::string vardas) {
     this -> vardas = vardas;
 }
@@ -18,16 +16,16 @@ void studentasV::setPavarde(std::string pavarde) {
 std::string studentasV::getPavarde() const{
     return pavarde;
 }
-void studentasV::setPazymiaiVector(std::vector<int> pazVector) {
-    pazymiai.insert(pazymiai.end(), pazVector.begin(), pazVector.end());
+void studentasV::setPazymiaiVector(Vector<int> pazVector) {
+    pazymiai.Insert(pazymiai.end(), pazVector.begin(), pazVector.end());
 }
-void studentasV::setPazymiai(const int paz){
-    pazymiai.push_back(paz);
+void studentasV::setPazymiai(int paz){
+    pazymiai.PushBack(paz);
 }
 void studentasV::resizePazymiai(int n) {
-    pazymiai.resize(n);
+    pazymiai.Resize(n);
 }
-std::vector<int> studentasV::getPazymiai() const {
+Vector<int> studentasV::getPazymiai() const {
     return pazymiai;
 }
 
@@ -38,17 +36,17 @@ int studentasV::getEgzaminas() const{
     return egzaminas;
 }
 void studentasV::setVidurkis(){
-    if (pazymiai.empty()) {
+    if (pazymiai.isEmpty()) {
         vidurkis = egzaminas * 0.6;
     } else {
         double suma = std::accumulate(pazymiai.begin(), pazymiai.end(), 0.0);
-        vidurkis = (suma / pazymiai.size()) * 0.4 + egzaminas * 0.6;
+        vidurkis = (suma / pazymiai.Size()) * 0.4 + egzaminas * 0.6;
     }
 }
 void studentasV::setMediana() {
     std::sort(pazymiai.begin(), pazymiai.end());
 
-    size_t size = pazymiai.size();
+    size_t size = pazymiai.Size();
     if (size == 0) {
         mediana = -1;
     } else if (size % 2 == 0) {
@@ -65,7 +63,7 @@ float studentasV::getMediana() const{
 }
 
 void studentasV::setAtsitiktiniaiPazymiai() {
-    pazymiai.resize(rand() % 10 + 1);
+    pazymiai.Resize(rand() % 10 + 1);
     for (int & paz : pazymiai) {
         paz = rand() % 10 + 1;
     }
@@ -85,8 +83,7 @@ void studentasV::setAtsitiktiniaiDuomenys() {
 }
 //Kopijavimo konstruktorius
 studentasV::studentasV(const studentasV& kita)
-        : Zmogus(kita),
-          pazymiai(kita.pazymiai), egzaminas(kita.egzaminas) {
+        : Zmogus(kita), pazymiai(kita.pazymiai), egzaminas(kita.egzaminas) {
     vardas = kita.vardas;
     pavarde = kita.pavarde;
     vidurkis = kita.vidurkis;
@@ -130,7 +127,7 @@ studentasV& studentasV::operator=(studentasV&& kita) noexcept {
 
         kita.vardas.clear();
         kita.pavarde.clear();
-        kita.pazymiai.clear();
+        kita.pazymiai.Clear();
         kita.vidurkis = 0.0;
         kita.mediana = 0.0;
         kita.egzaminas = 0.0;
@@ -139,7 +136,7 @@ studentasV& studentasV::operator=(studentasV&& kita) noexcept {
 }
 //Destruktorius
 studentasV::~studentasV(){
-    pazymiai.clear();
+    pazymiai.Clear();
 }
 //output streamo operatorius <<
 std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
@@ -152,10 +149,10 @@ std::ostream& operator<<(std::ostream& outputas, const studentasV &studentas) {
 //input streamo operatorius >>
 std::istream &operator>>(std::istream &inputas, studentasV &studentas){
     inputas >> studentas.vardas >> studentas.pavarde >> studentas.egzaminas;
-    studentas.pazymiai.clear();
+    studentas.pazymiai.Clear();
     int pazymys;
     while (inputas >> pazymys) {
-        studentas.pazymiai.push_back(pazymys);
+        studentas.pazymiai.PushBack(pazymys);
     }
     return inputas;
 }
