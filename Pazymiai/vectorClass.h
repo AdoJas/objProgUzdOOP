@@ -34,7 +34,7 @@ public:
         elements = nullptr;
     }
 
-    void throwOutOfRange() {
+    void throwOutOfRange() const {
         throw std::out_of_range("Out of range");
     }
 
@@ -60,15 +60,15 @@ public:
         delete[] elements;
     }
 
-    size_type Size() {
+    size_type Size() const {
         return size;
     }
 
-    size_type Capacity() {
+    size_type Capacity() const{
         return capacity;
     }
 
-    bool isEmpty() {
+    bool isEmpty() const {
         return size == 0;
     }
 
@@ -168,23 +168,19 @@ public:
         size++;
     }
 
-    iterator Insert(iterator position, iterator first, iterator last) {
-        size_t offset = position - begin();
-        size_t numElements = last - first;
+    void Insert(iterator pos, iterator first, iterator last) {
+        size_t index = std::distance(elements, pos);
+        size_t numNewElements = std::distance(first, last);
 
-        if (size + numElements > capacity) {
-            Reserve(size + numElements);
+        if (size + numNewElements > capacity) {
+            Reserve((size + numNewElements) * 2);
         }
 
-        for (size_t i = size; i > offset; --i) {
-            elements[i + numElements - 1] = std::move(elements[i - 1]);
-        }
-
-        std::copy(first, last, elements + offset);
-        size += numElements;
-
-        return elements + offset;
+        std::move_backward(elements + index, elements + size, elements + size + numNewElements);
+        std::copy(first, last, elements + index);
+        size += numNewElements;
     }
+
     T& operator[](size_t index) {
         if (index >= size) {
             throw std::out_of_range("Index out of range");
@@ -241,14 +237,14 @@ public:
         return elements[size - 1];
     }
 
-    iterator begin() {
+    iterator begin() const {
         if (size == 0) {
             throwOutOfRange();
         }
         return elements;
     }
 
-    iterator end() {
+    iterator end() const {
         if (size == 0) {
             throwOutOfRange();
         }

@@ -294,7 +294,7 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
             try {
                 int value = std::stoi(s);
                 badValues += value >= 0 && value <= 10 ? 0 : 1;
-                if ((stud.getPazymiai().size() < maxItems || maxItems == 0) && value > 0 && value < 11) {
+                if ((stud.getPazymiai().Size() < maxItems || maxItems == 0) && value > 0 && value < 11) {
                     stud.setPazymiai(stoi(s));
                 }
             }
@@ -302,13 +302,13 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
                 notNumbers++;
             }
         }
-        testi = maxItems > 0 && stud.getPazymiai().size() < maxItems;
+        testi = maxItems > 0 && stud.getPazymiai().Size() < maxItems;
         if (testi) {
             if (notNumbers > 0)
                 cout << "Ivestu neteisingu pazymiu skaicius: " << notNumbers << endl;
             if (badValues)
                 cout << "Ivestu pazymiu, kurie nera intervale [1,10], skaicius: " << badValues << endl;
-            cout << "Trukstamu pazymiu skaicius: " << maxItems - stud.getPazymiai().size() << ". Teskite ivedima" << endl;
+            cout << "Trukstamu pazymiu skaicius: " << maxItems - stud.getPazymiai().Size() << ". Teskite ivedima" << endl;
             s = "";
             notNumbers = badValues = 0;
         }

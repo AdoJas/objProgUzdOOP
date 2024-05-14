@@ -101,7 +101,7 @@ public:
      *
      * @param pazVector
      */
-    void setPazymiaiVector(Vector<int> pazVector);
+    void setPazymiaiVector(const Vector<int>& pazVector);
 
     /**
      * @brief funkcija setPazymiai - priskiriami pazymiai (int tipo).

@@ -16,7 +16,7 @@ void studentasV::setPavarde(std::string pavarde) {
 std::string studentasV::getPavarde() const{
     return pavarde;
 }
-void studentasV::setPazymiaiVector(Vector<int> pazVector) {
+void studentasV::setPazymiaiVector(const Vector<int>& pazVector) {
     pazymiai.Insert(pazymiai.end(), pazVector.begin(), pazVector.end());
 }
 void studentasV::setPazymiai(int paz){
