@@ -135,6 +135,17 @@ void Vector<T>::Erase(size_type index) {
     }
     size--;
 }
+template<typename T>
+void Vector<T>::Erase(iterator position, iterator last) {
+    size_t offset = position - begin();
+    size_t numElements = last - position;
+
+    for (size_t i = offset; i < size - numElements; ++i) {
+        elements[i] = std::move(elements[i + numElements]);
+    }
+
+    size -= numElements;
+}
 
 template<typename T>
 void Vector<T>::Insert(size_type index, reference object) {
@@ -150,7 +161,24 @@ void Vector<T>::Insert(size_type index, reference object) {
     elements[index] = object;
     size++;
 }
+template<typename T>
+typename Vector<T>::iterator Vector<T>::Insert(iterator position, iterator first, iterator last) {
+    size_t offset = position - begin();
+    size_t numElements = last - first;
 
+    if (size + numElements > capacity) {
+        Reserve(size + numElements);
+    }
+
+    for (size_t i = size; i > offset; --i) {
+        elements[i + numElements - 1] = std::move(elements[i - 1]);
+    }
+
+    std::copy(first, last, elements + offset);
+    size += numElements;
+
+    return elements + offset;
+}
 template<typename T>
 void Vector<T>::Assign(size_type n, const_reference value) {
     if (n > capacity) {

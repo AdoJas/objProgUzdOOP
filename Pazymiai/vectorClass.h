@@ -125,6 +125,7 @@ public:
      */
     void Erase(size_type index);
 
+    void Erase(iterator position, iterator last);
     /**
      * @brief Įterpia elementą į vektoriaus vietą pagal indeksą (index)
      *
@@ -133,6 +134,15 @@ public:
      */
     void Insert(size_type index, reference object);
 
+    /**
+     * @brief Įterpia n elementų į vektoriaus vietą pagal indeksą (index)
+     *
+     * @param index Indeksas, į kurį įterpiame elementus
+     * @param object Elementas, kurį įterpiame
+     * @param n Elementų skaičius
+     */
+
+    typename Vector<T>::iterator Insert(iterator position, iterator first, iterator last);
     /**
      * @brief Pakeičia vektoriaus elementus į n elementų su reikšme (value)
      *

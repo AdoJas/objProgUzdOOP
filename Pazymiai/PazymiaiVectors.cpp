@@ -362,7 +362,7 @@ void laikoIsvedimas(double laikasSkaitymas, double laikasSkaiciavimas, double la
         cout << "Is viso sugaistas laikas rusiuojant duomenis: " << laikasSkaiciavimas << "sek. \n";
         cout << "Viso sugaista laiko: " << laikasSkaitymas + laikasSkaitymas + laikasSkaiciavimas << "sek. \n";
 }
-void studentuGeneravimas(vector<studentasV>& grupeVector, int kiekis) {
+void studentuGeneravimas(Vector<studentasV>& grupeVector, int kiekis) {
     for (int i = 1; i <= kiekis; i++) {
         studentasV stud;
         std::string vardas = "Vardas" + to_string(i);
@@ -374,7 +374,7 @@ void studentuGeneravimas(vector<studentasV>& grupeVector, int kiekis) {
             paz = rand() % 10 + 1;
         }
         stud.setEgzaminas(rand() % 10 + 1);
-        grupeVector.push_back(stud);
+        grupeVector.PushBack(stud);
     }
 }
 
@@ -401,7 +401,7 @@ void failoNuskaitymasRusiavimas(Vector<studentasV>& grupeVector, Vector<studenta
     cout << "VECTOR - studentu konteinerio rusiavimas truko: " << duration1.count() << " sek." << endl;
     cout << "VECTOR - Studentu rusiavimas i du konteinerius su " << ivedimasKonteineris << " pasirinkimu truko:  " << duration.count() << " sek." << endl;
 }
-void isvedimasFailai(vector<studentasV>& grupeVector, vector<studentasV>& grupeBad,int i, string& vidMed, string& choice) {
+void isvedimasFailai(Vector<studentasV>& grupeVector, Vector<studentasV>& grupeBad,int i, string& vidMed, string& choice) {
 
         ofstream fout("KursiokaiGood" + to_string(i + 1) + ".txt");
         ofstream foutB("KursiokaiBad" + to_string(i + 1) + ".txt");
@@ -467,47 +467,47 @@ void isvedimasFailai(vector<studentasV>& grupeVector, vector<studentasV>& grupeB
         std::chrono::duration<double> duration1 = end1 - start1;
         cout << "Abieju studentu konteineriu isvedimas truko:  " << duration1.count() << " sek." << endl;
 }
-void clearVector(vector<studentasV>& grupeVector) {
-    grupeVector.clear();
+void clearVector(Vector<studentasV>& grupeVector) {
+    grupeVector.Clear();
 }
-void vectorPartition(string vidMed, vector<studentasV>& grupeVector, vector<studentasV>& grupeGood, vector<studentasV>& grupeBad) {
+void vectorPartition(string vidMed, Vector<studentasV>& grupeVector, Vector<studentasV>& grupeGood, Vector<studentasV>& grupeBad) {
     if (vidMed == "1") {
         auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
             return student.getVidurkis() >= 5;
             });
 
-        grupeGood.insert(grupeGood.end(), grupeVector.begin(), it);
-        grupeBad.insert(grupeBad.end(), it, grupeVector.end());
+        grupeGood.Insert(grupeGood.end(), grupeVector.begin(), it);
+        grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
     }
     else {
         auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
             return student.getMediana() >= 5;
             });
 
-        grupeGood.insert(grupeGood.end(), grupeVector.begin(), it);
-        grupeBad.insert(grupeBad.end(), it, grupeVector.end());
+        grupeGood.Insert(grupeGood.end(), grupeVector.begin(), it);
+        grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
     }
 
 }
-void vectorPartition2(string vidMed, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad) {
+void vectorPartition2(string vidMed, Vector<studentasV>& grupeVector, Vector<studentasV>& grupeBad) {
     if (vidMed == "1") {
         auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
             return student.getVidurkis() >= 5;
         });
-        grupeBad.insert(grupeBad.end(), it, grupeVector.end());
-        grupeVector.erase(it, grupeVector.end());
+        grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
+        grupeVector.Erase(it, grupeVector.end());
     }
     else {
         auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV &student) {
             return student.getMediana() >= 5;
         });
-        grupeBad.insert(grupeBad.end(), it, grupeVector.end());
-        grupeVector.erase(it, grupeVector.end());
+        grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
+        grupeVector.Erase(it, grupeVector.end());
     }
 
 }
 
-void vektoriaiMain(string vidMed, string choice, vector<studentasV>& grupeVector, vector<studentasV>& grupeBad, vector<studentasV>& grupeGood, string ivedimasKonteineris) {
+void vektoriaiMain(string vidMed, string choice, Vector<studentasV>& grupeVector, Vector<studentasV>& grupeBad, Vector<studentasV>& grupeGood, string ivedimasKonteineris) {
 
     pasirinkimasVidMed(vidMed);
     sortChoice(choice);
