@@ -123,11 +123,6 @@ void fileReading(Vector<studentasV>& grupeVector, const string &failas, double& 
             laikiniPazymiai.PopBack();
         }
         laikinasV.setPazymiaiVector(laikiniPazymiai);
-        laikinasV.getVardas();
-        laikinasV.getPavarde();
-        for(int i = 0; i < laikinasV.getPazymiai().Size(); i++){
-            cout << laikinasV.getPazymiai()[i] << " ";
-        }
         grupeVector.PushBack(laikinasV);
         laikiniPazymiai.Clear();
         iss.clear();
