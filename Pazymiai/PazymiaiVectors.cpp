@@ -96,7 +96,7 @@ void fileReading(Vector<studentasV>& grupeVector, const string &failas, double& 
     auto start = chrono::high_resolution_clock::now();
     string line;
     istringstream iss;
-    string grade = "";
+    string grade = " ";
     Vector<int> laikiniPazymiai;
     getline(fin, line); // Skip header
     while (getline(fin, line)) {
@@ -118,9 +118,16 @@ void fileReading(Vector<studentasV>& grupeVector, const string &failas, double& 
                 fakePazymiai++;
             }
         }
-        laikinasV.setEgzaminas(laikiniPazymiai.Back());
-        laikiniPazymiai.PopBack();
+        if (!laikiniPazymiai.isEmpty()) {
+            laikinasV.setEgzaminas(laikiniPazymiai.Back());
+            laikiniPazymiai.PopBack();
+        }
         laikinasV.setPazymiaiVector(laikiniPazymiai);
+        laikinasV.getVardas();
+        laikinasV.getPavarde();
+        for(int i = 0; i < laikinasV.getPazymiai().Size(); i++){
+            cout << laikinasV.getPazymiai()[i] << " ";
+        }
         grupeVector.PushBack(laikinasV);
         laikiniPazymiai.Clear();
         iss.clear();
