@@ -128,15 +128,17 @@ void fileReading(Vector<studentasV>& grupeVector, const string &failas, double& 
         iss.clear();
     }
     fin.close();
-
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> duration = end - start;
     laikasSkaitymas = duration.count();
     cout << "VECTOR - Studentu nuskaitymas is failo truko: " << laikasSkaitymas << " sek." << endl;
 
     auto skStart = chrono::high_resolution_clock::now();
-    generalVidurkisCalculate(grupeVector);
-    generalMedianaCalculate(grupeVector);
+    for(auto& student : grupeVector){
+        student.setVidurkis();
+        student.setMediana();
+        cout<< "Vidurkis: " << student.getVidurkis() << " Mediana: " << student.getMediana() << endl;
+    }
     auto skEnd = chrono::high_resolution_clock::now();
 
     chrono::duration<double> skDuration = skEnd - skStart;
@@ -320,37 +322,52 @@ void readNumbersV(studentasV &stud, int maxItems = 0) {
 void sortInput(string& choice, Vector<studentasV>& grupeVector){
     auto start = std::chrono::high_resolution_clock::now();
 
-    int choiceInt = stoi(choice);
+    int choiceInt = 0;
+    if(all_of(choice.begin(), choice.end(), ::isdigit)) {
+        choiceInt = stoi(choice);
+    } else {
+        cerr << "Error: choice must be a numeric value between 1 and 4.\n";
+        return;
+    }
+
     if (choiceInt < 1 || choiceInt > 4) {
-        cerr << "Klaida: netinkamas rūšiavimo pasirinkimas!\n";
+        cerr << "Error: Invalid sorting choice!\n";
         return;
     }
 
     switch(choiceInt){
-        case 1:
+        case 1:{
             sort(grupeVector.begin(), grupeVector.end(), [](const studentasV& a, const studentasV& b) {
                 return (a.getVardas().find("Vardas") == 0 && b.getVardas().find("Vardas") == 0) ?
                        std::stoi(a.getVardas().substr(6)) > std::stoi(b.getVardas().substr(6)) :
                        a.getVardas() < b.getVardas();
             });
             break;
-        case 2:
+        }
+        case 2:{
             sort(grupeVector.begin(), grupeVector.end(), [](const studentasV& a, const studentasV& b) {
                 return (a.getPavarde().find("Pavarde") == 0 && b.getPavarde().find("Pavarde") == 0) ?
                        std::stoi(a.getPavarde().substr(7)) > std::stoi(b.getPavarde().substr(7)) :
                        a.getPavarde() < b.getPavarde();
             });
             break;
-        case 3:
+        }
+        case 3:{
             sort(grupeVector.begin(), grupeVector.end(), [](const studentasV& a, const studentasV& b) {
                 return a.getVidurkis() < b.getVidurkis();
             });
             break;
-        case 4:
+        }
+        case 4:{
             sort(grupeVector.begin(), grupeVector.end(), [](const studentasV& a, const studentasV& b) {
                 return a.getMediana() < b.getMediana();
             });
             break;
+        }
+        default:{
+            cerr << "Error: Invalid sorting choice!\n";
+            break;
+        }
     }
 
     auto end = std::chrono::high_resolution_clock::now();
@@ -384,18 +401,19 @@ void failoNuskaitymasRusiavimas(Vector<studentasV>& grupeVector, Vector<studenta
 
     auto start1 = std::chrono::high_resolution_clock::now();
     sortInput(choice, grupeVector);
+    cout << "Surusiuota" << endl;
 
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
 
 
     auto start = std::chrono::high_resolution_clock::now();
-    if (ivedimasKonteineris == "1") {
-        vectorPartition(vidMed, grupeVector, grupeGood, grupeBad);
-    }
-    else {
-        vectorPartition2(vidMed, grupeVector, grupeBad);
-    }
+//    if (ivedimasKonteineris == "1") {
+//        vectorPartition(vidMed, grupeVector, grupeGood, grupeBad);
+//    }
+//    else {
+//        vectorPartition2(vidMed, grupeVector, grupeBad);
+//    }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
 
@@ -475,37 +493,47 @@ void vectorPartition(string vidMed, Vector<studentasV>& grupeVector, Vector<stud
     if (vidMed == "1") {
         auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
             return student.getVidurkis() >= 5;
-            });
+        });
 
-        grupeGood.Insert(grupeGood.end(), grupeVector.begin(), it);
-        grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
+        if(it != grupeVector.begin()){
+            grupeGood.Insert(grupeGood.end(), grupeVector.begin(), it);
+        }
+        if(it != grupeVector.end()){
+            grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
+        }
     }
     else {
         auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
             return student.getMediana() >= 5;
-            });
+        });
 
-        grupeGood.Insert(grupeGood.end(), grupeVector.begin(), it);
-        grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
+        if(it != grupeVector.begin()){
+            grupeGood.Insert(grupeGood.end(), grupeVector.begin(), it);
+        }
+        if(it != grupeVector.end()){
+            grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
+        }
     }
-
 }
 void vectorPartition2(string vidMed, Vector<studentasV>& grupeVector, Vector<studentasV>& grupeBad) {
     if (vidMed == "1") {
         auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
             return student.getVidurkis() >= 5;
         });
-        grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
-        grupeVector.Erase(it, grupeVector.end());
+        if(it != grupeVector.end()){
+            grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
+            grupeVector.Erase(it, grupeVector.end());
+        }
     }
     else {
         auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV &student) {
             return student.getMediana() >= 5;
         });
-        grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
-        grupeVector.Erase(it, grupeVector.end());
+        if(it != grupeVector.end()){
+            grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
+            grupeVector.Erase(it, grupeVector.end());
+        }
     }
-
 }
 
 void vektoriaiMain(string vidMed, string choice, Vector<studentasV>& grupeVector, Vector<studentasV>& grupeBad, Vector<studentasV>& grupeGood, string ivedimasKonteineris) {
