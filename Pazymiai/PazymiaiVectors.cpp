@@ -83,49 +83,43 @@ void ivedimasCaseTwo(Vector<studentasV>& grupeVector) {
     } while (tolower(testi) == 't' );
 }
 void fileReading(Vector<studentasV>& grupeVector, const string &failas, double& laikasSkaitymas, int& fakePazymiai, double& laikasSkaiciavimas) {
-    ifstream fin;
-    do {
+    ifstream fin(failas);
+    while (!fin.is_open()) {
+        cerr << "Error: nepavyko atidaryti failo!!!\n" << endl;
+        cerr << "Generuojami reikalingi failai!!\n";
+        pazymiuFailoGeneravimas();
         fin.open(failas);
-        if (!fin.is_open()) {
-            cerr << "Error: nepavyko atidaryti failo!!!\n" << endl;
-            cerr << "Generuojami reikalingi failai!!\n";
-            pazymiuFailoGeneravimas();
-        }
-    } while (!fin.is_open());
-
+    }
+    grupeVector.Reserve(10000000);
     auto start = chrono::high_resolution_clock::now();
     string line;
-    istringstream iss;
-    string grade = " ";
     Vector<int> laikiniPazymiai;
     getline(fin, line); // Skip header
     while (getline(fin, line)) {
-        iss.str(line);
+
+        istringstream iss(line);
         studentasV laikinasV;
-        string laikinasVardas, laikinaPavarde;
+        string laikinasVardas, laikinaPavarde, grade;
 
         iss >> laikinasVardas >> laikinaPavarde;
-
         laikinasV.setVardas(laikinasVardas);
         laikinasV.setPavarde(laikinaPavarde);
         while (iss >> grade) {
             try {
                 int pazymys = std::stoi(grade);
-                if (pazymys >= 0 && pazymys <= 10) {
+//                if (pazymys >= 0 && pazymys <= 10) {
                     laikiniPazymiai.PushBack(pazymys);
-                }
+//                }
             } catch (const std::exception& e) {
-                fakePazymiai++;
+
             }
         }
-        if (!laikiniPazymiai.isEmpty()) {
-            laikinasV.setEgzaminas(laikiniPazymiai.Back());
-            laikiniPazymiai.PopBack();
-        }
+
+        laikinasV.setEgzaminas(laikiniPazymiai.Back());
+        laikiniPazymiai.PopBack();
         laikinasV.setPazymiaiVector(laikiniPazymiai);
         grupeVector.PushBack(laikinasV);
         laikiniPazymiai.Clear();
-        iss.clear();
     }
     fin.close();
     auto end = chrono::high_resolution_clock::now();
@@ -137,12 +131,12 @@ void fileReading(Vector<studentasV>& grupeVector, const string &failas, double& 
     for(auto& student : grupeVector){
         student.setVidurkis();
         student.setMediana();
-        cout<< "Vidurkis: " << student.getVidurkis() << " Mediana: " << student.getMediana() << endl;
     }
     auto skEnd = chrono::high_resolution_clock::now();
 
     chrono::duration<double> skDuration = skEnd - skStart;
     laikasSkaiciavimas = skDuration.count();
+    grupeVector.ShrinkToFit();
 }
 
 //Random duomenu generavimo funkcijos
@@ -401,19 +395,17 @@ void failoNuskaitymasRusiavimas(Vector<studentasV>& grupeVector, Vector<studenta
 
     auto start1 = std::chrono::high_resolution_clock::now();
     sortInput(choice, grupeVector);
-    cout << "Surusiuota" << endl;
-
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
 
 
     auto start = std::chrono::high_resolution_clock::now();
-//    if (ivedimasKonteineris == "1") {
-//        vectorPartition(vidMed, grupeVector, grupeGood, grupeBad);
-//    }
-//    else {
-//        vectorPartition2(vidMed, grupeVector, grupeBad);
-//    }
+    if (ivedimasKonteineris == "1") {
+        vectorPartition(vidMed, grupeVector, grupeGood, grupeBad);
+    }
+    else {
+        vectorPartition2(vidMed, grupeVector, grupeBad);
+    }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
 
@@ -427,11 +419,14 @@ void isvedimasFailai(Vector<studentasV>& grupeVector, Vector<studentasV>& grupeB
 
         stringstream bufferis;
         stringstream bufferisB;
+
         auto start = std::chrono::high_resolution_clock::now();
         sortInput(choice, grupeVector);
         sortInput(choice, grupeBad);
         auto end = std::chrono::high_resolution_clock::now();
+
         std::chrono::duration<double> duration = end - start;
+
         //cout << "Abieju studentu konteineriu rusiavimas pagal pasirinkima :  " << duration.count() << " sek." << endl;
         auto start1 = std::chrono::high_resolution_clock::now();
         if (vidMed == "1") {
@@ -490,6 +485,8 @@ void clearVector(Vector<studentasV>& grupeVector) {
     grupeVector.Clear();
 }
 void vectorPartition(string vidMed, Vector<studentasV>& grupeVector, Vector<studentasV>& grupeGood, Vector<studentasV>& grupeBad) {
+    grupeGood.Reserve(grupeVector.Size());
+    grupeBad.Reserve(grupeVector.Size());
     if (vidMed == "1") {
         auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
             return student.getVidurkis() >= 5;
@@ -514,8 +511,11 @@ void vectorPartition(string vidMed, Vector<studentasV>& grupeVector, Vector<stud
             grupeBad.Insert(grupeBad.end(), it, grupeVector.end());
         }
     }
+    grupeBad.ShrinkToFit();
+    grupeGood.ShrinkToFit();
 }
 void vectorPartition2(string vidMed, Vector<studentasV>& grupeVector, Vector<studentasV>& grupeBad) {
+    grupeBad.Reserve(grupeVector.Size());
     if (vidMed == "1") {
         auto it = std::partition(grupeVector.begin(), grupeVector.end(), [](const studentasV& student) {
             return student.getVidurkis() >= 5;
@@ -534,6 +534,8 @@ void vectorPartition2(string vidMed, Vector<studentasV>& grupeVector, Vector<stu
             grupeVector.Erase(it, grupeVector.end());
         }
     }
+    grupeBad.ShrinkToFit();
+    grupeVector.ShrinkToFit();
 }
 
 void vektoriaiMain(string vidMed, string choice, Vector<studentasV>& grupeVector, Vector<studentasV>& grupeBad, Vector<studentasV>& grupeGood, string ivedimasKonteineris) {

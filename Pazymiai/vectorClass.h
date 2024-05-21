@@ -60,15 +60,15 @@ public:
         delete[] elements;
     }
 
-    size_type Size() const {
+    [[nodiscard]] size_type Size() const {
         return size;
     }
 
-    size_type Capacity() const{
+    [[nodiscard]] size_type Capacity() const{
         return capacity;
     }
 
-    bool isEmpty() const {
+    [[nodiscard]] bool isEmpty() const {
         return size == 0;
     }
 
@@ -105,13 +105,15 @@ public:
 
     void Reserve(size_type n) {
         if (n > capacity) {
-            iterator newElements = new value_type[n];
-            for (size_type i = 0; i < size; i++) {
-                newElements[i] = elements[i];
-            }
+            auto newElements = new value_type[n];
+//            for (size_type i = 0; i < size; i++) {
+//                newElements[i] = elements[i];
+//            }
+            std::move(elements, elements + size, newElements);
             delete[] elements;
             elements = newElements;
             capacity = n;
+
         }
     }
 
@@ -123,7 +125,7 @@ public:
 
     void ShrinkToFit() {
         if (size < capacity) {
-            iterator newElements = new value_type[size];
+            auto newElements = new value_type[size];
             for (size_type i = 0; i < size; i++) {
                 newElements[i] = elements[i];
             }
@@ -134,7 +136,7 @@ public:
     }
 
     void Erase(size_type index) {
-        if (index < 0 || index >= size) {
+        if (index >= size) {
             throwOutOfRange();
         }
         for (size_type i = index; i < size - 1; i++) {
@@ -155,7 +157,7 @@ public:
     }
 
     void Insert(size_type index, reference object) {
-        if (index < 0 || index > size) {
+        if (index > size) {
             throwOutOfRange();
         }
         if (size == capacity) {
@@ -217,7 +219,7 @@ public:
     }
 
     reference At(size_type index) {
-        if (index < 0 || index >= size) {
+        if (index >= size) {
             throwOutOfRange();
         }
         return elements[index];
@@ -236,18 +238,15 @@ public:
         }
         return elements[size - 1];
     }
-
+//pakeitimai begin() funkcijai nebecrashina programos, panaikintas throwOutOfRange()
     iterator begin() const {
-        if (size == 0) {
-            throwOutOfRange();
-        }
         return elements;
     }
-
+//pakeitimai end() funkcijai nebecrashina programos, panaikintas throwOutOfRange()
     iterator end() const {
-        if (size == 0) {
-            throwOutOfRange();
-        }
+//        if (size == 0) {
+//            throwOutOfRange();
+//        }
         return elements + size;
     }
 
