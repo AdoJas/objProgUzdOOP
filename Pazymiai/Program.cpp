@@ -119,27 +119,39 @@ do{
 
     }
     case 7:{
-
+        int alokacijaSTD = 0, alokacijaVector = 0;
         for(int x = 0; x < 5; x++){
             auto start = std::chrono::high_resolution_clock::now();
                 unsigned int sz = pow(10, 3+x);
                 std::vector<int> v1;
-                for (int i = 1; i <= sz; ++i)
+                for (int i = 1; i <= sz; ++i){
                     v1.push_back(i);
+                    if(v1.size() == v1.capacity()){
+                        ++alokacijaSTD;
+                }
+            }
             auto end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> diff = end-start;
             cout << "std::vector<int> " << sz << " elementu: " << diff.count() << " s\n";
+            cout << "Alokacijos std::vector<int>: " << alokacijaSTD << endl;
+            alokacijaSTD = 0;
         }
         cout<< "--------------------------------" << endl;
         for(int x = 0; x < 5; x++){
             auto start = std::chrono::high_resolution_clock::now();
             unsigned int sz = pow(10, 3+x);
             Vector<int> v1;
-            for (int i = 1; i <= sz; ++i)
+            for (int i = 1; i <= sz; ++i){
                 v1.PushBack(i);
+                if(v1.Size() == v1.Capacity()){
+                    alokacijaVector++;
+                }
+            }
             auto end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> diff = end-start;
             cout << "Vector<int> " << sz << " elementu: " << diff.count() << " s\n";
+            cout << "Alokacijos Vector<int>: " << alokacijaVector << endl;
+            alokacijaVector = 0;
         }
 
     }

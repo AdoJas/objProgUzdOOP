@@ -20,24 +20,34 @@ private:
     T* elements; ///< Masyvas, kuriame saugomi elementai
 
 public:
-    typedef T value_type;
-    typedef T& reference;
-    typedef const T& const_reference;
-    typedef T* iterator;
-    typedef const T* const_iterator;
-    typedef std::ptrdiff_t difference_type;
-    typedef size_t size_type;
 
+    typedef T value_type; /**< Elemento tipas */
+    typedef T& reference; /**< Elemento referencija */
+    typedef const T& const_reference; /**< Konstantine elemento referencija */
+    typedef T* iterator; /**< Iteratorius */
+    typedef const T* const_iterator; /**< Konstantinis iteratorius */
+    typedef std::ptrdiff_t difference_type; /**< Skirtumas tarp dvieju iteratoriu */
+    typedef size_t size_type; /**< Elementu skaicius */
+    /**
+     * @brief Default konstruktorius
+     */
     Vector() {
         size = 0;
         capacity = 10;
         elements = new value_type[capacity];
     }
-
+    /**
+     * @brief Ismeta exception jei indeksas yra uz vektoriaus ribu
+     */
     void throwOutOfRange() const {
         throw std::out_of_range("Out of range");
     }
-
+    /**
+     * @brief Konstruktorius su parametrais
+     *
+     * @param n Elementų skaičius
+     * @param value Pradinė reikšmė
+     */
     Vector(size_type n, const_reference value) {
         size = n;
         capacity = n;
@@ -46,7 +56,11 @@ public:
             elements[i] = value;
         }
     }
-
+    /**
+     * @brief Kopijavimo konstruktorius
+     *
+     * @param rhs Kopijuojamas vektorius
+     */
     Vector(const Vector &rhs) {
         size = rhs.size;
         capacity = rhs.capacity;
@@ -55,42 +69,68 @@ public:
             elements[i] = rhs.elements[i];
         }
     }
-
+    /**
+     * @brief Destruktorius
+     */
     ~Vector() {
         delete[] elements;
     }
-
+    /**
+     * @brief Grąžina elementų skaičių
+     *
+     * @return Elementų skaičius
+     */
     [[nodiscard]] size_type Size() const {
         return size;
     }
-
+    /**
+     * @brief Grąžina vietos kiekį atmintyje
+     *
+     * @return Vietos kiekis atmintyje
+     */
     [[nodiscard]] size_type Capacity() const{
         return capacity;
     }
-
+    /**
+     * @brief Patikrina ar vektorius yra tuščias
+     *
+     * @return Ar tuščias
+     */
     [[nodiscard]] bool isEmpty() const {
         return size == 0;
     }
-
+    /**
+     * @brief Prideda elementą į vektorių
+     *
+     * @param object Pridedamas elementas
+     */
     void PushBack(reference object) {
         if (size == capacity) {
-            Reserve(capacity + capacity / 4);
+            Reserve(capacity == 0 ? 1 : capacity * 2);
         }
         elements[size] = object;
         size++;
     }
-
+    /**
+     * @brief Išmeta paskutinį elementą iš vektoriaus
+     */
     void PopBack() {
         if (size == 0) {
             throwOutOfRange();
         }
         size--;
     }
-
+    /**
+     * @brief Išvalo vektorių
+     */
     void Clear() {
         size = 0;
     }
-
+    /**
+     * @brief Prideda elementą į vektorių
+     *
+     * @param object Pridedamas elementas
+     */
     void Resize(size_type n) {
         if (n < size) {
             size = n;
@@ -102,7 +142,11 @@ public:
             size = n;
         }
     }
-
+    /**
+     * @brief Rezervuoja vietos atmintyje
+     *
+     * @param n Vietos kiekis
+     */
     void Reserve(size_type n) {
         if (n > capacity) {
             auto newElements = new value_type[n];
