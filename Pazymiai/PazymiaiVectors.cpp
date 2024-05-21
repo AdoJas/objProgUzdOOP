@@ -393,7 +393,7 @@ void failoNuskaitymasRusiavimas(Vector<studentasV>& grupeVector, Vector<studenta
     fileReading(grupeVector, "studentai" + to_string(i + 1) + ".txt", laikasSkaitymas, fakePazymiai, laikasSkaiciavimas);
 
     auto start1 = std::chrono::high_resolution_clock::now();
-    sortInput(choice, grupeVector);
+    //sortInput(choice, grupeVector);
     auto end1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration1 = end1 - start1;
 
