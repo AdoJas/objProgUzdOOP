@@ -74,7 +74,7 @@ public:
 
     void PushBack(reference object) {
         if (size == capacity) {
-            Reserve(capacity + capacity / 10);
+            Reserve(capacity + capacity / 4);
         }
         elements[size] = object;
         size++;

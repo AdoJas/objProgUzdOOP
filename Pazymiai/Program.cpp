@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include "studentas.h"
 #include "vectorClass.h"
+#include "math.h"
+#include <chrono>
 using namespace std;
 
 int main()
@@ -118,8 +120,28 @@ do{
     }
     case 7:{
 
-        printf("Testavimas kitame darbe!!!\n");
-        break;
+        for(int x = 0; x < 5; x++){
+            auto start = std::chrono::high_resolution_clock::now();
+                unsigned int sz = pow(10, 3+x);
+                std::vector<int> v1;
+                for (int i = 1; i <= sz; ++i)
+                    v1.push_back(i);
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> diff = end-start;
+            cout << "std::vector<int> " << sz << " elementu: " << diff.count() << " s\n";
+        }
+        cout<< "--------------------------------" << endl;
+        for(int x = 0; x < 5; x++){
+            auto start = std::chrono::high_resolution_clock::now();
+            unsigned int sz = pow(10, 3+x);
+            Vector<int> v1;
+            for (int i = 1; i <= sz; ++i)
+                v1.PushBack(i);
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> diff = end-start;
+            cout << "Vector<int> " << sz << " elementu: " << diff.count() << " s\n";
+        }
+
     }
     case 8:{
         printf("Sekmingai baigete darba!!!\n");
