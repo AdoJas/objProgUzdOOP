@@ -88,7 +88,7 @@ void fileReading(Vector<studentasV>& grupeVector, const string &failas, double& 
         pazymiuFailoGeneravimas();
         fin.open(failas);
     }
-    grupeVector.Reserve(10000000);
+    //grupeVector.Reserve(10000000);
     auto start = chrono::high_resolution_clock::now();
     string line;
     Vector<int> laikiniPazymiai;
