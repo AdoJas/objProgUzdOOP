@@ -30,8 +30,8 @@ public:
 
     Vector() {
         size = 0;
-        capacity = 0;
-        elements = nullptr;
+        capacity = 10;
+        elements = new value_type[capacity];
     }
 
     void throwOutOfRange() const {

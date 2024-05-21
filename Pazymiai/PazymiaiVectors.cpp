@@ -1,7 +1,5 @@
 #include <string>
 #include <iomanip>
-#include <vector>
-#include <numeric>
 #include <algorithm>
 #include <cmath>
 #include "PazymiaiVectors.h"
@@ -95,6 +93,7 @@ void fileReading(Vector<studentasV>& grupeVector, const string &failas, double& 
     string line;
     Vector<int> laikiniPazymiai;
     getline(fin, line); // Skip header
+    int laikinas = 0;
     while (getline(fin, line)) {
 
         istringstream iss(line);
@@ -107,9 +106,9 @@ void fileReading(Vector<studentasV>& grupeVector, const string &failas, double& 
         while (iss >> grade) {
             try {
                 int pazymys = std::stoi(grade);
-//                if (pazymys >= 0 && pazymys <= 10) {
+                if (pazymys >= 0 && pazymys <= 10) {
                     laikiniPazymiai.PushBack(pazymys);
-//                }
+                }
             } catch (const std::exception& e) {
 
             }
@@ -546,12 +545,14 @@ void vektoriaiMain(string vidMed, string choice, Vector<studentasV>& grupeVector
     //pazymiuFailoGeneravimas();
     auto start = std::chrono::high_resolution_clock::now();
 
+
     for (int i = 0; i < 5; i++) {
         cout << pow(10, i + 3) << " studentu failas" << endl;
 
         failoNuskaitymasRusiavimas(grupeVector, grupeBad, grupeGood, i, vidMed, ivedimasKonteineris, choice);
         isvedimasFailai(grupeVector, grupeBad, i, vidMed, choice);
         cout << "--------------------------------------------------" << endl;
+        grupeVector.Clear();
 
     }
     auto end = std::chrono::high_resolution_clock::now();
