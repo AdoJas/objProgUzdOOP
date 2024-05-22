@@ -215,15 +215,23 @@ if(v1.size() == v1.capacity()){
 
 # Programos greitis
 ## std::vector
-
+| Studentų skaičius | Konteinerio tipas | Failo skaitymo laikas (s) | Rūšiavimo laikas (s) | Skirstymo laikas (s) | Išvedimo laikas (s) |
+|-------------------|-------------------|---------------------------|----------------------|----------------------|---------------------|
+| 100000            | std::vector       | 0.290567                  | 0.696348             | 0.0644754            | 0.138012            |
+| 1e+06             | std::vector       | 3.11317                   | 9.24343              | 0.700809             | 1.40712             |
+| 1e+07             | std::vector       | 29.7807                   | 109.566              | 6.54661              | 14.0588             |
 ## Vector
 | Studentų skaičius | Konteinerio tipas | Failo skaitymo laikas (s) | Rūšiavimo laikas (s) | Skirstymo laikas (s) | Išvedimo laikas (s) |
 |-------------------|-------------------|---------------------------|----------------------|----------------------|---------------------|
-| 1000              | VEKTORIUS         | 0.0039785                 | 0.0028275            | 0.0010029            | 0.0018446           |
-| 10000             | VEKTORIUS         | 0.0341285                 | 0.0396881            | 0.0105042            | 0.0134952           |
 | 100000            | VEKTORIUS         | 0.341567                  | 0.668255             | 0.129638             | 0.12699             |
 | 1e+06             | VEKTORIUS         | 3.40367                   | 7.6812               | 1.23574              | 1.30948             |
 | 1e+07             | VEKTORIUS         | 34.9877                   | 95.6473              | 12.5077              | 12.8941             |
+
+### Išvados
+> 1. Vector konteineris leciau nuskaito duomenis is failu nei std::vector konteineris
+> 2. Vector konteineris greiciau sortina duomenis nei std::vector konteineris
+> 3. Vector konteineris leciau skirsto duomenis i skirtingus konteinerius nei std::vector konteineris
+> 4. Vector konteineris greiciau isveda duomenis i failus nei std::vector konteineris
 
 ## Testavimas
 > 1. Testavimas buvo darytas su Googel Test Unit testu testavimo frameworku.
