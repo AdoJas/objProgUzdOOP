@@ -132,8 +132,8 @@ do{
             }
             auto end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> diff = end-start;
-            cout << "std::vector<int> " << sz << " elementu: " << diff.count() << " s\n";
-            cout << "Alokacijos std::vector<int>: " << alokacijaSTD << endl;
+            cout << "std::vector<int> " << sz << " elementu perskirstymu: " << alokacijaSTD << endl;
+
             alokacijaSTD = 0;
         }
         cout<< "--------------------------------" << endl;
@@ -149,8 +149,7 @@ do{
             }
             auto end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> diff = end-start;
-            cout << "Vector<int> " << sz << " elementu: " << diff.count() << " s\n";
-            cout << "Alokacijos Vector<int>: " << alokacijaVector << endl;
+            cout << "Vector<int> " << sz << " elementu perskirstymu :  " << alokacijaVector << endl;
             alokacijaVector = 0;
         }
 

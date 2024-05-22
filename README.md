@@ -2,27 +2,25 @@
 
 ## Kompiuterio komponentai naudoti testavimo metu 
 
-|   Komponentas  |                   Pavadinimas                       |                      
-|:--------------:|:---------------------------------------------------:|
-|     **CPU**    |            `AMD Ryzen 5 3600 6-core`              |
-|     **GPU**    |`G.Skill Trident Z RGB DDR4 16GB (2x8GB) 3200MHz`  |
-|     **SSD**    |           `Samsung SSD 970 EVO Plus, 500GB`       |
+| Komponentas |                    Pavadinimas                    |                      
+|:-----------:|:-------------------------------------------------:|
+|   **CPU**   |             `AMD Ryzen 5 3600 6-core`             |
+|   **GPU**   | `G.Skill Trident Z RGB DDR4 16GB (2x8GB) 3200MHz` |
+|   **SSD**   |         `Samsung SSD 970 EVO Plus, 500GB`         |
 
 
 # Turinys
 - [x] [Projekto dokumentacija - Doxygen](#projekto-dokumentacija)
 - [x] [Kelios Vector klases funkcijos](#kelios-vector-klases-funkcijos)
+- [x] [Vector ir std::vector spartos analize](#vector-ir-stdvector-spartos-analize)
+- [x] [Paskirstymu kiekis std::vector ir Vector konteineriuose](#paskirstymu-kiekis-stdvector-ir-vector-konteineriuose)
 - [x] [Testavimas - GoogleTest Vector klase](#testavimas)
 - [x] [Ka daro programa?](#ka-daro-programa)
 - [x] [Kaip pasinaudoti kodu? (Windows ir macOS)](#kaip-pasinaudoti-kodu-windows-ir-macos)
-# Projekto dokumentacija
-## Doxygen
-> Projekto dokumentacija galite perzvelgti naudodami savo IDE arba overleaf.com online Latex compiliatoriu, tereikia ikelti latex failo .zip rinkini.
 
-## Testavimas 
-> 1. Testavimas buvo darytas su Googel Test Unit testu testavimo frameworku.
-> 2. Nuoroda i Google Test -> https://github.com/google/googletest/releases
-> 3. Buvo testuojama Vector class'e, a.k.a. Vector klases metodai
+# Projekto dokumentacija
+ **Projekto dokumentacija galite perzvelgti naudodami savo IDE arba overleaf.com online Latex compiliatoriu, tereikia ikelti latex failo .zip rinkini.
+ Taip pat galite perziureti dokumentacijos PDF faila, kuris yra pridetas prie projekto failu.**
 
 ## Kelios Vector klases funkcijos
 > 1. `void PushBack(reference object)` - prideda nauja elementa i Vector konteineri.
@@ -133,7 +131,90 @@
 8. `size = n;` - pakeicia Vector konteinerio dydi i n.
 9. `}` - uzbaigia funkcija.
 
+## Vector ir std::vector spartos analize
+### std::vector 
+```
+int alokacijaSTD = 0, alokacijaVector = 0;
+        for(int x = 0; x < 5; x++){
+            auto start = std::chrono::high_resolution_clock::now();
+                unsigned int sz = pow(10, 3+x);
+                std::vector<int> v1;
+                for (int i = 1; i <= sz; ++i){
+                    v1.push_back(i);
+                }
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> diff = end-start;
+            cout << "std::vector<int> " << sz << " elementu: " << diff.count() << " s\n";
+            alokacijaSTD = 0;
+        }
+```
+### Vector
+```
+        for(int x = 0; x < 5; x++){
+            auto start = std::chrono::high_resolution_clock::now();
+            unsigned int sz = pow(10, 3+x);
+            Vector<int> v1;
+            for (int i = 1; i <= sz; ++i){
+                v1.PushBack(i);
+            }
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> diff = end-start;
+            cout << "Vector<int> " << sz << " elementu: " << diff.count() << " s\n";
+            alokacijaVector = 0;
+        }
+```
+### Rezultatai
+| Konteinerio tipas | Elementu kiekis | Laikas      |
+|-------------------|-----------------|-------------|
+| std::vector<int>  | 1000            | 3.79e-05 s  |
+| std::vector<int>  | 10000           | 0.0001457 s |
+| std::vector<int>  | 100000          | 0.0011799 s |
+| std::vector<int>  | 1000000         | 0.0128761 s |
+| std::vector<int>  | 10000000        | 0.10869 s   |
+| Vector<int>       | 1000            | 2.02e-05 s  |
+| Vector<int>       | 10000           | 8.4e-05 s   |
+| Vector<int>       | 100000          | 0.0007809 s |
+| Vector<int>       | 1000000         | 0.0067444 s |
+| Vector<int>       | 10000000        | 0.05882 s   |
 
+### Išvados
+> 1. Vector konteineris yra greitesnis nei std::vector konteineris.
+> 2. Taip gali buti del to, kad Vector konteineris rezervuoja daugiau atminties nei std::vector konteineris su kiekvienu pridedamu elementu.
+
+# Paskirstymu kiekis std::vector ir Vector konteineriuose
+## Papildomos eilutes, naudotos kode
+```
+if(v1.Size() == v1.Capacity()){
+                    alokacijaVector++;
+                }
+```
+
+```
+if(v1.size() == v1.capacity()){
+                    alokacijaSTD++;
+                }
+```    
+
+### Rezultatai
+| Konteinerio tipas | Elementu kiekis | Perskirstymu kiekis |
+|-------------------|-----------------|---------------------|
+| std::vector<int>  | 1000            | 10                  |
+| std::vector<int>  | 10000           | 14                  |
+| std::vector<int>  | 100000          | 17                  |
+| std::vector<int>  | 1000000         | 20                  |
+| std::vector<int>  | 10000000        | 24                  |
+| Vector<int>       | 1000            | 7                   |
+| Vector<int>       | 10000           | 10                  |
+| Vector<int>       | 100000          | 14                  |
+| Vector<int>       | 1000000         | 17                  |
+| Vector<int>       | 10000000        | 20                  |
+
+### Išvados
+> 1. Vector konteineris perskirsto atminti reciau nei std::vector konteineris, nes jau yra inicializuojamas su `capacity = 10`, o std::vector su `capacity = 0`.
+## Testavimas
+> 1. Testavimas buvo darytas su Googel Test Unit testu testavimo frameworku.
+> 2. Nuoroda i Google Test -> https://github.com/google/googletest/releases
+> 3. Buvo testuojama Vector class'e, a.k.a. Vector klases metodai
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
 >2. Leidzia ivedus studentu vardus ir pavardes generuoti ju pazymius ir dirbti su jais.
