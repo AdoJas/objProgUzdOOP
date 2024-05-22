@@ -26,12 +26,14 @@
     }
 
 ### Rezultatai - konstruktorius
+```
     [----------] 1 test from constructorTest
     [ RUN      ] constructorTest.Constructor
     [       OK ] constructorTest.Constructor (0 ms)
     [----------] 1 test from constructorTest (0 ms total)
-    
+```    
 ## Antrasis testas - move konstruktorius
+```
     TEST(moveConstructorTest, MoveConstructor) {
     studentasV stud;
     stud.setVardas("Jonas");
@@ -41,15 +43,17 @@
     EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
     GTEST_EXPECT_FALSE(stud.getVardas() == stud2.getVardas());
     }
-    
+```    
 
 ### Rezultatai
+```
     [----------] 1 test from moveConstructorTest
     [ RUN      ] moveConstructorTest.MoveConstructor
     [       OK ] moveConstructorTest.MoveConstructor (0 ms)
     [----------] 1 test from moveConstructorTest (0 ms total)
-
+```
 ## Treciasis testas - kopijavimo konstruktorius
+```
     TEST(copyConstructorTest, CopyConstructor) {
     studentasV stud;
     stud.setVardas("Jonas");
@@ -59,14 +63,16 @@
     EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
     EXPECT_EQ(stud.getVardas(), stud2.getVardas());
     }
-
+```
 ### Rezultatai - kopijavimo konstruktorius
+```
     [----------] 1 test from copyConstructorTest
     [ RUN      ] copyConstructorTest.CopyConstructor
     [       OK ] copyConstructorTest.CopyConstructor (0 ms)
     [----------] 1 test from copyConstructorTest (0 ms total)
-
+```
 ## Ketvirtasis testas - priskyrimo konstruktorius
+```
     TEST(assignmentTest, Assignment) {
     studentasV stud;
     stud.setVardas("Jonas");
@@ -77,14 +83,16 @@
     EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
     EXPECT_EQ(stud.getVardas(), stud2.getVardas());
     }
-
+```
 ### Rezultatai - priskyrimo konstruktorius
+```
     [----------] 1 test from assignmentTest
     [ RUN      ] assignmentTest.Assignment
     [       OK ] assignmentTest.Assignment (0 ms)
     [----------] 1 test from assignmentTest (0 ms total)
-    
+```    
 ## Penktasis testas - perkelimo priskyrimo konstruktorius
+```
     TEST(moveAssignmentTest, MoveAssignment) {
     studentasV stud;
     stud.setVardas("Jonas");
@@ -95,13 +103,14 @@
     EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
     GTEST_EXPECT_FALSE(stud.getVardas() == stud2.getVardas());
     }
-
+```
 ### Rezultatai - perkelimo priskyrimo konstruktorius
+```
     [----------] 1 test from moveAssignmentTest
     [ RUN      ] moveAssignmentTest.MoveAssignment
     [       OK ] moveAssignmentTest.MoveAssignment (0 ms)
     [----------] 1 test from moveAssignmentTest (0 ms total) 
-    
+```    
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
 >2. Leidzia ivedus studentu vardus ir pavardes generuoti ju pazymius ir dirbti su jais.
