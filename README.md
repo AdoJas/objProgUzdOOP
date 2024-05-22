@@ -14,17 +14,18 @@
 
 ## Testavimas 
 > Testavimas buvo darytas su Googel Test Unit testu testavimo frameworku.
-> Linkas i Google Test -> https://github.com/google/googletest/releases
-> Buvo testuojamos .setVardas(), .setPavarde(), .getVardas(), .getPavarde() bei vectorPartition() funkcijos
-> vectorPartition funkcijoje buvo palikta klaida tam, kad vienas testas suveiktu pilnai, .getVardas() ir t.t., o vectorPartition() ne.
+> Nuoroda i Google Test -> https://github.com/google/googletest/releases
+> Buvo testuojama Vector class'e, a.k.a. Vector klases metodai
+> 
 
 ## Pirmasis testas - konstruktorius
+```
     TEST(constructorTest, Constructor) {
     studentasV stud;
     EXPECT_EQ(stud.getVardas(), " ");
     EXPECT_EQ(stud.getPavarde(), " ");
     }
-
+```
 ### Rezultatai - konstruktorius
 ```
     [----------] 1 test from constructorTest
