@@ -237,6 +237,8 @@ if(v1.size() == v1.capacity()){
 > 1. Testavimas buvo darytas su Googel Test Unit testu testavimo frameworku.
 > 2. Nuoroda i Google Test -> https://github.com/google/googletest/releases
 > 3. Buvo testuojama Vector class'e, a.k.a. Vector klases metodai
+
+
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
 >2. Leidzia ivedus studentu vardus ir pavardes generuoti ju pazymius ir dirbti su jais.
