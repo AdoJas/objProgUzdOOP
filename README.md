@@ -8,110 +8,132 @@
 |     **GPU**    |`G.Skill Trident Z RGB DDR4 16GB (2x8GB) 3200MHz`  |
 |     **SSD**    |           `Samsung SSD 970 EVO Plus, 500GB`       |
 
+
+# Turinys
+- [x] [Projekto dokumentacija - Doxygen](#projekto-dokumentacija)
+- [x] [Kelios Vector klases funkcijos](#kelios-vector-klases-funkcijos)
+- [x] [Testavimas - GoogleTest Vector klase](#testavimas)
+- [x] [Ka daro programa?](#ka-daro-programa)
+- [x] [Kaip pasinaudoti kodu? (Windows ir macOS)](#kaip-pasinaudoti-kodu-windows-ir-macos)
 # Projekto dokumentacija
 ## Doxygen
 > Projekto dokumentacija galite perzvelgti naudodami savo IDE arba overleaf.com online Latex compiliatoriu, tereikia ikelti latex failo .zip rinkini.
 
 ## Testavimas 
-> Testavimas buvo darytas su Googel Test Unit testu testavimo frameworku.
-> Nuoroda i Google Test -> https://github.com/google/googletest/releases
-> Buvo testuojama Vector class'e, a.k.a. Vector klases metodai
-> 
+> 1. Testavimas buvo darytas su Googel Test Unit testu testavimo frameworku.
+> 2. Nuoroda i Google Test -> https://github.com/google/googletest/releases
+> 3. Buvo testuojama Vector class'e, a.k.a. Vector klases metodai
 
-## Pirmasis testas - konstruktorius
+## Kelios Vector klases funkcijos
+> 1. `void PushBack(reference object)` - prideda nauja elementa i Vector konteineri.
+> 2. `void PopBack()` - istrina paskutini elementa is Vector konteinerio.
+> 3. `void Insert(size_type index, reference object)` - iterpia nauja elementa i Vector konteineri pagal nurodyta index'a.
+> 4. `void Erase(size_type index)` - istrina elementa is Vector konteinerio pagal nurodyta index'a.
+> 5. `void Resize(size_type n)` - pakeicia Vector konteinerio dydi i n.
+### Funkciju kodas issamiau
+#### 1. `void PushBack(reference object)`
 ```
-    TEST(constructorTest, Constructor) {
-    studentasV stud;
-    EXPECT_EQ(stud.getVardas(), " ");
-    EXPECT_EQ(stud.getPavarde(), " ");
+    void PushBack(reference object) {
+    if (size == capacity) {
+    Reserve(capacity == 0 ? 1 : capacity * 2);
+    }
+    elements[size] = object;
+    size++;
     }
 ```
-### Rezultatai - konstruktorius
-```
-    [----------] 1 test from constructorTest
-    [ RUN      ] constructorTest.Constructor
-    [       OK ] constructorTest.Constructor (0 ms)
-    [----------] 1 test from constructorTest (0 ms total)
-```    
-## Antrasis testas - move konstruktorius
-```
-    TEST(moveConstructorTest, MoveConstructor) {
-    studentasV stud;
-    stud.setVardas("Jonas");
-    stud.setPavarde("Jonaitis");
-    studentasV stud2 = std::move(stud);
-    EXPECT_EQ(stud2.getVardas(), "Jonas");
-    EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
-    GTEST_EXPECT_FALSE(stud.getVardas() == stud2.getVardas());
-    }
-```    
+1. `if (size == capacity)` - tikrina ar Vector konteineris pilnas.
+2. `Reserve(capacity == 0 ? 1 : capacity * 2);` - jei konteineris pilnas, tai padvigubinamas jo dydis.
+3. `elements[size] = object;` - prideda nauja elementa i Vector konteineri.
+4. `size++;` - padidina Vector konteinerio dydi vienetu.
+5. `}` - uzbaigia funkcija.
 
-### Rezultatai
+#### 2. `void PopBack()`
 ```
-    [----------] 1 test from moveConstructorTest
-    [ RUN      ] moveConstructorTest.MoveConstructor
-    [       OK ] moveConstructorTest.MoveConstructor (0 ms)
-    [----------] 1 test from moveConstructorTest (0 ms total)
-```
-## Treciasis testas - kopijavimo konstruktorius
-```
-    TEST(copyConstructorTest, CopyConstructor) {
-    studentasV stud;
-    stud.setVardas("Jonas");
-    stud.setPavarde("Jonaitis");
-    studentasV stud2 = stud;
-    EXPECT_EQ(stud2.getVardas(), "Jonas");
-    EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
-    EXPECT_EQ(stud.getVardas(), stud2.getVardas());
+    void PopBack() {
+    if (size == 0) {
+    throw std::out_of_range("Vector is empty");
+    }
+    size--;
     }
 ```
-### Rezultatai - kopijavimo konstruktorius
+1. `if (size == 0)` - tikrina ar Vector konteineris tuscias.
+2. `throw std::out_of_range("Vector is empty");` - jei konteineris tuscias, tai ismeta klaida.
+3. `size--;` - istrina paskutini elementa is Vector konteinerio.
+4. `}` - uzbaigia funkcija.
+
+#### 3. `void Insert(size_type index, reference object)`
 ```
-    [----------] 1 test from copyConstructorTest
-    [ RUN      ] copyConstructorTest.CopyConstructor
-    [       OK ] copyConstructorTest.CopyConstructor (0 ms)
-    [----------] 1 test from copyConstructorTest (0 ms total)
-```
-## Ketvirtasis testas - priskyrimo konstruktorius
-```
-    TEST(assignmentTest, Assignment) {
-    studentasV stud;
-    stud.setVardas("Jonas");
-    stud.setPavarde("Jonaitis");
-    studentasV stud2;
-    stud2 = stud;
-    EXPECT_EQ(stud2.getVardas(), "Jonas");
-    EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
-    EXPECT_EQ(stud.getVardas(), stud2.getVardas());
+    void Insert(size_type index, reference object) {
+    if (index < 0 || index > size) {
+    throw std::out_of_range("Index out of range");
+    }
+    if (size == capacity) {
+    Reserve(capacity == 0 ? 1 : capacity * 2);
+    }
+    for (size_type i = size; i > index; i--) {
+    elements[i] = elements[i - 1];
+    }
+    elements[index] = object;
+    size++;
     }
 ```
-### Rezultatai - priskyrimo konstruktorius
+1. `if (index < 0 || index > size)` - tikrina ar nurodytas index'as yra tinkamas.
+2. `throw std::out_of_range("Index out of range");` - jei index'as netinkamas, tai ismeta klaida.
+3. `if (size == capacity)` - tikrina ar Vector konteineris pilnas.
+4. `Reserve(capacity == 0 ? 1 : capacity * 2);` - jei konteineris pilnas, tai padvigubinamas jo dydis.
+5. `for (size_type i = size; i > index; i--)` - ciklas, kuris perstumia elementus i desine.
+6. `elements[i] = elements[i - 1];` - perstumia elementus i desine.
+7. `elements[index] = object;` - iterpia nauja elementa i Vector konteineri pagal nurodyta index'a.
+8. `size++;` - padidina Vector konteinerio dydi vienetu.
+9. `}` - uzbaigia funkcija.
+
+#### 4. `void Erase(size_type index)`
 ```
-    [----------] 1 test from assignmentTest
-    [ RUN      ] assignmentTest.Assignment
-    [       OK ] assignmentTest.Assignment (0 ms)
-    [----------] 1 test from assignmentTest (0 ms total)
-```    
-## Penktasis testas - perkelimo priskyrimo konstruktorius
-```
-    TEST(moveAssignmentTest, MoveAssignment) {
-    studentasV stud;
-    stud.setVardas("Jonas");
-    stud.setPavarde("Jonaitis");
-    studentasV stud2;
-    stud2 = std::move(stud);
-    EXPECT_EQ(stud2.getVardas(), "Jonas");
-    EXPECT_EQ(stud2.getPavarde(), "Jonaitis");
-    GTEST_EXPECT_FALSE(stud.getVardas() == stud2.getVardas());
+    void Erase(size_type index) {
+    if (index < 0 || index >= size) {
+    throw std::out_of_range("Index out of range");
+    }
+    for (size_type i = index; i < size - 1; i++) {
+    elements[i] = elements[i + 1];
+    }
+    size--;
     }
 ```
-### Rezultatai - perkelimo priskyrimo konstruktorius
+1. `if (index < 0 || index >= size)` - tikrina ar nurodytas index'as yra tinkamas.
+2. `throw std::out_of_range("Index out of range");` - jei index'as netinkamas, tai ismeta klaida.
+3. `for (size_type i = index; i < size - 1; i++)` - ciklas, kuris perstumia elementus i kaire.
+4. `elements[i] = elements[i + 1];` - perstumia elementus i kaire.
+5. `size--;` - istrina elementa is Vector konteinerio pagal nurodyta index'a.
+6. `}` - uzbaigia funkcija.
+
+#### 5.  `void Resize(size_type n)` 
 ```
-    [----------] 1 test from moveAssignmentTest
-    [ RUN      ] moveAssignmentTest.MoveAssignment
-    [       OK ] moveAssignmentTest.MoveAssignment (0 ms)
-    [----------] 1 test from moveAssignmentTest (0 ms total) 
-```    
+    void Resize(size_type n) {
+    if (n < 0) {
+    throw std::out_of_range("Size out of range");
+    }
+    if (n > size) {
+    if (n > capacity) {
+    Reserve(n);
+    }
+    for (size_type i = size; i < n; i++) {
+    elements[i] = T();
+    }
+    }
+    size = n;
+    }
+```
+1. `if (n < 0)` - tikrina ar n yra teigiamas skaicius.
+2. `throw std::out_of_range("Size out of range");` - jei n yra neigiamas skaicius, tai ismeta klaida.
+3. `if (n > size)` - tikrina ar n yra didesnis uz size.
+4. `if (n > capacity)` - tikrina ar n didesnis uz capacity.
+5. `Reserve(n);` - jei n didesnis uz capacity, tai padvigubinamas jo dydis.
+6. `for (size_type i = size; i < n; i++)` - ciklas, kuris prideda naujus elementus i Vector konteineri.
+7. `elements[i] = T();` - prideda naujus elementus i Vector konteineri.
+8. `size = n;` - pakeicia Vector konteinerio dydi i n.
+9. `}` - uzbaigia funkcija.
+
+
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
 >2. Leidzia ivedus studentu vardus ir pavardes generuoti ju pazymius ir dirbti su jais.
