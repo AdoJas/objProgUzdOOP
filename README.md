@@ -14,6 +14,7 @@
 - [x] [Kelios Vector klases funkcijos](#kelios-vector-klases-funkcijos)
 - [x] [Vector ir std::vector spartos analize](#vector-ir-stdvector-spartos-analize)
 - [x] [Paskirstymu kiekis std::vector ir Vector konteineriuose](#paskirstymu-kiekis-stdvector-ir-vector-konteineriuose)
+- [x] [Programos greitis](#programos-greitis)
 - [x] [Testavimas - GoogleTest Vector klase](#testavimas)
 - [x] [Ka daro programa?](#ka-daro-programa)
 - [x] [Kaip pasinaudoti kodu? (Windows ir macOS)](#kaip-pasinaudoti-kodu-windows-ir-macos)
@@ -211,6 +212,19 @@ if(v1.size() == v1.capacity()){
 
 ### Išvados
 > 1. Vector konteineris perskirsto atminti reciau nei std::vector konteineris, nes jau yra inicializuojamas su `capacity = 10`, o std::vector su `capacity = 0`.
+
+# Programos greitis
+## std::vector
+
+## Vector
+| Studentų skaičius | Konteinerio tipas | Failo skaitymo laikas (s) | Rūšiavimo laikas (s) | Skirstymo laikas (s) | Išvedimo laikas (s) |
+|-------------------|-------------------|---------------------------|----------------------|----------------------|---------------------|
+| 1000              | VEKTORIUS         | 0.0039785                 | 0.0028275            | 0.0010029            | 0.0018446           |
+| 10000             | VEKTORIUS         | 0.0341285                 | 0.0396881            | 0.0105042            | 0.0134952           |
+| 100000            | VEKTORIUS         | 0.341567                  | 0.668255             | 0.129638             | 0.12699             |
+| 1e+06             | VEKTORIUS         | 3.40367                   | 7.6812               | 1.23574              | 1.30948             |
+| 1e+07             | VEKTORIUS         | 34.9877                   | 95.6473              | 12.5077              | 12.8941             |
+
 ## Testavimas
 > 1. Testavimas buvo darytas su Googel Test Unit testu testavimo frameworku.
 > 2. Nuoroda i Google Test -> https://github.com/google/googletest/releases
