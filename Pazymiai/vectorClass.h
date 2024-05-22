@@ -6,6 +6,8 @@
 #define OOPUZD_VECTORCLASS_H
 
 #include <cstddef>
+#include <stdexcept>
+#include <algorithm> // for std::move and std::move_backward
 
 /**
  * @brief Šabloninė Vector klasė
@@ -33,53 +35,38 @@ public:
     typedef const T* const_iterator; /**< Konstantinis iteratorius */
     typedef std::ptrdiff_t difference_type; /**< Skirtumas tarp dvieju iteratoriu */
     typedef size_t size_type; /**< Elementu skaicius */
+
     /**
      * @brief Default konstruktorius
      */
-    Vector() {
-        size = 0;
-        capacity = 10;
-        elements = new value_type[capacity];
-    }
-    /**
-     * @brief Ismeta exception jei indeksas yra uz vektoriaus ribu
-     */
-    void throwOutOfRange() const {
-        throw std::out_of_range("Out of range");
-    }
+    Vector() : size(0), capacity(10), elements(new value_type[capacity]) {}
+
     /**
      * @brief Konstruktorius su parametrais
      *
      * @param n Elementų skaičius
      * @param value Pradinė reikšmė
      */
-    Vector(size_type n, const_reference value) {
-        size = n;
-        capacity = n;
-        elements = new value_type[capacity];
-        for (size_type i = 0; i < size; i++) {
-            elements[i] = value;
-        }
+    Vector(size_type n, const_reference value) : size(n), capacity(n), elements(new value_type[capacity]) {
+        std::fill(elements, elements + size, value);
     }
+
     /**
      * @brief Kopijavimo konstruktorius
      *
      * @param rhs Kopijuojamas vektorius
      */
-    Vector(const Vector &rhs) {
-        size = rhs.size;
-        capacity = rhs.capacity;
-        elements = new value_type[capacity];
-        for (size_type i = 0; i < size; i++) {
-            elements[i] = rhs.elements[i];
-        }
+    Vector(const Vector &rhs) : size(rhs.size), capacity(rhs.capacity), elements(new value_type[capacity]) {
+        std::copy(rhs.elements, rhs.elements + size, elements);
     }
+
     /**
      * @brief Destruktorius
      */
     ~Vector() {
         delete[] elements;
     }
+
     /**
      * @brief Grąžina elementų skaičių
      *
@@ -88,14 +75,38 @@ public:
     [[nodiscard]] size_type Size() const {
         return size;
     }
+
     /**
      * @brief Grąžina vietos kiekį atmintyje
      *
      * @return Vietos kiekis atmintyje
      */
-    [[nodiscard]] size_type Capacity() const{
+    [[nodiscard]] size_type Capacity() const {
         return capacity;
     }
+
+    /**
+     * @brief Konstruktorius su perkeliamaisiais parametrais
+     *
+     * @param other Perkeliamas vektorius
+     */
+    Vector(Vector&& other) noexcept : size(other.size), capacity(other.capacity), elements(other.elements) {
+        other.size = 0;
+        other.capacity = 0;
+        other.elements = nullptr;
+    }
+
+    /**
+     * @brief Priskyrimo operatorius su perkeliamaisiais parametrais
+     *
+     * @param other Perkeliamas vektorius
+     * @return Šis vektorius
+     */
+    Vector& operator=(Vector other) noexcept {
+        Swap(other);
+        return *this;
+    }
+
     /**
      * @brief Patikrina ar vektorius yra tuščias
      *
@@ -104,49 +115,51 @@ public:
     [[nodiscard]] bool isEmpty() const {
         return size == 0;
     }
+
     /**
      * @brief Prideda elementą į vektorių
      *
      * @param object Pridedamas elementas
      */
-    void PushBack(reference object) {
+    void PushBack(const_reference object) {
         if (size == capacity) {
             Reserve(capacity == 0 ? 1 : capacity * 2);
         }
-        elements[size] = object;
-        size++;
+        elements[size++] = object;
     }
+
     /**
      * @brief Išmeta paskutinį elementą iš vektoriaus
      */
     void PopBack() {
         if (size == 0) {
-            throwOutOfRange();
+            throw std::out_of_range("Out of range");
         }
-        size--;
+        --size;
     }
+
     /**
      * @brief Išvalo vektorių
      */
     void Clear() {
         size = 0;
     }
+
     /**
-     * @brief Prideda elementą į vektorių
+     * @brief Keičia vektoriaus dydį
      *
-     * @param object Pridedamas elementas
+     * @param n Naujasis dydis
      */
     void Resize(size_type n) {
         if (n < size) {
             size = n;
         } else {
             Reserve(n);
-            for (size_type i = size; i < n; i++) {
-                elements[i] = value_type();
-            }
+            std::fill(elements + size, elements + n, value_type());
             size = n;
         }
     }
+
     /**
      * @brief Rezervuoja vietos atmintyje
      *
@@ -154,99 +167,94 @@ public:
      */
     void Reserve(size_type n) {
         if (n > capacity) {
-            auto newElements = new value_type[n];
-//            for (size_type i = 0; i < size; i++) {
-//                newElements[i] = elements[i];
-//            }
+            T* newElements = new value_type[n];
             std::move(elements, elements + size, newElements);
             delete[] elements;
             elements = newElements;
             capacity = n;
-
         }
     }
+
     /**
      * @brief Apkeičia vektorius
      *
      * @param rhs Apkeičiamas vektorius
      */
-    void Swap(Vector &rhs) {
+    void Swap(Vector &rhs) noexcept {
         std::swap(size, rhs.size);
         std::swap(capacity, rhs.capacity);
         std::swap(elements, rhs.elements);
     }
+
     /**
      * @brief Sumažina vektoriaus vietos atmintyje kiekį iki elemento skaičiaus
      */
     void ShrinkToFit() {
         if (size < capacity) {
-            auto newElements = new value_type[size];
-            for (size_type i = 0; i < size; i++) {
-                newElements[i] = elements[i];
-            }
+            T* newElements = new value_type[size];
+            std::move(elements, elements + size, newElements);
             delete[] elements;
             elements = newElements;
             capacity = size;
         }
     }
+
     /**
-     * @brief Prideda elementą į vektorių
+     * @brief Ištrina elementą pagal indeksą
      *
-     * @param object Pridedamas elementas
+     * @param index Indeksas
      */
     void Erase(size_type index) {
         if (index >= size) {
-            throwOutOfRange();
+            throw std::out_of_range("Out of range");
         }
-        for (size_type i = index; i < size - 1; i++) {
-            elements[i] = elements[i + 1];
-        }
-        size--;
+        std::move(elements + index + 1, elements + size, elements + index);
+        --size;
     }
+
     /**
-     * @brief Prideda elementą į vektorių
+     * @brief Ištrina elementus intervalo viduje
      *
-     * @param object Pridedamas elementas
+     * @param position Pradžios iteratorius
+     * @param last Pabaigos iteratorius
      */
     void Erase(iterator position, iterator last) {
-        size_t offset = position - begin();
-        size_t numElements = last - position;
-
-        for (size_t i = offset; i < size - numElements; ++i) {
-            elements[i] = std::move(elements[i + numElements]);
+        if (position < begin() || last > end() || position > last) {
+            throw std::out_of_range("Out of range");
         }
-
+        size_t numElements = last - position;
+        std::move(last, end(), position);
         size -= numElements;
     }
+
     /**
      * @brief Įterpia elementą į vektorių
      *
      * @param index Įterpimo vieta
      * @param object Įterpiamas elementas
      */
-    void Insert(size_type index, reference object) {
+    void Insert(size_type index, const_reference object) {
         if (index > size) {
-            throwOutOfRange();
+            throw std::out_of_range("Out of range");
         }
         if (size == capacity) {
-            Reserve(capacity + 1);
+            Reserve(capacity == 0 ? 1 : capacity * 2);
         }
-        for (size_type i = size; i > index; i--) {
-            elements[i] = elements[i - 1];
-        }
+        std::move_backward(elements + index, elements + size, elements + size + 1);
         elements[index] = object;
-        size++;
+        ++size;
     }
+
     /**
-     * @brief Įterpia elementą į vektorių
+     * @brief Įterpia elementus į vektorių
      *
      * @param pos Įterpimo vieta
      * @param first Pradžios iteratorius
      * @param last Pabaigos iteratorius
      */
-    void Insert(iterator pos, iterator first, iterator last) {
-        size_t index = std::distance(elements, pos);
-        size_t numNewElements = std::distance(first, last);
+    void Insert(iterator pos, const_iterator first, const_iterator last) {
+        size_t index = pos - begin();
+        size_t numNewElements = last - first;
 
         if (size + numNewElements > capacity) {
             Reserve((size + numNewElements) * 2);
@@ -256,62 +264,33 @@ public:
         std::copy(first, last, elements + index);
         size += numNewElements;
     }
+
     /**
      * @brief Grąžina elementą pagal indeksą
      *
      * @param index Indeksas
      * @return Elementas
      */
-    T& operator[](size_t index) {
+    reference operator[](size_t index) {
         if (index >= size) {
             throw std::out_of_range("Index out of range");
         }
         return elements[index];
     }
+
     /**
      * @brief Grąžina elementą pagal indeksą
      *
      * @param index Indeksas
      * @return Elementas
      */
-    const T& operator[](size_t index) const {
+    const_reference operator[](size_t index) const {
         if (index >= size) {
             throw std::out_of_range("Index out of range");
         }
         return elements[index];
     }
-    /**
-     * @brief Priskiria elementus iš kitos vektoriaus
-     *
-     * @param rhs Kitas vektorius
-     * @return Šis vektorius
-     */
-    void Assign(size_type n, const_reference value) {
-        if (n > capacity) {
-            Reserve(n);
-        }
-        for (size_type i = 0; i < n; i++) {
-            elements[i] = value;
-        }
-        size = n;
-    }
-    /**
-     * @brief Priskiria elementus iš kitos vektoriaus
-     *
-     * @param rhs Kitas vektorius
-     * @return Šis vektorius
-     */
-    void operator=(const Vector &rhs) {
-        if (this != &rhs) {
-            delete[] elements;
-            size = rhs.size;
-            capacity = rhs.capacity;
-            elements = new value_type[capacity];
-            for (size_type i = 0; i < size; i++) {
-                elements[i] = rhs.elements[i];
-            }
-        }
-    }
+
     /**
      * @brief Grąžina elementą pagal indeksą
      *
@@ -320,10 +299,11 @@ public:
      */
     reference At(size_type index) {
         if (index >= size) {
-            throwOutOfRange();
+            throw std::out_of_range("Out of range");
         }
         return elements[index];
     }
+
     /**
      * @brief Grąžina pirmą elementą
      *
@@ -331,10 +311,11 @@ public:
      */
     reference Front() {
         if (size == 0) {
-            throwOutOfRange();
+            throw std::out_of_range("Out of range");
         }
         return elements[0];
     }
+
     /**
      * @brief Grąžina paskutinį elementą
      *
@@ -342,53 +323,57 @@ public:
      */
     reference Back() {
         if (size == 0) {
-            throwOutOfRange();
+            throw std::out_of_range("Out of range");
         }
         return elements[size - 1];
     }
-//pakeitimai begin() funkcijai nebecrashina programos, panaikintas throwOutOfRange()
+
     /**
      * @brief Grąžina iteratorių į pirmą elementą
      *
      * @return Iteratorius į pirmą elementą
      */
-    iterator begin() const {
+    iterator begin() {
         return elements;
     }
-//pakeitimai end() funkcijai nebecrashina programos, panaikintas throwOutOfRange()
+
+    /**
+     * @brief Grąžina iteratorių į pirmą elementą
+     *
+     * @return Iteratorius į pirmą elementą
+     */
+    const_iterator begin() const {
+        return elements;
+    }
+
     /**
      * @brief Grąžina iteratorių į paskutinį elementą
      *
      * @return Iteratorius į paskutinį elementą
      */
-    iterator end() const {
-//        if (size == 0) {
-//            throwOutOfRange();
-//        }
+    iterator end() {
         return elements + size;
     }
+
     /**
      * @brief Grąžina iteratorių į paskutinį elementą
      *
      * @return Iteratorius į paskutinį elementą
      */
-    iterator RBegin() {
-        if (size == 0) {
-            throwOutOfRange();
-        }
-        return elements + size - 1;
+    const_iterator end() const {
+        return elements + size;
     }
+
     /**
-     * @brief Grąžina iteratorių į paskutinį elementą
+     * @brief Prideda elementą į vektorių
      *
-     * @return Iteratorius į paskutinį elementą
+     * @param object Pridedamas elementas
      */
     void EmplaceBack(T&& object) {
         if (size == capacity) {
-            Reserve(capacity + 1);
+            Reserve(capacity == 0 ? 1 : capacity * 2);
         }
-        elements[size] = std::forward<T>(object);
-        size++;
+        elements[size++] = std::forward<T>(object);
     }
 };
 
