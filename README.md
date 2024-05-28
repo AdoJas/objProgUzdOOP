@@ -238,7 +238,139 @@ if(v1.size() == v1.capacity()){
 > 2. Nuoroda i Google Test -> https://github.com/google/googletest/releases
 > 3. Buvo testuojama Vector class'e, a.k.a. Vector klases metodai
 
+### Testai Vector klasei
+#### 1. `TEST(VectorClassTest, PushBackTest)`
+```
+TEST(VectorClassTest, PushBackTest) {
+    Vector<int> v;
+    v.PushBack(1);
+    EXPECT_EQ(v.Size(), 1);
+    EXPECT_EQ(v[0], 1);
+}
+```
+#### 2. `TEST(VectorClassTest, PopBackTest)`
+```
+TEST(VectorClassTest, PopBackTest) {
+    Vector<int> v;
+    v.PushBack(1);
+    v.PopBack();
+    EXPECT_EQ(v.Size(), 0);
+}
+```
+#### 3. `TEST(VectorClassTest, ClearTest)`
+```
+TEST(VectorClassTest, ClearTest) {
+Vector<int> v(5,10);
+v.Clear();
+EXPECT_EQ(v.Size(), 0);
+}
+```
+#### 4.  TEST(VectorClassTest, ResizeTest)
+```
+TEST(VectorClassTest, ResizeTest) {
+Vector<int> v(5,10);
+v.Resize(10);
+EXPECT_EQ(v.Size(), 10);
+}
+```
+#### 5. `TEST(VectorClassTest, ReserveTest)`
+```
+TEST(VectorClassTest, ReserveTest) {
+Vector<int> v;
+v.Reserve(10);
+EXPECT_GE(v.Capacity(), 10);
+}
+```
+#### 6. `TEST(VectorClassTest, ShrinkToFitTest)`
+```
+TEST(VectorClassTest, ShrinkToFitTest) {
+Vector<int> v(5, 10);
+v.Reserve(10);
+v.ShrinkToFit();
+EXPECT_EQ(v.Capacity(), 5);
+}
+```
+#### 7. `TEST(VectorClassTest, AtTest)`
+```
+TEST(VectorClassTest, AtTest) {
+Vector<int> v(5,10);
+EXPECT_NO_THROW(v.At(4));
+EXPECT_THROW(v.At(5), std::out_of_range);
+}
+```
+#### 8. `TEST(VectorClassTest, FrontBackTest)`
+```
+TEST(VectorClassTest, FrontBackTest) {
+Vector<int> v;
+v.PushBack(1);
+v.PushBack(2);
+EXPECT_EQ(v.Front(), 1);
+EXPECT_EQ(v.Back(), 2);
+}
+```
 
+#### 9. `TEST(VectorClassTest, IteratorTest)`
+```
+TEST(VectorClassTest, IteratorTest) {
+Vector<int> v;
+v.PushBack(1);
+v.PushBack(2);
+v.PushBack(3);
+int sum = 0;
+for(auto it = v.begin(); it != v.end(); ++it) {
+sum += *it;
+}
+EXPECT_EQ(sum, 6);
+}
+```
+
+#### 10. `TEST(VectorClassTest, EmplaceBackTest)`
+```
+TEST(VectorClassTest, EmplaceBackTest) {
+Vector<int> v;
+v.EmplaceBack(1);
+EXPECT_EQ(v.Size(), 1);
+EXPECT_EQ(v[0], 1);
+}
+```
+
+### Testu rezultatai
+```
+[==========] Running 13 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 13 tests from VectorClassTest
+[ RUN      ] VectorClassTest.MoveConstructorTest
+[       OK ] VectorClassTest.MoveConstructorTest (0 ms)
+[ RUN      ] VectorClassTest.CopyAssignmentOperatorTest
+[       OK ] VectorClassTest.CopyAssignmentOperatorTest (0 ms)
+[ RUN      ] VectorClassTest.MoveAssignmentOperatorTest
+[       OK ] VectorClassTest.MoveAssignmentOperatorTest (0 ms)
+[ RUN      ] VectorClassTest.PushBackTest
+[       OK ] VectorClassTest.PushBackTest (0 ms)
+[ RUN      ] VectorClassTest.PopBackTest
+[       OK ] VectorClassTest.PopBackTest (0 ms)
+[ RUN      ] VectorClassTest.ClearTest
+[       OK ] VectorClassTest.ClearTest (0 ms)
+[ RUN      ] VectorClassTest.ResizeTest
+[       OK ] VectorClassTest.ResizeTest (0 ms)
+[ RUN      ] VectorClassTest.ReserveTest
+[       OK ] VectorClassTest.ReserveTest (0 ms)
+[ RUN      ] VectorClassTest.ShrinkToFitTest
+[       OK ] VectorClassTest.ShrinkToFitTest (0 ms)
+[ RUN      ] VectorClassTest.AtTest
+[       OK ] VectorClassTest.AtTest (0 ms)
+[ RUN      ] VectorClassTest.FrontBackTest
+[       OK ] VectorClassTest.FrontBackTest (0 ms)
+[ RUN      ] VectorClassTest.IteratorTest
+[       OK ] VectorClassTest.IteratorTest (0 ms)
+[ RUN      ] VectorClassTest.EmplaceBackTest
+[       OK ] VectorClassTest.EmplaceBackTest (0 ms)
+[----------] 13 tests from VectorClassTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 13 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 13 tests.
+```
 # ***Ka daro programa?***
 >1. Leidzia dinamiskai arba statiskai ivesti studentu duomenis ir dirbti su jais.
 >2. Leidzia ivedus studentu vardus ir pavardes generuoti ju pazymius ir dirbti su jais.
