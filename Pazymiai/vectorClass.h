@@ -142,7 +142,10 @@ public:
      * @brief Išvalo vektorių
      */
     void Clear() {
+        delete[] elements;
         size = 0;
+        capacity = 0;
+        elements = nullptr;
     }
 
     /**
